@@ -1,0 +1,115 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Search, Map, Layout, PenTool, Play, Code, LineChart } from "lucide-react";
+
+const processes = [
+  {
+    id: 1,
+    title: "Research",
+    desc: "User interviews, competitor analysis, data gathering, and persona creation to identify the real problems.",
+    icon: Search,
+  },
+  {
+    id: 2,
+    title: "Information Architecture",
+    desc: "Structuring content hierarchy, user flows, and navigation systems for seamless journeys.",
+    icon: Map,
+  },
+  {
+    id: 3,
+    title: "Wireframing",
+    desc: "Low fidelity exploration, layout testing, and rapid iteration of core concepts.",
+    icon: Layout,
+  },
+  {
+    id: 4,
+    title: "UI Design",
+    desc: "Crafting design systems, typography, color palettes, and accessible components.",
+    icon: PenTool,
+  },
+  {
+    id: 5,
+    title: "Prototyping",
+    desc: "Building interactive prototypes with motion design and micro-interactions for user testing.",
+    icon: Play,
+  },
+  {
+    id: 6,
+    title: "Front-End Engineering",
+    desc: "Developing robust React architectures, optimized performance, and responsive layouts.",
+    icon: Code,
+  },
+  {
+    id: 7,
+    title: "Testing & Iteration",
+    desc: "Usability testing, A/B testing, and analytics to drive continuous improvements.",
+    icon: LineChart,
+  },
+];
+
+export function UXProcessTimeline() {
+  return (
+    <section className="py-32 bg-matte-black text-off-white relative overflow-hidden">
+      <div className="container mx-auto px-6 md:px-12 max-w-5xl relative z-10">
+        <div className="mb-20 text-center">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-heading font-semibold mb-4"
+          >
+            The Engineering Process
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-soft-gray text-lg max-w-2xl mx-auto"
+          >
+            A systematic approach bridging the gap between human needs and technical constraints.
+          </motion.p>
+        </div>
+
+        <div className="relative">
+          {/* Vertical Line */}
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2" />
+
+          {processes.map((item, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className={`relative flex flex-col md:flex-row items-center gap-8 mb-16 ${
+                  isEven ? "md:flex-row-reverse" : ""
+                }`}
+              >
+                {/* Timeline Dot */}
+                <div className="absolute left-6 md:left-1/2 w-12 h-12 rounded-full bg-matte-black border border-white/20 flex items-center justify-center -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(41,151,255,0.2)]">
+                  <item.icon className="w-5 h-5 text-electric-blue" />
+                </div>
+
+                {/* Content Card */}
+                <div className={`ml-16 md:ml-0 md:w-1/2 flex ${isEven ? "md:justify-start pl-0 md:pl-12" : "md:justify-end pr-0 md:pr-12"}`}>
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="magnetic bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm shadow-xl w-full max-w-md transition-colors hover:bg-white/10"
+                  >
+                    <div className="text-electric-blue text-sm font-mono mb-2">0{item.id}</div>
+                    <h3 className="text-2xl font-semibold mb-3">{item.title}</h3>
+                    <p className="text-soft-gray leading-relaxed">{item.desc}</p>
+                  </motion.div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
