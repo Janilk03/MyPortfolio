@@ -14,11 +14,12 @@ export function HeroSection() {
   });
 
   // Fade out text as we scroll down
-  const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.2], ["0vh", "-20vh"]);
-  const canvasOpacity = useTransform(scrollYProgress, [0, 0.2], [0.4, 1]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.1], ["0vh", "-20vh"]);
+  const canvasOpacity = useTransform(scrollYProgress, [0, 0.1], [0.4, 1]);
 
-  const frameIndex = useTransform(scrollYProgress, [0, 1], [1, 144]);
+  // Even faster frame progression: completes all 144 frames in 0.35 of scroll distance
+  const frameIndex = useTransform(scrollYProgress, [0, 0.35], [1, 144]);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
 
   useEffect(() => {
@@ -106,7 +107,7 @@ export function HeroSection() {
   };
 
   return (
-    <section ref={container} className="relative h-[400vh] w-full bg-matte-black">
+    <section ref={container} className="relative h-[150vh] w-full bg-matte-black">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         {/* Canvas for Image Sequence Background */}
         <motion.canvas
