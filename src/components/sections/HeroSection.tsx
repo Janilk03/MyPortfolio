@@ -37,7 +37,7 @@ export function HeroSection() {
            Janil K. UX Engineer.
           </p>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-semibold tracking-tight text-off-white mb-6 max-w-5xl leading-[1.05]">
-            Designing interfaces that <br/> <span class="text-electric-blue italic">feel alive.</span>
+            Designing interfaces that <br/> <span className="text-electric-blue italic">feel alive.</span>
           </h1>
           <p className="mt-6 text-lg leading-8 text-slate-600 sm:text-md">
             I combine UX strategy, visual design, and front-end engineering to create immersive digital products that users love.
