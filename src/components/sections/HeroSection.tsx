@@ -1,145 +1,70 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { MoveRight } from "lucide-react";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 export function HeroSection() {
-  const container = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start start", "end end"],
-  });
-
-  // Fade out text as we scroll down
-  const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.1], ["0vh", "-20vh"]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.25], [0.55, 0.15]);
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 1,
-        ease: [0.2, 0.65, 0.3, 0.9] as [number, number, number, number],
-      },
-    }),
-  };
-
   return (
-    <section ref={container} className="relative h-screen w-full overflow-hidden bg-matte-black">
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        src="/video/hero-background.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-      />
-
-      <motion.div
-        style={{ opacity: overlayOpacity }}
-        className="absolute inset-0 bg-matte-black/55"
-      />
-
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.25, 0.45, 0.25],
-            rotate: [0, 90, 0],
-          }}
-          transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-[15%] -left-[10%] w-[70vw] h-[70vw] rounded-full bg-electric-blue/15 blur-[120px]"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.4, 1],
-            opacity: [0.2, 0.4, 0.2],
-            rotate: [0, -90, 0],
-          }}
-          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[45%] -right-[20%] w-[60vw] h-[60vw] rounded-full bg-electric-blue/10 blur-[100px]"
+    <section className="relative w-full min-h-screen overflow-hidden bg-white">
+      <nav className="absolute inset-x-0 top-0 z-30 px-6 py-6 md:px-12">
+        <div className="mx-auto flex max-w-6xl items-center justify-between">
+          <div className="rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm font-semibold text-slate-900 shadow-[8px_8px_20px_rgba(15,23,42,0.08),-8px_-8px_20px_rgba(255,255,255,0.9)]">
+            Logo
+          </div>
+          <div className="flex items-center gap-3 text-sm font-medium text-slate-900">
+            <a href="#home" className="rounded-full px-4 py-2 transition hover:bg-slate-100">Home</a>
+            <a href="#about-me" className="rounded-full px-4 py-2 transition hover:bg-slate-100">About Me</a>
+            <a href="#works" className="rounded-full px-4 py-2 transition hover:bg-slate-100">Works</a>
+            <a href="#contact" className="rounded-full px-4 py-2 transition hover:bg-slate-100">Contact</a>
+          </div>
+        </div>
+      </nav>
+      <div className="absolute inset-0">
+        <img
+          src="/images/Futuristic_white_neumorphic_ecos…_202605121123.jpeg"
+          alt="Futuristic neumorphic interface background"
+          className="h-full w-full object-cover object-right"
         />
       </div>
 
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center">
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-10 lg:px-12">
         <motion.div
-          style={{ y: textY, opacity: textOpacity }}
-          className="relative z-10 container mx-auto px-6 md:px-12 flex flex-col items-center text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="max-w-3xl"
         >
-          <motion.div
-            custom={0}
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-            className="inline-block px-4 py-1.5 mb-6 rounded-full border border-white/10 bg-white/10 backdrop-blur-md"
-          >
-            <span className="text-md font-medium tracking-wide text-off-white">JANIL K | UX Engineer</span>
-          </motion.div>
+          <p className="text-sm uppercase font-semibold tracking-[0.55em] text-slate-900">
+           Janil K. UX Engineer.
+          </p>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-semibold tracking-tight text-off-white mb-6 max-w-5xl leading-[1.05]">
+            Designing interfaces that <br/> <span class="text-electric-blue italic">feel alive.</span>
+          </h1>
+          <p className="mt-6 text-lg leading-8 text-slate-600 sm:text-md">
+            I combine UX strategy, visual design, and front-end engineering to create immersive digital products that users love.
+          </p>
 
-          <motion.h1
-            custom={1}
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-            className="text-5xl md:text-7xl lg:text-8xl font-heading font-semibold tracking-tight text-off-white mb-6 max-w-5xl leading-[1.05]"
-          >
-            Designing interfaces that <span className="text-electric-blue italic">feel alive.</span>
-          </motion.h1>
-
-          <motion.p
-            custom={2}
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-            className="text-lg md:text-2xl text-off-white max-w-2xl mb-12 font-light"
-          >
-            I bridge UX strategy and front-end engineering to craft immersive, digital products.
-          </motion.p>
-
-          <motion.div
-            custom={3}
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-            className="flex flex-col sm:flex-row items-center gap-4"
-          >
-            <button className="group magnetic relative px-8 py-4 bg-off-white text-matte-black rounded-full font-medium overflow-hidden transition-all hover:scale-105">
-              <span className="relative z-10 flex items-center gap-2">
-                View Work <MoveRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </button>
-            <button className="group magnetic px-8 py-4 border border-white/20 rounded-full font-medium text-off-white hover:bg-white/10 transition-all">
-              Let&apos;s Talk
-            </button>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          style={{ opacity: textOpacity }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-10 cursor-pointer hover:opacity-80 transition-opacity"
-          onClick={() => {
-            window.scrollBy({ top: window.innerHeight * 0.5, behavior: "smooth" });
-          }}
-        >
-          <span className="text-[10px] uppercase tracking-[0.3em] text-off-white font-medium">Scroll to explore</span>
-          <div className="w-[28px] h-[46px] rounded-full border-2 border-white/20 flex justify-center p-1.5 relative bg-white/5 backdrop-blur-sm">
-            <motion.div
-              animate={{
-                y: [0, 16],
-                opacity: [1, 0],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeOut",
-              }}
-              className="w-1.5 h-3 bg-electric-blue rounded-full shadow-[0_0_8px_rgba(41,151,255,0.8)]"
-            />
+          <div className="mt-10 flex flex-wrap gap-4">
+            <a
+              href="#works"
+              className="inline-flex items-center rounded-full bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5"
+            >
+              View My Work
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-900 shadow-[inset_8px_8px_20px_rgba(15,23,42,0.06),inset_-8px_-8px_20px_rgba(255,255,255,0.8)] transition hover:bg-slate-50"
+            >
+              Contact
+            </a>
+          </div>
+          <div className="mt-8">
+            <a href="#about-me" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900 transition hover:text-slate-700">
+              Scroll Down
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 5v14"></path>
+                <path d="M19 12l-7 7-7-7"></path>
+              </svg>
+            </a>
           </div>
         </motion.div>
       </div>
