@@ -13,7 +13,9 @@ export default function Home() {
       <UXProcessTimeline />
       <FeaturedProjects />
       <SkillsSection />
-      <ContactExperience />
+      <section id="contact" className="scroll-mt-24">
+        <ContactExperience />
+      </section>
     </main>
   );
 }

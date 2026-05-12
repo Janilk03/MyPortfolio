@@ -1,23 +1,243 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useLenis } from "lenis/react";
+import { ScrollDownButton } from "@/components/ui/ScrollDownButton";
+
+const navLinks = [
+  { href: "#home", label: "Home" },
+  { href: "#about-me", label: "About Me" },
+  { href: "#works", label: "Works" },
+  { href: "#contact", label: "Contact" },
+] as const;
+
+/** Past this scroll offset the bar hides on scroll-down and shows on scroll-up */
+const TOP_ALWAYS_VISIBLE_PX = 88;
+const SCROLL_DELTA_PX = 10;
+
+const HERO_SUBTITLE = "Janil K. UX Engineer.";
+const HERO_H1_LINE1 = "Designing interfaces that ";
+const HERO_H1_LINE2 = "feel alive.";
+const HERO_BODY =
+  "I combine UX strategy, visual design, and front-end engineering to create immersive digital products that users love.";
+const TYPEWRITER_MS_SUBTITLE = 52;
+const TYPEWRITER_MS_HEADLINE = 42;
+const TYPEWRITER_MS_BODY = 26;
+
+function HeroTypewriterIntro() {
+  const [subLen, setSubLen] = useState(0);
+  const [line1Len, setLine1Len] = useState(0);
+  const [line2Len, setLine2Len] = useState(0);
+  const [bodyLen, setBodyLen] = useState(0);
+
+  useEffect(() => {
+    if (subLen >= HERO_SUBTITLE.length) return;
+    const id = window.setTimeout(() => setSubLen((n) => n + 1), TYPEWRITER_MS_SUBTITLE);
+    return () => clearTimeout(id);
+  }, [subLen]);
+
+  useEffect(() => {
+    if (subLen < HERO_SUBTITLE.length) return;
+    if (line1Len >= HERO_H1_LINE1.length) return;
+    const id = window.setTimeout(() => setLine1Len((n) => n + 1), TYPEWRITER_MS_HEADLINE);
+    return () => clearTimeout(id);
+  }, [subLen, line1Len]);
+
+  useEffect(() => {
+    if (line1Len < HERO_H1_LINE1.length) return;
+    if (line2Len >= HERO_H1_LINE2.length) return;
+    const id = window.setTimeout(() => setLine2Len((n) => n + 1), TYPEWRITER_MS_HEADLINE);
+    return () => clearTimeout(id);
+  }, [line1Len, line2Len]);
+
+  useEffect(() => {
+    if (line2Len < HERO_H1_LINE2.length) return;
+    if (bodyLen >= HERO_BODY.length) return;
+    const id = window.setTimeout(() => setBodyLen((n) => n + 1), TYPEWRITER_MS_BODY);
+    return () => clearTimeout(id);
+  }, [line2Len, bodyLen]);
+
+  const bodyComplete = bodyLen >= HERO_BODY.length;
+
+  return (
+    <>
+      <p className="min-h-[1.35em] text-sm font-semibold uppercase tracking-[0.55em] text-slate-900">
+        {HERO_SUBTITLE.slice(0, subLen)}
+      </p>
+      <h1
+        className="mb-6 max-w-5xl text-5xl leading-[1.05] font-heading font-semibold tracking-tight text-off-white md:text-7xl lg:text-8xl"
+        aria-label={`${HERO_H1_LINE1}${HERO_H1_LINE2}`}
+      >
+        {HERO_H1_LINE1.slice(0, line1Len)}
+        {line1Len >= HERO_H1_LINE1.length ? <br /> : null}
+        <span className="text-electric-blue italic">{HERO_H1_LINE2.slice(0, line2Len)}</span>
+      </h1>
+      <p
+        className="mt-6 min-h-[4.5rem] text-lg leading-8 text-slate-600 sm:text-md"
+        aria-label={HERO_BODY}
+      >
+        {HERO_BODY.slice(0, bodyLen)}
+      </p>
+      {bodyComplete ? (
+        <motion.div
+          className="mt-10 flex flex-wrap gap-4"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <a
+            href="#works"
+            className="inline-flex items-center rounded-full bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5"
+          >
+            View My Work
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex items-center rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-900 shadow-[inset_8px_8px_20px_rgba(15,23,42,0.06),inset_-8px_-8px_20px_rgba(255,255,255,0.8)] transition hover:bg-slate-50"
+          >
+            Contact
+          </a>
+        </motion.div>
+      ) : null}
+    </>
+  );
+}
 
 export function HeroSection() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [navRevealed, setNavRevealed] = useState(true);
+  const [scrollPastHero, setScrollPastHero] = useState(false);
+  const lastScrollRef = useRef(0);
+  const revealedRef = useRef(true);
+  const scrollPastHeroRef = useRef(false);
+
+  useLenis((lenis) => {
+    const y = lenis.animatedScroll;
+    const delta = y - lastScrollRef.current;
+    lastScrollRef.current = y;
+
+    const nextPastHero = y > TOP_ALWAYS_VISIBLE_PX;
+    if (nextPastHero !== scrollPastHeroRef.current) {
+      scrollPastHeroRef.current = nextPastHero;
+      setScrollPastHero(nextPastHero);
+    }
+
+    let next = revealedRef.current;
+    if (y <= TOP_ALWAYS_VISIBLE_PX) {
+      next = true;
+    } else if (delta < -SCROLL_DELTA_PX) {
+      next = true;
+    } else if (delta > SCROLL_DELTA_PX) {
+      next = false;
+    }
+
+    if (next !== revealedRef.current) {
+      revealedRef.current = next;
+      setNavRevealed(next);
+    }
+  }, []);
+
+  const showNavBar = menuOpen || navRevealed;
+  const navFloatingBg = showNavBar && scrollPastHero;
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [menuOpen]);
+
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-white">
-      <nav className="absolute inset-x-0 top-0 z-30 px-6 py-6 md:px-12">
+    <section id="home" className="relative w-full min-h-screen overflow-hidden bg-white">
+      <nav
+        className={`fixed inset-x-0 top-0 px-6 py-5 md:px-12 transition-[transform,background-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${menuOpen ? "z-[80]" : "z-[60]"} ${showNavBar ? "translate-y-0" : "-translate-y-full pointer-events-none"} ${navFloatingBg ? "bg-white/65 backdrop-blur-md" : ""}`}
+        aria-label="Primary"
+        aria-hidden={!showNavBar}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <div className="rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm font-semibold text-slate-900 shadow-[8px_8px_20px_rgba(15,23,42,0.08),-8px_-8px_20px_rgba(255,255,255,0.9)]">
             Logo
           </div>
-          <div className="flex items-center gap-3 text-sm font-medium text-slate-900">
-            <a href="#home" className="rounded-full px-4 py-2 transition hover:bg-slate-100">Home</a>
-            <a href="#about-me" className="rounded-full px-4 py-2 transition hover:bg-slate-100">About Me</a>
-            <a href="#works" className="rounded-full px-4 py-2 transition hover:bg-slate-100">Works</a>
-            <a href="#contact" className="rounded-full px-4 py-2 transition hover:bg-slate-100">Contact</a>
+
+          <div className="hidden items-center gap-3 text-sm font-medium text-slate-900 lg:flex">
+            {navLinks.map(({ href, label }) => (
+              <a key={href} href={href} className="rounded-full px-4 py-2 transition hover:bg-slate-100">
+                {label}
+              </a>
+            ))}
           </div>
+
+          <button
+            type="button"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-900 shadow-[8px_8px_20px_rgba(15,23,42,0.08),-8px_-8px_20px_rgba(255,255,255,0.9)] transition hover:bg-slate-50 lg:hidden"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav-panel"
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? (
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+            )}
+          </button>
         </div>
       </nav>
+
+      <AnimatePresence>
+        {menuOpen && [
+          <motion.div
+            key="mobile-nav-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[75] bg-slate-900/35 backdrop-blur-sm lg:hidden"
+            aria-hidden
+            onClick={() => setMenuOpen(false)}
+          />,
+          <motion.div
+            key="mobile-nav-panel"
+            id="mobile-nav-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation"
+            initial={{ x: "100%", opacity: 0.6 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0.6 }}
+            transition={{ type: "spring", damping: 30, stiffness: 320 }}
+            className="fixed inset-y-0 right-0 z-[76] flex w-[min(100vw-2.5rem,18rem)] flex-col border-l border-slate-200 bg-white/95 px-6 pt-24 pb-10 shadow-2xl backdrop-blur-xl lg:hidden"
+          >
+            <div className="flex flex-col gap-1 text-base font-semibold text-slate-900">
+              {navLinks.map(({ href, label }, i) => (
+                <motion.a
+                  key={href}
+                  href={href}
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 + i * 0.05 }}
+                  className="rounded-2xl px-4 py-3.5 transition-colors hover:bg-slate-100"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {label}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>,
+        ]}
+      </AnimatePresence>
       <div className="absolute inset-0">
         <img
           src="/images/Futuristic_white_neumorphic_ecos…_202605121123.jpeg"
@@ -27,47 +247,15 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-10 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-          className="max-w-3xl"
-        >
-          <p className="text-sm uppercase font-semibold tracking-[0.55em] text-slate-900">
-           Janil K. UX Engineer.
-          </p>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-semibold tracking-tight text-off-white mb-6 max-w-5xl leading-[1.05]">
-            Designing interfaces that <br/> <span className="text-electric-blue italic">feel alive.</span>
-          </h1>
-          <p className="mt-6 text-lg leading-8 text-slate-600 sm:text-md">
-            I combine UX strategy, visual design, and front-end engineering to create immersive digital products that users love.
-          </p>
-
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a
-              href="#works"
-              className="inline-flex items-center rounded-full bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5"
-            >
-              View My Work
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-900 shadow-[inset_8px_8px_20px_rgba(15,23,42,0.06),inset_-8px_-8px_20px_rgba(255,255,255,0.8)] transition hover:bg-slate-50"
-            >
-              Contact
-            </a>
-          </div>
-          <div className="mt-8">
-            <a href="#about-me" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900 transition hover:text-slate-700">
-              Scroll Down
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 5v14"></path>
-                <path d="M19 12l-7 7-7-7"></path>
-              </svg>
-            </a>
-          </div>
-        </motion.div>
+        <div className="max-w-3xl">
+          <HeroTypewriterIntro />
+        </div>
       </div>
+
+      <ScrollDownButton
+        href="#about-me"
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 md:bottom-12"
+      />
     </section>
   );
 }

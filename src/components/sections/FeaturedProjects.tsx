@@ -49,7 +49,7 @@ export function FeaturedProjects() {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]); // Adjust based on number of cards
 
   return (
-    <section ref={targetRef} className="relative h-[400vh] bg-matte-black">
+    <section id="works" ref={targetRef} className="relative h-[400vh] bg-matte-black scroll-mt-24">
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 mb-12">
           <h2 className="text-4xl md:text-5xl font-heading font-semibold text-off-white">Featured Work</h2>

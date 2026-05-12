@@ -42,7 +42,12 @@ export function AppleScrollStory() {
   });
 
   return (
-    <section ref={container} className="relative bg-matte-black w-full" style={{ height: `${storyFrames.length * 100}vh` }}>
+    <section
+      id="about-me"
+      ref={container}
+      className="relative bg-matte-black w-full scroll-mt-24"
+      style={{ height: `${storyFrames.length * 100}vh` }}
+    >
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         {storyFrames.map((frame, index) => {
           // Calculate individual frame progress boundaries
