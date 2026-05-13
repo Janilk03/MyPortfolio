@@ -22,7 +22,7 @@ const HERO_H1_LINE1 = "Designing interfaces that ";
 const HERO_H1_LINE2 = "feel alive.";
 /** First segment: normal headline weight/color; second segment: italic + electric blue */
 const HERO_SECOND_ACCENT = "Powered by AI, Shaped by";
-const HERO_SECOND_MAIN = "human decisions";
+const HERO_SECOND_MAIN = "Human";
 const HERO_SECOND_TAGLINE = `${HERO_SECOND_ACCENT}${HERO_SECOND_MAIN}`;
 const HERO_PRIMARY_TAGLINE = `${HERO_H1_LINE1}${HERO_H1_LINE2}`;
 const HERO_BODY =
