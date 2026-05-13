@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
 import { ScrollDownButton } from "@/components/ui/ScrollDownButton";
+import Image from "next/image";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -19,16 +20,25 @@ const SCROLL_DELTA_PX = 10;
 const HERO_SUBTITLE = "Janil K. UX Engineer.";
 const HERO_H1_LINE1 = "Designing interfaces that ";
 const HERO_H1_LINE2 = "feel alive.";
+/** First segment: normal headline weight/color; second segment: italic + electric blue */
+const HERO_SECOND_ACCENT = "Powered by AI, Shaped by";
+const HERO_SECOND_MAIN = "human decisions";
+const HERO_SECOND_TAGLINE = `${HERO_SECOND_ACCENT}${HERO_SECOND_MAIN}`;
+const HERO_PRIMARY_TAGLINE = `${HERO_H1_LINE1}${HERO_H1_LINE2}`;
 const HERO_BODY =
   "I combine UX strategy, visual design, and front-end engineering to create immersive digital products that users love.";
 const TYPEWRITER_MS_SUBTITLE = 52;
 const TYPEWRITER_MS_HEADLINE = 42;
 const TYPEWRITER_MS_BODY = 26;
+const TYPEWRITER_MS_HEADLINE_DELETE = 24;
+const TAGLINE_SWAP_MS = 7000;
 
 function HeroTypewriterIntro() {
   const [subLen, setSubLen] = useState(0);
-  const [line1Len, setLine1Len] = useState(0);
-  const [line2Len, setLine2Len] = useState(0);
+  const [activeTagline, setActiveTagline] = useState<"primary" | "secondary">("primary");
+  const [headlineLen, setHeadlineLen] = useState(0);
+  const [headlinePhase, setHeadlinePhase] = useState<"typing" | "holding" | "deleting">("typing");
+  const [firstPrimaryDone, setFirstPrimaryDone] = useState(false);
   const [bodyLen, setBodyLen] = useState(0);
 
   useEffect(() => {
@@ -39,26 +49,58 @@ function HeroTypewriterIntro() {
 
   useEffect(() => {
     if (subLen < HERO_SUBTITLE.length) return;
-    if (line1Len >= HERO_H1_LINE1.length) return;
-    const id = window.setTimeout(() => setLine1Len((n) => n + 1), TYPEWRITER_MS_HEADLINE);
+    if (headlinePhase !== "typing") return;
+    const current = activeTagline === "primary" ? HERO_PRIMARY_TAGLINE : HERO_SECOND_TAGLINE;
+    if (headlineLen >= current.length) {
+      setHeadlinePhase("holding");
+      if (activeTagline === "primary" && !firstPrimaryDone) {
+        setFirstPrimaryDone(true);
+      }
+      return;
+    }
+    const id = window.setTimeout(() => setHeadlineLen((n) => n + 1), TYPEWRITER_MS_HEADLINE);
     return () => clearTimeout(id);
-  }, [subLen, line1Len]);
+  }, [subLen, headlineLen, headlinePhase, activeTagline, firstPrimaryDone]);
 
   useEffect(() => {
-    if (line1Len < HERO_H1_LINE1.length) return;
-    if (line2Len >= HERO_H1_LINE2.length) return;
-    const id = window.setTimeout(() => setLine2Len((n) => n + 1), TYPEWRITER_MS_HEADLINE);
+    if (subLen < HERO_SUBTITLE.length) return;
+    if (headlinePhase !== "holding") return;
+    const id = window.setTimeout(() => setHeadlinePhase("deleting"), TAGLINE_SWAP_MS);
     return () => clearTimeout(id);
-  }, [line1Len, line2Len]);
+  }, [subLen, headlinePhase]);
 
   useEffect(() => {
-    if (line2Len < HERO_H1_LINE2.length) return;
+    if (headlinePhase !== "deleting") return;
+    if (headlineLen <= 0) {
+      setActiveTagline((prev) => (prev === "primary" ? "secondary" : "primary"));
+      setHeadlinePhase("typing");
+      return;
+    }
+    const id = window.setTimeout(() => setHeadlineLen((n) => n - 1), TYPEWRITER_MS_HEADLINE_DELETE);
+    return () => clearTimeout(id);
+  }, [headlinePhase, headlineLen]);
+
+  useEffect(() => {
+    if (!firstPrimaryDone) return;
     if (bodyLen >= HERO_BODY.length) return;
     const id = window.setTimeout(() => setBodyLen((n) => n + 1), TYPEWRITER_MS_BODY);
     return () => clearTimeout(id);
-  }, [line2Len, bodyLen]);
+  }, [firstPrimaryDone, bodyLen]);
 
   const bodyComplete = bodyLen >= HERO_BODY.length;
+  const visibleHeadline = (activeTagline === "primary" ? HERO_PRIMARY_TAGLINE : HERO_SECOND_TAGLINE).slice(0, headlineLen);
+  const visibleMainLine =
+    activeTagline === "primary"
+      ? visibleHeadline.slice(0, Math.min(visibleHeadline.length, HERO_H1_LINE1.length))
+      : visibleHeadline.length > HERO_SECOND_ACCENT.length
+        ? visibleHeadline.slice(HERO_SECOND_ACCENT.length)
+        : "";
+  const visibleAccentLine =
+    activeTagline === "primary" && visibleHeadline.length > HERO_H1_LINE1.length
+      ? visibleHeadline.slice(HERO_H1_LINE1.length)
+      : activeTagline === "secondary"
+        ? visibleHeadline.slice(0, Math.min(visibleHeadline.length, HERO_SECOND_ACCENT.length))
+        : "";
 
   return (
     <>
@@ -67,11 +109,25 @@ function HeroTypewriterIntro() {
       </p>
       <h1
         className="mb-6 max-w-5xl text-5xl leading-[1.05] font-heading font-semibold tracking-tight text-off-white md:text-7xl lg:text-8xl"
-        aria-label={`${HERO_H1_LINE1}${HERO_H1_LINE2}`}
+        aria-label={visibleHeadline}
       >
-        {HERO_H1_LINE1.slice(0, line1Len)}
-        {line1Len >= HERO_H1_LINE1.length ? <br /> : null}
-        <span className="text-electric-blue italic">{HERO_H1_LINE2.slice(0, line2Len)}</span>
+        {activeTagline === "primary" ? (
+          <>
+            {visibleMainLine}
+            {visibleAccentLine ? <br /> : null}
+            <span className="text-electric-blue italic">{visibleAccentLine}</span>
+          </>
+        ) : (
+          <>
+            <span>{visibleAccentLine}</span>
+            {visibleMainLine ? (
+              <>
+                <br />
+                <span className="text-electric-blue italic">{visibleMainLine}</span>
+              </>
+            ) : null}
+          </>
+        )}
       </h1>
       <p
         className="mt-6 min-h-[4.5rem] text-lg leading-8 text-slate-600 sm:text-md"
@@ -108,9 +164,17 @@ export function HeroSection() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [navRevealed, setNavRevealed] = useState(true);
   const [scrollPastHero, setScrollPastHero] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const lastScrollRef = useRef(0);
   const revealedRef = useRef(true);
   const scrollPastHeroRef = useRef(false);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 110]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const textOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.75]);
 
   useLenis((lenis) => {
     const y = lenis.animatedScroll;
@@ -156,15 +220,22 @@ export function HeroSection() {
   }, [menuOpen]);
 
   return (
-    <section id="home" className="relative w-full min-h-screen overflow-hidden bg-white">
+    <section ref={sectionRef} id="home" className="relative w-full min-h-screen overflow-hidden bg-white">
       <nav
         className={`fixed inset-x-0 top-0 px-6 py-5 md:px-12 transition-[transform,background-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${menuOpen ? "z-[80]" : "z-[60]"} ${showNavBar ? "translate-y-0" : "-translate-y-full pointer-events-none"} ${navFloatingBg ? "bg-white/65 backdrop-blur-md" : ""}`}
         aria-label="Primary"
         aria-hidden={!showNavBar}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <div className="rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm font-semibold text-slate-900 shadow-[8px_8px_20px_rgba(15,23,42,0.08),-8px_-8px_20px_rgba(255,255,255,0.9)]">
-            Logo
+          <div className="relative h-10 w-10 overflow-hidden rounded-full border border-slate-200 bg-white/90 shadow-[8px_8px_20px_rgba(15,23,42,0.08),-8px_-8px_20px_rgba(255,255,255,0.9)]">
+            <Image
+              src="/images/logo.png"
+              alt="Logo"
+              fill
+              sizes="40px"
+              priority
+              className="object-cover"
+            />
           </div>
 
           <div className="hidden items-center gap-3 text-sm font-medium text-slate-900 lg:flex">
@@ -238,19 +309,22 @@ export function HeroSection() {
           </motion.div>,
         ]}
       </AnimatePresence>
-      <div className="absolute inset-0">
+      <motion.div className="absolute inset-0" style={{ y: bgY }}>
         <img
           src="/images/Futuristic_white_neumorphic_ecos…_202605121123.jpeg"
           alt="Futuristic neumorphic interface background"
           className="h-full w-full object-cover object-right"
         />
-      </div>
+      </motion.div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-10 lg:px-12">
+      <motion.div
+        className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-10 lg:px-12"
+        style={{ y: textY, opacity: textOpacity }}
+      >
         <div className="max-w-3xl">
           <HeroTypewriterIntro />
         </div>
-      </div>
+      </motion.div>
 
       <ScrollDownButton
         href="#about-me"

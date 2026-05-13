@@ -15,6 +15,8 @@ const RIPPLE_COLORS = [
 const MAX_RIPPLES = 10;
 const MIN_MOVE_PX = 28;
 const MIN_INTERVAL_MS = 48;
+const RIPPLE_BLOCK_SELECTOR =
+  "a, img, p, span, h1, h2, h3, h4, h5, h6, li, label, small, strong, em, b, i";
 
 export function CustomCursor() {
   const [ripples, setRipples] = useState<Ripple[]>([]);
@@ -65,7 +67,12 @@ export function CustomCursor() {
   useEffect(() => {
     if (isTouchDevice) return;
 
-    const onMove = (e: MouseEvent) => spawnRipple(e.clientX, e.clientY);
+    const onMove = (e: MouseEvent) => {
+      // Don't spawn ripples over links, images, or text elements.
+      const el = e.target as HTMLElement | null;
+      if (el?.closest?.(RIPPLE_BLOCK_SELECTOR)) return;
+      spawnRipple(e.clientX, e.clientY);
+    };
     window.addEventListener("mousemove", onMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMove);
   }, [isTouchDevice, spawnRipple]);
