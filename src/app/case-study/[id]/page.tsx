@@ -1,6 +1,7 @@
 import { caseStudies } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Navbar } from "@/components/ui/Navbar";
+import { ZoomableImage } from "@/components/ui/ZoomableImage";
 import Link from "next/link";
 import { ArrowLeft, ChevronRight, CheckCircle2 } from "lucide-react";
 
@@ -84,12 +85,11 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
         </header>
 
         {/* Image Placeholder */}
-        <div className="mb-20 w-full overflow-hidden rounded-3xl bg-slate-200 shadow-[0_20px_60px_rgba(15,23,42,0.08)]">
+        <div className="mb-20 w-full overflow-hidden rounded-3xl bg-slate-200 shadow-[0_20px_60px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5">
           {study.heroImage ? (
-            <img 
+            <ZoomableImage 
               src={study.heroImage} 
               alt={`${study.title} showcase`} 
-              className="w-full h-auto object-cover"
             />
           ) : (
             <div className="flex aspect-video h-full w-full items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
