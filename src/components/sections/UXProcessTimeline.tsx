@@ -50,14 +50,14 @@ const processes = [
 
 export function UXProcessTimeline() {
   return (
-    <section className="py-32 bg-matte-black text-off-white relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-slate-50 text-slate-900 relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 max-w-5xl relative z-10">
-        <div className="mb-20 text-center">
+        <div className="mb-16 md:mb-20 text-center">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-heading font-semibold mb-4"
+            className="text-4xl md:text-5xl font-heading font-bold md:font-semibold mb-4 text-slate-900"
           >
             The Engineering Process
           </motion.h2>
@@ -66,7 +66,7 @@ export function UXProcessTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-soft-gray text-lg max-w-2xl mx-auto"
+            className="text-slate-500 text-lg max-w-2xl mx-auto"
           >
             A systematic approach bridging the gap between human needs and technical constraints.
           </motion.p>
@@ -74,35 +74,35 @@ export function UXProcessTimeline() {
 
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2" />
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-slate-200 -translate-x-1/2" />
 
           {processes.map((item, index) => {
             const isEven = index % 2 === 0;
             return (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className={`relative flex flex-col md:flex-row items-center gap-8 mb-16 ${
+                className={`relative flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-12 md:mb-16 last:mb-0 ${
                   isEven ? "md:flex-row-reverse" : ""
                 }`}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-6 md:left-1/2 w-12 h-12 rounded-full bg-matte-black border border-white/20 flex items-center justify-center -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(41,151,255,0.2)]">
-                  <item.icon className="w-5 h-5 text-electric-blue" />
+                <div className="absolute left-6 md:left-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center -translate-x-1/2 z-10 shadow-sm">
+                  <item.icon className="w-4 h-4 md:w-5 md:h-5 text-slate-700" />
                 </div>
 
                 {/* Content Card */}
-                <div className={`ml-16 md:ml-0 md:w-1/2 flex ${isEven ? "md:justify-start pl-0 md:pl-12" : "md:justify-end pr-0 md:pr-12"}`}>
+                <div className={`ml-14 md:ml-0 md:w-1/2 flex ${isEven ? "md:justify-start pl-0 md:pl-12" : "md:justify-end pr-0 md:pr-12"}`}>
                   <motion.div 
                     whileHover={{ scale: 1.02 }}
-                    className="magnetic bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm shadow-xl w-full max-w-md transition-colors hover:bg-white/10"
+                    className="magnetic bg-gradient-to-br from-white to-slate-50 border border-slate-100 p-6 md:p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] w-full max-w-md transition-all duration-300 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:border-slate-200"
                   >
-                    <div className="text-electric-blue text-sm font-mono mb-2">0{item.id}</div>
-                    <h3 className="text-2xl font-semibold mb-3">{item.title}</h3>
-                    <p className="text-soft-gray leading-relaxed">{item.desc}</p>
+                    <div className="text-slate-400 text-sm font-mono mb-2 md:mb-3 font-medium">0{item.id}</div>
+                    <h3 className="text-xl md:text-2xl font-semibold mb-2 md:mb-3 text-slate-900">{item.title}</h3>
+                    <p className="text-slate-600 leading-relaxed text-sm md:text-base">{item.desc}</p>
                   </motion.div>
                 </div>
               </motion.div>

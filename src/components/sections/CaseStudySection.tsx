@@ -4,32 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-const caseStudies = [
-  {
-    id: "fintech-platform",
-    title: "Fintech analytics platform",
-    summary:
-      "Information hierarchy and interaction patterns for dense trading data — clarity without cognitive overload.",
-    focus: "UX · Systems · Frontend",
-    href: "#works",
-  },
-  {
-    id: "health-journey",
-    title: "Healthcare onboarding flow",
-    summary:
-      "Empathy-led flows and validation patterns that reduced drop-off while staying compliant and trustworthy.",
-    focus: "Research · UX · Prototype",
-    href: "#works",
-  },
-  {
-    id: "commerce-rebuild",
-    title: "E‑commerce experience rebuild",
-    summary:
-      "End-to-end checkout refinement — performance, trust cues, and a cohesive design language across surfaces.",
-    focus: "Product · Engineering · UI",
-    href: "#works",
-  },
-] as const;
+import { caseStudies } from "@/lib/data";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
