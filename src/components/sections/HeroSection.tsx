@@ -22,7 +22,7 @@ const HERO_H1_LINE1 = "Designing interfaces that ";
 const HERO_H1_LINE2 = "feel alive.";
 /** First segment: normal headline weight/color; second segment: italic + electric blue */
 const HERO_SECOND_ACCENT = "Powered by AI, Shaped by";
-const HERO_SECOND_MAIN = "Human";
+const HERO_SECOND_MAIN = "Human.";
 const HERO_SECOND_TAGLINE = `${HERO_SECOND_ACCENT}${HERO_SECOND_MAIN}`;
 const HERO_PRIMARY_TAGLINE = `${HERO_H1_LINE1}${HERO_H1_LINE2}`;
 const HERO_BODY =
@@ -104,11 +104,11 @@ function HeroTypewriterIntro() {
 
   return (
     <>
-      <p className="min-h-[1.35em] text-sm font-semibold uppercase tracking-[0.55em] text-slate-900">
+      <p className="min-h-[1.35em] text-sm font-bold md:font-semibold uppercase tracking-[0.55em] text-slate-900">
         {HERO_SUBTITLE.slice(0, subLen)}
       </p>
       <h1
-        className="mb-6 max-w-5xl text-5xl leading-[1.05] font-heading font-semibold tracking-tight text-off-white md:text-7xl lg:text-8xl"
+        className="mb-6 max-w-5xl text-5xl leading-[1.05] font-heading font-bold md:font-semibold tracking-tight text-off-white md:text-7xl lg:text-8xl"
         aria-label={visibleHeadline}
       >
         {activeTagline === "primary" ? (
@@ -309,7 +309,7 @@ export function HeroSection() {
           </motion.div>,
         ]}
       </AnimatePresence>
-      <motion.div className="absolute inset-0" style={{ y: bgY }}>
+      <motion.div className="absolute inset-x-0 bottom-0 top-40 md:top-0" style={{ y: bgY }}>
         <img
           src="/images/Futuristic_white_neumorphic_ecos…_202605121123.jpeg"
           alt="Futuristic neumorphic interface background"
@@ -318,7 +318,7 @@ export function HeroSection() {
       </motion.div>
 
       <motion.div
-        className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-10 lg:px-12"
+        className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-start pt-28 pb-10 md:justify-center md:py-10 px-6 lg:px-12"
         style={{ y: textY, opacity: textOpacity }}
       >
         <div className="max-w-3xl">
