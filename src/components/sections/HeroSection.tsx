@@ -16,7 +16,7 @@ const HERO_SECOND_MAIN = "Human.";
 const HERO_SECOND_TAGLINE = `${HERO_SECOND_ACCENT}${HERO_SECOND_MAIN}`;
 const HERO_PRIMARY_TAGLINE = `${HERO_H1_LINE1}${HERO_H1_LINE2}`;
 const HERO_BODY =
-  "I combine UX strategy, visual design, and front-end engineering to create immersive digital products that users love.";
+  "UX Engineer crafting immersive digital products through AI assisted UI design and front-end engineering.";
 const TYPEWRITER_MS_SUBTITLE = 52;
 const TYPEWRITER_MS_HEADLINE = 42;
 const TYPEWRITER_MS_BODY = 26;
@@ -78,6 +78,14 @@ function HeroTypewriterIntro() {
   }, [firstPrimaryDone, bodyLen]);
 
   const bodyComplete = bodyLen >= HERO_BODY.length;
+  
+  const renderBodyText = (text: string) => {
+    return text
+      .replace("UX Engineer", '<strong class="text-slate-900 font-semibold">UX Engineer</strong>')
+      .replace("AI assisted UI design", '<strong class="text-electric-blue font-semibold">AI assisted</strong> <strong class="text-slate-900 font-semibold">UI design</strong>')
+      .replace("front-end engineering", '<strong class="text-slate-900 font-semibold">front-end engineering</strong>');
+  };
+
   const visibleHeadline = (activeTagline === "primary" ? HERO_PRIMARY_TAGLINE : HERO_SECOND_TAGLINE).slice(0, headlineLen);
   const visibleMainLine =
     activeTagline === "primary"
@@ -122,9 +130,8 @@ function HeroTypewriterIntro() {
       <p
         className="mt-6 min-h-[4.5rem] text-lg leading-8 text-slate-600 sm:text-md"
         aria-label={HERO_BODY}
-      >
-        {HERO_BODY.slice(0, bodyLen)}
-      </p>
+        dangerouslySetInnerHTML={{ __html: renderBodyText(HERO_BODY.slice(0, bodyLen)) }}
+      />
       {bodyComplete ? (
         <motion.div
           className="mt-10 flex flex-wrap gap-4"

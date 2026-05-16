@@ -4,8 +4,85 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send } from "lucide-react";
 
+function AnimatedInput({
+  placeholder,
+  value,
+  onChange,
+  type = "text",
+  isTextArea = false,
+}: {
+  placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  type?: string;
+  isTextArea?: boolean;
+}) {
+  const [isFocused, setIsFocused] = useState(false);
+
+  return (
+    <div className="relative p-[1px] rounded-xl overflow-hidden transition-all duration-300">
+      <AnimatePresence>
+        {isFocused && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+            }}
+            exit={{ opacity: 0 }}
+            transition={{
+              opacity: { duration: 0.3 },
+              backgroundPosition: { duration: 3, repeat: Infinity, ease: "linear" }
+            }}
+            className="absolute inset-0 z-0"
+            style={{
+              background: "linear-gradient(90deg, #2997FF, #A855F7, #2997FF)",
+              backgroundSize: "200% 100%",
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      {!isFocused && (
+        <div className="absolute inset-0 border border-slate-200 rounded-xl pointer-events-none z-0" />
+      )}
+
+      {isTextArea ? (
+        <textarea
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          className="relative z-10 block w-full min-h-[120px] bg-slate-50 rounded-[11px] px-4 py-3 text-slate-900 outline-none focus:bg-white transition-all resize-none placeholder:text-slate-400"
+        />
+      ) : (
+        <input
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          className="relative z-10 block w-full bg-slate-50 rounded-[11px] px-4 py-3 text-slate-900 outline-none focus:bg-white transition-all placeholder:text-slate-400"
+        />
+      )}
+    </div>
+  );
+}
+
 export function ContactExperience() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const handleHash = () => {
@@ -24,38 +101,157 @@ export function ContactExperience() {
     if (window.location.hash === "#contact") {
       window.history.pushState("", document.title, window.location.pathname + window.location.search);
     }
+    // Reset submission state after a delay
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setIsSubmitting(false);
+    }, 500);
+  };
+
+  const validateField = (name: string, value: string) => {
+    let error = "";
+    if (name === "email" && value.trim() !== "") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value.trim())) error = "Please enter a valid email address";
+    }
+    if (name === "phone" && value.trim() !== "") {
+      const phoneRegex = /^[\d\s\+\-\(\)]{10,}$/;
+      if (!phoneRegex.test(value.trim())) error = "Minimum 10 digits required";
+    }
+    if (name === "name" && value.trim() !== "" && value.trim().length < 2) {
+      error = "Name is too short";
+    }
+    if (name === "message" && value.trim() !== "" && value.trim().length < 10) {
+      error = "Message must be at least 10 characters";
+    }
+    setErrors(prev => ({ ...prev, [name]: error }));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string) => {
+    let value = e.target.value;
+
+    // Strict filtering for name: only allow letters and spaces
+    if (field === "name") {
+      value = value.replace(/[^a-zA-Z\s]/g, "");
+    }
+
+    // Strict filtering for phone: only allow numbers and phone symbols
+    if (field === "phone") {
+      value = value.replace(/[^\d\s\+\-\(\)]/g, "");
+    }
+
+    setFormData(prev => ({ ...prev, [field]: value }));
+    validateField(field, value);
+  };
+
+  const isFormValid = (() => {
+    const isNameValid = formData.name.trim().length >= 2;
+    const isMessageValid = formData.message.trim().length >= 10;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[\d\s\+\-\(\)]{10,}$/;
+
+    const isEmailValid = formData.email.trim() !== "" && emailRegex.test(formData.email.trim());
+    const isPhoneValid = formData.phone.trim() !== "" && phoneRegex.test(formData.phone.trim());
+
+    return isNameValid && isMessageValid && (isEmailValid || isPhoneValid) &&
+      Object.values(errors).every(err => err === "");
+  })();
+
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isFormValid || isSubmitting) return;
+
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    // Initial check
+    if (!navigator.onLine) {
+      setSubmitError("It seems you are offline. Please check your internet connection.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdNNqOVmH68SvWdDR5yY0USQbepy5I7VAZ98qGds5IEvFgTJQ/formResponse";
+    
+    const body = new URLSearchParams();
+    body.append("entry.2005620554", formData.name);
+    body.append("entry.1045781291", formData.email);
+    body.append("entry.1166974658", formData.phone);
+    body.append("entry.839337160", formData.message);
+    
+    // Hidden validation fields from your Google Form
+    body.append("fvv", "1");
+    body.append("pageHistory", "0");
+    body.append("fbzx", "-2105693422741144396");
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+      await fetch(googleFormUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: body.toString(),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      
+      setTimeout(() => {
+        closeContact();
+      }, 3000);
+
+    } catch (err) {
+      console.error("Submission error details:", err);
+      setIsSubmitting(false);
+      
+      if (err instanceof Error && err.name === 'AbortError') {
+        setSubmitError("Request timed out. Your connection might be too slow.");
+      } else {
+        setSubmitError("Submission failed. This usually happens if you are offline or the connection was reset.");
+      }
+    }
   };
 
   return (
     <>
-      {/* Background Blur Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 bg-matte-black/40 backdrop-blur-sm z-40"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black/10 backdrop-blur-[2px] z-40"
             onClick={closeContact}
           />
         )}
       </AnimatePresence>
 
-      {/* Contact Container */}
       <motion.div
-        layout
         data-isopen={isOpen}
         initial={{ borderRadius: 9999 }}
         animate={{
-          borderRadius: isOpen ? "0px" : "9999px",
-          width: isOpen ? "400px" : "64px",
-          height: isOpen ? "500px" : "64px",
+          borderRadius: 16,
+          width: isOpen ? "min(400px, 90vw)" : "64px",
+          height: isOpen ? (isSubmitted || submitError ? "320px" : "min(680px, 95vh)") : "64px",
+          bottom: isOpen ? "24px" : "24px",
+          right: isOpen ? "24px" : "24px",
         }}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        className={`fixed bottom-0 right-0 z-50 bg-matte-black/80 backdrop-blur-xl border-t border-l border-white/10 shadow-2xl ${
-          isOpen ? "" : "bottom-6 right-6 cursor-pointer magnetic hover:scale-110 hover:bg-white/10"
-        } overflow-hidden`}
+        transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+        className={`fixed z-50 bg-white/90 backdrop-blur-lg border border-slate-200 shadow-xl ${isOpen
+          ? "overflow-y-auto"
+          : "cursor-pointer magnetic hover:scale-105 hover:bg-slate-100/50 overflow-hidden"
+          }`}
         onClick={() => !isOpen && setIsOpen(true)}
       >
         <AnimatePresence mode="wait">
@@ -67,7 +263,43 @@ export function ContactExperience() {
               exit={{ opacity: 0, scale: 0 }}
               className="w-full h-full flex items-center justify-center"
             >
-              <MessageSquare className="w-6 h-6 text-off-white" />
+              <MessageSquare className="w-6 h-6 text-slate-900" />
+            </motion.div>
+          ) : isSubmitted ? (
+            <motion.div
+              key="success"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="w-full h-full p-8 flex flex-col items-center justify-center text-center"
+            >
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                <Send className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-2xl font-semibold text-slate-900 mb-2">Message Sent!</h3>
+              <p className="text-slate-500">
+                Thank you for reaching out. I&apos;ll get back to you as soon as possible.
+              </p>
+            </motion.div>
+          ) : submitError ? (
+            <motion.div
+              key="error"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="w-full h-full p-8 flex flex-col items-center justify-center text-center"
+            >
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                <X className="w-8 h-8 text-red-600" />
+              </div>
+              <h3 className="text-2xl font-semibold text-slate-900 mb-2">Oops!</h3>
+              <p className="text-slate-500 text-sm">
+                {submitError}
+              </p>
+              <button 
+                onClick={() => setSubmitError(null)}
+                className="mt-6 px-6 py-2 bg-slate-100 text-slate-900 rounded-lg text-sm font-semibold hover:bg-slate-200 transition-colors"
+              >
+                Try Again
+              </button>
             </motion.div>
           ) : (
             <motion.div
@@ -79,57 +311,82 @@ export function ContactExperience() {
               className="w-full h-full p-8 flex flex-col"
             >
               <div className="flex justify-between items-center mb-8">
-                <h3 className="text-2xl font-semibold text-off-white font-heading">Start a project</h3>
-                <button 
+                <h3 className="text-2xl font-semibold text-slate-900 font-heading">
+                  Get in touch
+                </h3>
+                <button
                   onClick={closeContact}
-                  className="p-2 bg-white/5 rounded-full hover:bg-white/10 transition-colors"
+                  className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors"
                 >
-                  <X className="w-5 h-5 text-soft-gray" />
+                  <X className="w-5 h-5 text-slate-500" />
                 </button>
               </div>
 
-              <form className="flex-1 flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <input
-                    type="text"
+              <form
+                className="flex-1 flex flex-col gap-4"
+                onSubmit={handleSubmit}
+              >
+                <div className="flex flex-col gap-1">
+                  <AnimatedInput
                     placeholder="Your Name"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-off-white outline-none focus:border-electric-blue transition-colors placeholder:text-soft-gray/50"
+                    value={formData.name}
+                    onChange={(e) => handleInputChange(e, 'name')}
                   />
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  <input
-                    type="email"
+                  {errors.name && <p className="text-[10px] text-red-500 ml-1">{errors.name}</p>}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <AnimatedInput
                     placeholder="Email Address"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-off-white outline-none focus:border-electric-blue transition-colors placeholder:text-soft-gray/50"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange(e, 'email')}
                   />
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="flex-1"
-                >
-                  <textarea
+                  {errors.email && <p className="text-[10px] text-red-500 ml-1">{errors.email}</p>}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <AnimatedInput
+                    placeholder="Phone Number"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange(e, 'phone')}
+                  />
+                  {errors.phone && <p className="text-[10px] text-red-500 ml-1">{errors.phone}</p>}
+                </div>
+
+                <div className="flex-1 flex flex-col gap-1">
+                  <AnimatedInput
                     placeholder="Tell me about your project..."
-                    className="w-full h-full min-h-[120px] bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-off-white outline-none focus:border-electric-blue transition-colors resize-none placeholder:text-soft-gray/50"
+                    isTextArea
+                    value={formData.message}
+                    onChange={(e) => handleInputChange(e, 'message')}
                   />
-                </motion.div>
+                  {errors.message && <p className="text-[10px] text-red-500 ml-1">{errors.message}</p>}
+                </div>
+
                 <motion.button
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="w-full mt-auto bg-electric-blue text-white font-medium py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-blue-500 transition-colors"
+                  type="submit"
+                  disabled={!isFormValid || isSubmitting}
+                  className={`w-full mt-auto font-medium py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 ${isFormValid && !isSubmitting
+                    ? "bg-electric-blue text-white hover:bg-blue-500 shadow-lg shadow-blue-500/20 opacity-100"
+                    : "bg-slate-200 text-slate-400 cursor-not-allowed opacity-70"
+                    }`}
                 >
-                  Send Message <Send className="w-4 h-4" />
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      Sending... <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    </span>
+                  ) : (
+                    <>Send Message <Send className="w-4 h-4" /></>
+                  )}
                 </motion.button>
+                
+                {!isFormValid && !isSubmitting && (formData.name !== "" || formData.message !== "" || formData.email !== "" || formData.phone !== "") && (
+                  <p className="text-[10px] text-slate-400 text-center mt-2">
+                    Please fix the errors above to send your message.
+                  </p>
+                )}
               </form>
             </motion.div>
           )}

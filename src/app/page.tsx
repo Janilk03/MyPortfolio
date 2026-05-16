@@ -7,6 +7,7 @@ import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
 import { AboutMe } from "@/components/sections/AboutMe";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ContactExperience } from "@/components/sections/ContactExperience";
+import { Footer } from "@/components/ui/Footer";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <FeaturedProjects />
       <AboutMe />
       <SkillsSection />
+      <Footer />
       <ContactExperience />
     </main>
   );

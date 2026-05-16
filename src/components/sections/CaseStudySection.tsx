@@ -28,7 +28,7 @@ export function CaseStudySection() {
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-24 pt-28 md:px-12 md:pb-32 md:pt-36">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-12 pt-28 md:px-12 md:pb-32 md:pt-24">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}

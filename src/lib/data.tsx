@@ -23,7 +23,7 @@ export const caseStudies: CaseStudy[] = [
     id: "fintech-platform",
     title: "Timesheet Platform Redesign",
     summary:
-      "Information hierarchy and interaction patterns for dense trading data — clarity without cognitive overload.",
+      "The redesign focused on reducing confusion, simplifying timesheet entry, improving workflow visibility, and building a flexible system architecture for future scalability.",
     focus: "UX Architect & UI Builder",
     href: "/case-study/fintech-platform",
     role: "Product Designer",
