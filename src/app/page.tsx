@@ -4,6 +4,7 @@ import { CaseStudySection } from "@/components/sections/CaseStudySection";
 import { AppleScrollStory } from "@/components/sections/AppleScrollStory";
 import { UXProcessTimeline } from "@/components/sections/UXProcessTimeline";
 import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
+import { AboutMe } from "@/components/sections/AboutMe";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ContactExperience } from "@/components/sections/ContactExperience";
 
@@ -13,13 +14,11 @@ export default function Home() {
       <HeroSection />
       <SkillsStrip />
       <CaseStudySection />
-      <AppleScrollStory />
       <UXProcessTimeline />
       <FeaturedProjects />
+      <AboutMe />
       <SkillsSection />
-      <section id="contact" className="scroll-mt-24">
-        <ContactExperience />
-      </section>
+      <ContactExperience />
     </main>
   );
 }

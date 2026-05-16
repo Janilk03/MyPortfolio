@@ -1,11 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send } from "lucide-react";
 
 export function ContactExperience() {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleHash = () => {
+      if (window.location.hash === "#contact") {
+        setIsOpen(true);
+      }
+    };
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
+
+  const closeContact = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setIsOpen(false);
+    if (window.location.hash === "#contact") {
+      window.history.pushState("", document.title, window.location.pathname + window.location.search);
+    }
+  };
 
   return (
     <>
@@ -18,7 +37,7 @@ export function ContactExperience() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
             className="fixed inset-0 bg-matte-black/40 backdrop-blur-sm z-40"
-            onClick={() => setIsOpen(false)}
+            onClick={closeContact}
           />
         )}
       </AnimatePresence>
@@ -29,7 +48,7 @@ export function ContactExperience() {
         data-isopen={isOpen}
         initial={{ borderRadius: 9999 }}
         animate={{
-          borderRadius: isOpen ? "2rem 0 0 0" : "9999px",
+          borderRadius: isOpen ? "0px" : "9999px",
           width: isOpen ? "400px" : "64px",
           height: isOpen ? "500px" : "64px",
         }}
@@ -62,7 +81,7 @@ export function ContactExperience() {
               <div className="flex justify-between items-center mb-8">
                 <h3 className="text-2xl font-semibold text-off-white font-heading">Start a project</h3>
                 <button 
-                  onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
+                  onClick={closeContact}
                   className="p-2 bg-white/5 rounded-full hover:bg-white/10 transition-colors"
                 >
                   <X className="w-5 h-5 text-soft-gray" />

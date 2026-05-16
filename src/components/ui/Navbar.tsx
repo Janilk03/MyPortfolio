@@ -69,6 +69,16 @@ export function Navbar() {
     };
   }, [menuOpen]);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href === "/#contact") {
+      e.preventDefault();
+      window.location.hash = href.replace("/", "");
+      setMenuOpen(false);
+    } else if (href.startsWith("/#")) {
+      setMenuOpen(false);
+    }
+  };
+
   return (
     <>
       <nav
@@ -90,9 +100,14 @@ export function Navbar() {
 
           <div className="hidden items-center gap-3 text-sm font-medium text-slate-900 lg:flex">
             {navLinks.map(({ href, label }) => (
-              <Link key={href} href={href} className="rounded-full px-4 py-2 transition hover:bg-slate-100">
+              <a 
+                key={href} 
+                href={href} 
+                onClick={(e) => handleNavClick(e, href)}
+                className="rounded-full px-4 py-2 transition hover:bg-slate-100"
+              >
                 {label}
-              </Link>
+              </a>
             ))}
           </div>
 
@@ -143,17 +158,17 @@ export function Navbar() {
           >
             <div className="flex flex-col gap-1 text-base font-semibold text-slate-900">
               {navLinks.map(({ href, label }, i) => (
-                <Link key={href} href={href} legacyBehavior passHref>
-                  <motion.a
-                    initial={{ opacity: 0, x: 12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 + i * 0.05 }}
-                    className="rounded-2xl px-4 py-3.5 transition-colors hover:bg-slate-100"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {label}
-                  </motion.a>
-                </Link>
+                <motion.a
+                  key={href}
+                  href={href}
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 + i * 0.05 }}
+                  className="rounded-2xl px-4 py-3.5 transition-colors hover:bg-slate-100"
+                  onClick={(e) => handleNavClick(e as any, href)}
+                >
+                  {label}
+                </motion.a>
               ))}
             </div>
           </motion.div>,
