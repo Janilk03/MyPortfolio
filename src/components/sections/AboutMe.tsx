@@ -67,7 +67,7 @@ export function AboutMe() {
               className="space-y-6 text-slate-400 text-lg md:text-xl leading-relaxed"
             >
               <p>
-                I am a hybrid UI/UX Designer and Front-End Developer with <strong className="text-white">11+ years of experience</strong> crafting intuitive digital experiences.
+                I am a hybrid UI/UX Designer and UI Developer with <strong className="text-white">11+ years of experience</strong> crafting intuitive digital experiences.
               </p>
               <p>
                 Over the last <strong className="text-white">5 years</strong>, my core focus has been architecting complex, enterprise-grade <strong className="text-white">B2B SaaS platforms</strong>, ensuring they are both powerful and user-friendly.
