@@ -43,7 +43,7 @@ export function CaseStudySection() {
             id="case-studies-heading"
             className="max-w-2xl font-heading text-3xl font-semibold tracking-tight text-off-white md:text-4xl"
           >
-            Selected work — depth behind the pixels.
+            Selected Works — Depth behind the pixels.
           </h2>
           <p className="mt-3 text-base leading-relaxed text-soft-gray md:text-lg">
             Three narratives from discovery to shipped UI. Open a study for outcomes, constraints, and craft.

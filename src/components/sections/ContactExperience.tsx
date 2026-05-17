@@ -187,7 +187,7 @@ export function ContactExperience() {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormData({ name: "", email: "", phone: "", message: "" });
-      
+
       setTimeout(() => {
         closeContact();
       }, 3000);
@@ -221,8 +221,8 @@ export function ContactExperience() {
         initial={{ borderRadius: 9999 }}
         animate={{
           borderRadius: 16,
-          width: isOpen ? "min(400px, 90vw)" : "64px",
-          height: isOpen ? (isSubmitted || submitError ? "320px" : "min(570px, 95vh)") : "64px",
+          width: isOpen ? "min(400px, 90vw)" : "48px",
+          height: isOpen ? (isSubmitted || submitError ? "320px" : "min(570px, 95vh)") : "48px",
           bottom: isOpen ? "24px" : "24px",
           right: isOpen ? "24px" : "24px",
         }}
@@ -303,7 +303,7 @@ export function ContactExperience() {
                       <p className="text-slate-500 text-sm">
                         {submitError}
                       </p>
-                      <button 
+                      <button
                         type="button"
                         onClick={() => setSubmitError(null)}
                         className="mt-6 px-6 py-2 bg-slate-100 text-slate-900 rounded-lg text-sm font-semibold hover:bg-slate-200 transition-colors"
@@ -378,7 +378,7 @@ export function ContactExperience() {
                           <>Send Message <Send className="w-4 h-4" /></>
                         )}
                       </motion.button>
-                      
+
                       {!isFormValid && !isSubmitting && (formData.name !== "" || formData.message !== "" || formData.email !== "" || formData.phone !== "") && (
                         <p className="text-[10px] text-slate-400 text-center mt-2">
                           Please fix the errors above to send your message.

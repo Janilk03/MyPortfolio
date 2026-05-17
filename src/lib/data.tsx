@@ -20,14 +20,14 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "fintech-platform",
+    id: "timesheet-platform",
     title: "Timesheet Platform Redesign",
     summary:
       "The redesign focused on reducing confusion, simplifying timesheet entry, improving workflow visibility, and building a flexible system architecture for future scalability.",
     focus: "UX Architect & UI Builder",
-    href: "/case-study/fintech-platform",
-    role: "Product Designer",
-    timeline: "4 Months includes design & development",
+    href: "/case-study/timesheet-platform",
+    role: "UX Designer",
+    timeline: "4 Months Includes Design & Development",
     platform: "B2B SaaS Web Application",
     tools: "Adobe XD • React • MUI (Material UI)",
     heroImage: "/images/timesheet.png",
@@ -181,8 +181,8 @@ export const caseStudies: CaseStudy[] = [
       "A complete system-level rebuild of a legacy pharma enterprise system into a scalable, configurable SaaS ecosystem.",
     focus: "UX Architecture & Systems",
     href: "/case-study/pharma-dms-vms",
-    role: "Product Designer",
-    timeline: "Enterprise Redesign",
+    role: "UX Designer",
+    timeline: "18 Months Includes Design & Development",
     platform: "B2B SaaS Enterprise Application",
     tools: "Adobe XD • React • MUI Design System",
     heroImage: "/images/dms.png",
@@ -190,7 +190,7 @@ export const caseStudies: CaseStudy[] = [
       <div className="grid gap-16 md:gap-24">
         {/* Background & Challenge */}
         <section>
-          <h2 className="mb-6 font-heading text-3xl font-bold tracking-tight text-slate-900">Background & Challenge</h2>
+          <h2 className="mb-6 font-heading text-3xl font-bold tracking-tight text-slate-900">Challenge</h2>
           <div className="prose prose-slate prose-lg max-w-none text-slate-600">
             <p>The existing platform was a legacy enterprise system originally built for pharmaceutical workflows. Over time, the product developed major limitations:</p>
             <ul className="mb-6 grid gap-3 sm:grid-cols-2 list-none pl-0">
@@ -214,7 +214,7 @@ export const caseStudies: CaseStudy[] = [
 
         {/* Key Problems */}
         <section>
-          <h2 className="mb-6 font-heading text-3xl font-bold tracking-tight text-slate-900">Key Problems Identified</h2>
+          <h2 className="mb-6 font-heading text-3xl font-bold tracking-tight text-slate-900">Problem Discovery</h2>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
               <h3 className="mt-0 font-semibold text-slate-900 mb-2">Rigid Data Architecture</h3>
@@ -241,7 +241,7 @@ export const caseStudies: CaseStudy[] = [
 
         {/* Product Vision */}
         <section>
-          <h2 className="mb-6 font-heading text-3xl font-bold tracking-tight text-slate-900">Product Vision & Strategy</h2>
+          <h2 className="mb-6 font-heading text-3xl font-bold tracking-tight text-slate-900">Vision & UX Strategy</h2>
           <div className="prose prose-slate prose-lg max-w-none text-slate-600">
             <p>The redesign focused on transforming the platform into a scalable enterprise SaaS ecosystem, configurable at every level, modular by license structure, and adaptable across multiple pharma organizations.</p>
             <div className="bg-slate-50 p-6 rounded-2xl my-8">
@@ -339,8 +339,8 @@ export const caseStudies: CaseStudy[] = [
       "A centralized enterprise procurement ecosystem unifying fragmented vendor, shipping, and payment workflows.",
     focus: "Enterprise UX & Architecture",
     href: "/case-study/vendor-shipping-portal",
-    role: "Product Designer",
-    timeline: "Platform Rebuild",
+    role: "UX Designer",
+    timeline: "18 Months Includes Design & Development",
     platform: "B2B SaaS Enterprise Application",
     tools: "Adobe XD • React • MUI",
     heroImage: "",
@@ -348,7 +348,7 @@ export const caseStudies: CaseStudy[] = [
       <div className="grid gap-16 md:gap-24">
         {/* Background & Challenge */}
         <section>
-          <h2 className="mb-6 font-heading text-3xl font-bold tracking-tight text-slate-900">Background & Challenge</h2>
+          <h2 className="mb-6 font-heading text-3xl font-bold tracking-tight text-slate-900">Challenge</h2>
           <div className="prose prose-slate prose-lg max-w-none text-slate-600">
             <p>The organization previously operated through multiple disconnected enterprise applications handling vendor management, registration, shipping operations, payments, and SAP-integrated workflows.</p>
             <p>The fragmented ecosystem created several operational and usability problems:</p>

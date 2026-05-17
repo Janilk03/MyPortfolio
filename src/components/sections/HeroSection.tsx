@@ -16,7 +16,7 @@ const HERO_SECOND_MAIN = "Human.";
 const HERO_SECOND_TAGLINE = `${HERO_SECOND_ACCENT}${HERO_SECOND_MAIN}`;
 const HERO_PRIMARY_TAGLINE = `${HERO_H1_LINE1}${HERO_H1_LINE2}`;
 const HERO_BODY =
-  "UX Engineer crafting immersive digital products through AI assisted UI design and front-end engineering.";
+  "UX Engineer crafting immersive digital products through AI assisted UI Design and Front-end Engineering.";
 const TYPEWRITER_MS_SUBTITLE = 52;
 const TYPEWRITER_MS_HEADLINE = 42;
 const TYPEWRITER_MS_BODY = 26;
@@ -78,12 +78,12 @@ function HeroTypewriterIntro() {
   }, [firstPrimaryDone, bodyLen]);
 
   const bodyComplete = bodyLen >= HERO_BODY.length;
-  
+
   const renderBodyText = (text: string) => {
     return text
       .replace("UX Engineer", '<strong class="text-slate-900 font-semibold">UX Engineer</strong>')
-      .replace("AI assisted UI design", '<strong class="text-electric-blue font-semibold">AI assisted</strong> <strong class="text-slate-900 font-semibold">UI design</strong>')
-      .replace("front-end engineering", '<strong class="text-slate-900 font-semibold">front-end engineering</strong>');
+      .replace("AI assisted UI Design", '<strong class="text-slate-900 font-semibold">AI assisted UI Design</strong>')
+      .replace("Front-end Engineering", '<strong class="text-slate-900 font-semibold">Front-end Engineering</strong>');
   };
 
   const visibleHeadline = (activeTagline === "primary" ? HERO_PRIMARY_TAGLINE : HERO_SECOND_TAGLINE).slice(0, headlineLen);
@@ -145,11 +145,32 @@ function HeroTypewriterIntro() {
           >
             View My Work
           </a>
-          <a
+          {/* <a
             href="#contact"
             className="inline-flex items-center rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-900 shadow-[inset_8px_8px_20px_rgba(15,23,42,0.06),inset_-8px_-8px_20px_rgba(255,255,255,0.8)] transition hover:bg-slate-50"
           >
             Contact
+          </a> */}
+          <a
+            href="/resume.pdf"
+            download
+            className="group inline-flex items-center rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-900 shadow-[inset_8px_8px_20px_rgba(15,23,42,0.06),inset_-8px_-8px_20px_rgba(255,255,255,0.8)] transition hover:bg-slate-50 hover:-translate-y-0.5"
+          >
+            <svg
+              className="mr-2 h-5 w-5 text-red-500 transition-transform group-hover:scale-110"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+              <polyline points="14 2 14 8 20 8" />
+              <path d="M9 15h3a1.5 1.5 0 0 0 0-3H9v6" />
+              <path d="M15 12v6h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2z" />
+            </svg>
+            Download CV
           </a>
         </motion.div>
       ) : null}

@@ -12,6 +12,8 @@ const skills = [
   "Figma",
   "Adobe XD",
   "Framer",
+  "Antigravity",
+  "Cursor",
   "HTML5",
   "css3",
   "React JS",
@@ -26,7 +28,7 @@ export function SkillsSection() {
   return (
     <section className="py-32 bg-matte-black text-off-white overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 text-center">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -43,8 +45,8 @@ export function SkillsSection() {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05, type: "spring", stiffness: 200, damping: 20 }}
-              whileHover={{ 
-                scale: 1.1, 
+              whileHover={{
+                scale: 1.1,
                 rotate: Math.random() * 6 - 3, // Random slight rotation between -3 and 3 degrees
                 backgroundColor: "rgba(41, 151, 255, 0.1)",
                 borderColor: "rgba(41, 151, 255, 0.5)",
