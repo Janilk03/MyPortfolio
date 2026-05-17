@@ -28,13 +28,13 @@ export function CaseStudySection() {
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-12 pt-28 md:px-12 md:pb-32 md:pt-24">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-12 pt-12 md:px-12 md:pb-32 md:pt-24">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-16 md:mb-20"
+          className="mb-12 md:mb-12"
         >
           <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.35em] text-soft-gray">
             Case studies
@@ -45,8 +45,11 @@ export function CaseStudySection() {
           >
             Selected work — depth behind the pixels.
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-soft-gray md:text-lg">
+          <p className="mt-3 text-base leading-relaxed text-soft-gray md:text-lg">
             Three narratives from discovery to shipped UI. Open a study for outcomes, constraints, and craft.
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-soft-gray italic">
+            <span className="font-bold not-italic text-off-white">Note: </span>The images used in these case studies are AI-generated, as real images cannot be published due to privacy policies.
           </p>
         </motion.div>
 

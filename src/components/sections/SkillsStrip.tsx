@@ -6,11 +6,12 @@ const skills = [
   "UI/UX Design",
   "Information Architecture",
   "Visualization",
-  "Front-End Development",
+  "Wirefrraming",
+  "UI Development",
   "System Thinking",
   "Design Systems",
   "Interaction Motion",
-  "Typography",
+  "Prototyping",
 ];
 
 // 4 copies ensures it's wide enough for any ultra-wide screen

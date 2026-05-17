@@ -3,23 +3,23 @@
 import { motion } from "framer-motion";
 
 const skills = [
-  "UX Design",
-  "UI Design",
+  "User Research",
+  "UI/UX Design",
   "UI Development",
+  "Information Architecture",
   "Wireframing",
-  "Prototype",
+  "Prototyping",
   "Figma",
   "Adobe XD",
   "Framer",
-  "React",
-  "Next.js",
+  "HTML5",
+  "css3",
+  "React JS",
+  "Next JS",
   "JavaScript",
   "TypeScript",
-  "Framer Motion",
   "Design Systems",
-  "Accessibility",
   "Motion Design",
-  "User Research",
 ];
 
 export function SkillsSection() {
