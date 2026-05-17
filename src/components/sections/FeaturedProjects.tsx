@@ -30,7 +30,7 @@ export function FeaturedProjects() {
     <section id="works" className="py-24 bg-matte-black scroll-mt-24">
       <div className="container px-6 md:px-12 mb-12">
         <h2 className="text-4xl md:text-5xl font-heading font-semibold text-off-white">
-          Publicly Shareable Work
+          Public-Facing Works
         </h2>
       </div>
 
