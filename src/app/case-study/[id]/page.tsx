@@ -33,7 +33,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
             Home
           </Link>
           <ChevronRight className="h-4 w-4" />
-          <Link href="/#works" className="transition-colors hover:text-slate-900">
+          <Link href="/#case-studies" className="transition-colors hover:text-slate-900">
             Works
           </Link>
           <ChevronRight className="h-4 w-4" />
@@ -134,7 +134,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
         {/* Footer Navigation */}
         <div className="mt-24 flex border-t border-slate-200 pt-12">
           <Link
-            href="/#works"
+            href="/#case-studies"
             className="group inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50 hover:shadow-md"
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />

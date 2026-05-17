@@ -28,12 +28,6 @@ export function Footer() {
             >
               Dribbble
             </a>
-            <a 
-              href="mailto:hello@example.com"
-              className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors"
-            >
-              Email
-            </a>
           </div>
         </div>
       </div>

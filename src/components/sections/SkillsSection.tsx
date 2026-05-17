@@ -4,14 +4,21 @@ import { motion } from "framer-motion";
 
 const skills = [
   "UX Design",
+  "UI Design",
+  "UI Development",
+  "Wireframing",
+  "Prototype",
+  "Figma",
+  "Adobe XD",
+  "Framer",
   "React",
   "Next.js",
+  "JavaScript",
+  "TypeScript",
   "Framer Motion",
-  "Figma",
   "Design Systems",
   "Accessibility",
   "Motion Design",
-  "TypeScript",
   "User Research",
 ];
 

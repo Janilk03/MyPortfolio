@@ -10,12 +10,14 @@ function AnimatedInput({
   onChange,
   type = "text",
   isTextArea = false,
+  name,
 }: {
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   type?: string;
   isTextArea?: boolean;
+  name?: string;
 }) {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -49,6 +51,7 @@ function AnimatedInput({
 
       {isTextArea ? (
         <textarea
+          name={name}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -59,6 +62,7 @@ function AnimatedInput({
       ) : (
         <input
           type={type}
+          name={name}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -160,48 +164,26 @@ export function ContactExperience() {
 
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isFormValid || isSubmitting) return;
+  const handleSubmit = (e: React.FormEvent) => {
+    // Initial connection check
+    if (!navigator.onLine) {
+      e.preventDefault(); // Stop standard form submission
+      setSubmitError("It seems you are offline. Please check your internet connection.");
+      return;
+    }
+
+    if (!isFormValid || isSubmitting) {
+      e.preventDefault(); // Stop standard form submission if invalid/submitting
+      return;
+    }
 
     setSubmitError(null);
     setIsSubmitting(true);
 
-    // Initial check
-    if (!navigator.onLine) {
-      setSubmitError("It seems you are offline. Please check your internet connection.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdNNqOVmH68SvWdDR5yY0USQbepy5I7VAZ98qGds5IEvFgTJQ/formResponse";
-    
-    const body = new URLSearchParams();
-    body.append("entry.2005620554", formData.name);
-    body.append("entry.1045781291", formData.email);
-    body.append("entry.1166974658", formData.phone);
-    body.append("entry.839337160", formData.message);
-    
-    // Hidden validation fields from your Google Form
-    body.append("fvv", "1");
-    body.append("pageHistory", "0");
-    body.append("fbzx", "-2105693422741144396");
-
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      await fetch(googleFormUrl, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: body.toString(),
-        signal: controller.signal
-      });
-
-      clearTimeout(timeoutId);
+    // Let the standard browser form submission execute to target="hidden_iframe".
+    // This successfully sends the data to Google Forms, bypassing CORS.
+    // We simulate a 1.5s delay to show the sending state, then transition to success.
+    setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormData({ name: "", email: "", phone: "", message: "" });
@@ -209,17 +191,7 @@ export function ContactExperience() {
       setTimeout(() => {
         closeContact();
       }, 3000);
-
-    } catch (err) {
-      console.error("Submission error details:", err);
-      setIsSubmitting(false);
-      
-      if (err instanceof Error && err.name === 'AbortError') {
-        setSubmitError("Request timed out. Your connection might be too slow.");
-      } else {
-        setSubmitError("Submission failed. This usually happens if you are offline or the connection was reset.");
-      }
-    }
+    }, 1500);
   };
 
   return (
@@ -237,13 +209,20 @@ export function ContactExperience() {
         )}
       </AnimatePresence>
 
+      {/* Hidden iframe to handle Google Form submission without page reload */}
+      <iframe
+        name="hidden_iframe"
+        id="hidden_iframe"
+        style={{ display: "none" }}
+      />
+
       <motion.div
         data-isopen={isOpen}
         initial={{ borderRadius: 9999 }}
         animate={{
           borderRadius: 16,
           width: isOpen ? "min(400px, 90vw)" : "64px",
-          height: isOpen ? (isSubmitted || submitError ? "320px" : "min(680px, 95vh)") : "64px",
+          height: isOpen ? (isSubmitted || submitError ? "320px" : "min(570px, 95vh)") : "64px",
           bottom: isOpen ? "24px" : "24px",
           right: isOpen ? "24px" : "24px",
         }}
@@ -265,45 +244,9 @@ export function ContactExperience() {
             >
               <MessageSquare className="w-6 h-6 text-slate-900" />
             </motion.div>
-          ) : isSubmitted ? (
-            <motion.div
-              key="success"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="w-full h-full p-8 flex flex-col items-center justify-center text-center"
-            >
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                <Send className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-2xl font-semibold text-slate-900 mb-2">Message Sent!</h3>
-              <p className="text-slate-500">
-                Thank you for reaching out. I&apos;ll get back to you as soon as possible.
-              </p>
-            </motion.div>
-          ) : submitError ? (
-            <motion.div
-              key="error"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="w-full h-full p-8 flex flex-col items-center justify-center text-center"
-            >
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
-                <X className="w-8 h-8 text-red-600" />
-              </div>
-              <h3 className="text-2xl font-semibold text-slate-900 mb-2">Oops!</h3>
-              <p className="text-slate-500 text-sm">
-                {submitError}
-              </p>
-              <button 
-                onClick={() => setSubmitError(null)}
-                className="mt-6 px-6 py-2 bg-slate-100 text-slate-900 rounded-lg text-sm font-semibold hover:bg-slate-200 transition-colors"
-              >
-                Try Again
-              </button>
-            </motion.div>
           ) : (
             <motion.div
-              key="form"
+              key="form-container"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.2 } }}
@@ -315,6 +258,7 @@ export function ContactExperience() {
                   Get in touch
                 </h3>
                 <button
+                  type="button"
                   onClick={closeContact}
                   className="p-2 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors"
                 >
@@ -323,70 +267,126 @@ export function ContactExperience() {
               </div>
 
               <form
+                action="https://docs.google.com/forms/d/e/1FAIpQLSdNNqOVmH68SvWdDR5yY0USQbepy5I7VAZ98qGds5IEvFgTJQ/formResponse"
+                method="POST"
+                target="hidden_iframe"
                 className="flex-1 flex flex-col gap-4"
                 onSubmit={handleSubmit}
               >
-                <div className="flex flex-col gap-1">
-                  <AnimatedInput
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={(e) => handleInputChange(e, 'name')}
-                  />
-                  {errors.name && <p className="text-[10px] text-red-500 ml-1">{errors.name}</p>}
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <AnimatedInput
-                    placeholder="Email Address"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange(e, 'email')}
-                  />
-                  {errors.email && <p className="text-[10px] text-red-500 ml-1">{errors.email}</p>}
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <AnimatedInput
-                    placeholder="Phone Number"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange(e, 'phone')}
-                  />
-                  {errors.phone && <p className="text-[10px] text-red-500 ml-1">{errors.phone}</p>}
-                </div>
-
-                <div className="flex-1 flex flex-col gap-1">
-                  <AnimatedInput
-                    placeholder="Tell me about your project..."
-                    isTextArea
-                    value={formData.message}
-                    onChange={(e) => handleInputChange(e, 'message')}
-                  />
-                  {errors.message && <p className="text-[10px] text-red-500 ml-1">{errors.message}</p>}
-                </div>
-
-                <motion.button
-                  type="submit"
-                  disabled={!isFormValid || isSubmitting}
-                  className={`w-full mt-auto font-medium py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 ${isFormValid && !isSubmitting
-                    ? "bg-electric-blue text-white hover:bg-blue-500 shadow-lg shadow-blue-500/20 opacity-100"
-                    : "bg-slate-200 text-slate-400 cursor-not-allowed opacity-70"
-                    }`}
-                >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      Sending... <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    </span>
+                <AnimatePresence mode="wait">
+                  {isSubmitted ? (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="w-full h-full flex flex-col items-center justify-center text-center py-8"
+                    >
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                        <Send className="w-8 h-8 text-green-600" />
+                      </div>
+                      <h3 className="text-2xl font-semibold text-slate-900 mb-2">Message Sent!</h3>
+                      <p className="text-slate-500">
+                        Thank you for reaching out. I&apos;ll get back to you as soon as possible.
+                      </p>
+                    </motion.div>
+                  ) : submitError ? (
+                    <motion.div
+                      key="error"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="w-full h-full flex flex-col items-center justify-center text-center py-8"
+                    >
+                      <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                        <X className="w-8 h-8 text-red-600" />
+                      </div>
+                      <h3 className="text-2xl font-semibold text-slate-900 mb-2">Oops!</h3>
+                      <p className="text-slate-500 text-sm">
+                        {submitError}
+                      </p>
+                      <button 
+                        type="button"
+                        onClick={() => setSubmitError(null)}
+                        className="mt-6 px-6 py-2 bg-slate-100 text-slate-900 rounded-lg text-sm font-semibold hover:bg-slate-200 transition-colors"
+                      >
+                        Try Again
+                      </button>
+                    </motion.div>
                   ) : (
-                    <>Send Message <Send className="w-4 h-4" /></>
+                    <motion.div
+                      key="fields"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex-1 flex flex-col gap-4"
+                    >
+                      <div className="flex flex-col gap-1">
+                        <AnimatedInput
+                          name="entry.2005620554"
+                          placeholder="Your Name"
+                          value={formData.name}
+                          onChange={(e) => handleInputChange(e, 'name')}
+                        />
+                        {errors.name && <p className="text-[10px] text-red-500 ml-1">{errors.name}</p>}
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <AnimatedInput
+                          name="entry.1045781291"
+                          placeholder="Email Address"
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => handleInputChange(e, 'email')}
+                        />
+                        {errors.email && <p className="text-[10px] text-red-500 ml-1">{errors.email}</p>}
+                      </div>
+
+                      <div className="flex flex-col gap-1">
+                        <AnimatedInput
+                          name="entry.1166974658"
+                          placeholder="Phone Number"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => handleInputChange(e, 'phone')}
+                        />
+                        {errors.phone && <p className="text-[10px] text-red-500 ml-1">{errors.phone}</p>}
+                      </div>
+
+                      <div className="flex-1 flex flex-col gap-1">
+                        <AnimatedInput
+                          name="entry.839337160"
+                          placeholder="Write your message..."
+                          isTextArea
+                          value={formData.message}
+                          onChange={(e) => handleInputChange(e, 'message')}
+                        />
+                        {errors.message && <p className="text-[10px] text-red-500 ml-1">{errors.message}</p>}
+                      </div>
+
+                      <motion.button
+                        type="submit"
+                        disabled={!isFormValid || isSubmitting}
+                        className={`w-full mt-auto font-medium py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 ${isFormValid && !isSubmitting
+                          ? "bg-electric-blue text-white hover:bg-blue-500 shadow-lg shadow-blue-500/20 opacity-100"
+                          : "bg-slate-200 text-slate-400 cursor-not-allowed opacity-70"
+                          }`}
+                      >
+                        {isSubmitting ? (
+                          <span className="flex items-center gap-2">
+                            Sending... <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          </span>
+                        ) : (
+                          <>Send Message <Send className="w-4 h-4" /></>
+                        )}
+                      </motion.button>
+                      
+                      {!isFormValid && !isSubmitting && (formData.name !== "" || formData.message !== "" || formData.email !== "" || formData.phone !== "") && (
+                        <p className="text-[10px] text-slate-400 text-center mt-2">
+                          Please fix the errors above to send your message.
+                        </p>
+                      )}
+                    </motion.div>
                   )}
-                </motion.button>
-                
-                {!isFormValid && !isSubmitting && (formData.name !== "" || formData.message !== "" || formData.email !== "" || formData.phone !== "") && (
-                  <p className="text-[10px] text-slate-400 text-center mt-2">
-                    Please fix the errors above to send your message.
-                  </p>
-                )}
+                </AnimatePresence>
               </form>
             </motion.div>
           )}

@@ -140,7 +140,7 @@ function HeroTypewriterIntro() {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <a
-            href="#works"
+            href="#case-studies"
             className="inline-flex items-center rounded-full bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5"
           >
             View My Work
@@ -188,7 +188,7 @@ export function HeroSection() {
       </motion.div>
 
       <ScrollDownButton
-        href="#about-me"
+        href="#case-studies"
         className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 md:bottom-12"
       />
     </section>

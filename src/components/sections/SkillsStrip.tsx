@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 const skills = [
   "UI/UX Design",
+  "Information Architecture",
   "Visualization",
   "Front-End Development",
   "System Thinking",
