@@ -34,7 +34,7 @@ export function FeaturedProjects() {
         </h2>
       </div>
 
-      <div className="flex gap-6 md:gap-8 px-6 md:px-12 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-8">
+      <div className="flex gap-6 md:gap-8 px-6 md:px-12 scroll-pl-6 md:scroll-pl-12 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-8">
         {projects.map((project) => (
           <motion.div
             key={project.id}
