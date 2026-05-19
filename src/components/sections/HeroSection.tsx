@@ -8,7 +8,7 @@ import { Navbar } from "@/components/ui/Navbar";
 import Image from "next/image";
 
 const HERO_SUBTITLE = "Janil K. UX Engineer.";
-const HERO_H1_LINE1 = "Designing interfaces that ";
+const HERO_H1_LINE1 = "Designing AI Products that ";
 const HERO_H1_LINE2 = "feel alive.";
 /** First segment: normal headline weight/color; second segment: italic + electric blue */
 const HERO_SECOND_ACCENT = "Powered by AI, Shaped by";
