@@ -93,7 +93,7 @@ export function AstraConceptSection() {
           </span>
           <h2
             id="astra-heading"
-            className="font-heading text-4xl font-bold tracking-tight text-off-white md:text-5xl lg:text-6xl mt-3"
+            className="font-heading text-4xl md:text-5xl font-semibold tracking-tight text-off-white mt-3"
           >
             Astra — AI Productivity Assistant
           </h2>
