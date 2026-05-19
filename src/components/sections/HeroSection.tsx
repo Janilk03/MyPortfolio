@@ -152,8 +152,8 @@ function HeroTypewriterIntro() {
             Contact
           </a> */}
           <a
-            href="/resume.pdf"
-            download
+            href="/cv/Janil%20K-%20Ux-Resume-26.pdf"
+            download="Janil K- Ux-Resume-26.pdf"
             className="group inline-flex items-center rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-900 shadow-[inset_8px_8px_20px_rgba(15,23,42,0.06),inset_-8px_-8px_20px_rgba(255,255,255,0.8)] transition hover:bg-slate-50 hover:-translate-y-0.5"
           >
             <svg
