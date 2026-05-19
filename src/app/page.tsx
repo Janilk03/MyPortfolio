@@ -1,6 +1,7 @@
 import { HeroSection } from "@/components/sections/HeroSection";
 import { SkillsStrip } from "@/components/sections/SkillsStrip";
 import { CaseStudySection } from "@/components/sections/CaseStudySection";
+import { AstraConceptSection } from "@/components/sections/AstraConceptSection";
 import { AppleScrollStory } from "@/components/sections/AppleScrollStory";
 import { UXProcessTimeline } from "@/components/sections/UXProcessTimeline";
 import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSection />
       <SkillsStrip />
       <CaseStudySection />
+      <AstraConceptSection />
       <UXProcessTimeline />
       <FeaturedProjects />
       <AboutMe />
