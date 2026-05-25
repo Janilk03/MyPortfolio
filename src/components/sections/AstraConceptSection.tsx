@@ -78,7 +78,7 @@ export function AstraConceptSection() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-24 pt-20 md:px-12 md:pb-32 md:pt-28">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-24 pt-20 md:px-12 md:pb-24 md:pt-12">
 
         {/* Header */}
         <motion.div
@@ -156,8 +156,8 @@ export function AstraConceptSection() {
                   key={screen.id}
                   onClick={() => setActiveScreenIndex(idx)}
                   className={`relative h-14 w-10 md:h-16 md:w-11 rounded-lg overflow-hidden border-2 transition-all duration-300 ${activeScreenIndex === idx
-                      ? "border-electric-blue shadow-lg scale-105"
-                      : "border-transparent opacity-60 hover:opacity-100 hover:scale-102"
+                    ? "border-electric-blue shadow-lg scale-105"
+                    : "border-transparent opacity-60 hover:opacity-100 hover:scale-102"
                     }`}
                   aria-label={`View ${screen.subtitle}`}
                 >
@@ -197,8 +197,8 @@ export function AstraConceptSection() {
                     key={screen.id}
                     onClick={() => setActiveScreenIndex(idx)}
                     className={`flex flex-col items-center justify-center p-3 rounded-xl transition-all duration-300 ${activeScreenIndex === idx
-                        ? "bg-white text-electric-blue shadow-[0_4px_12px_-2px_rgba(59,130,246,0.12)] border border-electric-blue/10"
-                        : "text-soft-gray hover:text-off-white hover:bg-white/30"
+                      ? "bg-white text-electric-blue shadow-[0_4px_12px_-2px_rgba(59,130,246,0.12)] border border-electric-blue/10"
+                      : "text-soft-gray hover:text-off-white hover:bg-white/30"
                       }`}
                   >
                     <Icon className="h-5 w-5 mb-1.5 shrink-0" />
