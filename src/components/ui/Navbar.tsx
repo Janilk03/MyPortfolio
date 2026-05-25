@@ -7,13 +7,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navLinks = [
-  { href: "/#home", label: "Home" },
-  { href: "/#about-me", label: "About Me" },
-  { href: "/#case-studies", label: "Works" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/#home", label: "Home", id: "home" },
+  { href: "/#about-me", label: "About Me", id: "about-me" },
+  { href: "/#case-studies", label: "Works", id: "case-studies" },
+  { href: "/#contact", label: "Contact", id: "contact" },
 ] as const;
 
-/** Past this scroll offset the bar hides on scroll-down and shows on scroll-up */
 const TOP_ALWAYS_VISIBLE_PX = 88;
 const SCROLL_DELTA_PX = 10;
 
@@ -21,10 +20,40 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [navRevealed, setNavRevealed] = useState(true);
   const [scrollPastHero, setScrollPastHero] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   
   const lastScrollRef = useRef(0);
   const revealedRef = useRef(true);
   const scrollPastHeroRef = useRef(false);
+
+  // Active section tracking via Intersection Observer
+  useEffect(() => {
+    const sections = ["home", "about-me", "case-studies", "contact"];
+    const observers = sections.map((id) => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          });
+        },
+        { rootMargin: "-35% 0px -50% 0px" }
+      );
+      
+      observer.observe(el);
+      return { observer, el };
+    });
+
+    return () => {
+      observers.forEach((obs) => {
+        if (obs) obs.observer.unobserve(obs.el);
+      });
+    };
+  }, []);
 
   useLenis((lenis) => {
     const y = lenis.animatedScroll;
@@ -53,7 +82,6 @@ export function Navbar() {
   }, []);
 
   const showNavBar = menuOpen || navRevealed;
-  const navFloatingBg = showNavBar && scrollPastHero;
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -82,49 +110,85 @@ export function Navbar() {
   return (
     <>
       <nav
-        className={`fixed inset-x-0 top-0 px-6 py-5 md:px-12 transition-[transform,background-color,backdrop-filter] duration-300 ease-out motion-reduce:transition-none ${menuOpen ? "z-[80]" : "z-[60]"} ${showNavBar ? "translate-y-0" : "-translate-y-full pointer-events-none"} ${navFloatingBg ? "bg-white/65 backdrop-blur-md" : ""}`}
+        className={`fixed top-6 left-1/2 -translate-x-1/2 z-[60] w-[calc(100%-2rem)] max-w-2xl px-4 py-2.5 rounded-full border transition-[transform,background-color,border-color,box-shadow] duration-500 ease-out motion-reduce:transition-none ${
+          menuOpen ? "z-[80]" : "z-[60]"
+        } ${
+          showNavBar ? "translate-y-0" : "-translate-y-[150%] pointer-events-none"
+        } ${
+          scrollPastHero
+            ? "bg-slate-950/80 border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.37)] text-white backdrop-blur-md"
+            : "bg-white/80 border-slate-200/60 shadow-[0_8px_32px_rgba(15,23,42,0.06)] text-slate-900 backdrop-blur-md"
+        }`}
         aria-label="Primary"
         aria-hidden={!showNavBar}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <Link href="/#home" className="relative h-10 w-10 overflow-hidden rounded-full border border-slate-200 bg-white/90 shadow-[8px_8px_20px_rgba(15,23,42,0.08),-8px_-8px_20px_rgba(255,255,255,0.9)]">
+        <div className="flex items-center justify-between">
+          {/* Compact Logo */}
+          <Link
+            href="/#home"
+            className={`relative h-8 w-8 overflow-hidden rounded-full border transition-all duration-500 shadow-sm hover:scale-105 shrink-0 ${
+              scrollPastHero ? "border-white/10 bg-white/5" : "border-slate-200 bg-white/90"
+            }`}
+          >
             <Image
               src="/images/logo.png"
               alt="Logo"
               fill
-              sizes="40px"
+              sizes="32px"
               priority
               className="object-cover"
             />
           </Link>
 
-          <div className="hidden items-center gap-3 text-sm font-medium text-slate-900 lg:flex">
-            {navLinks.map(({ href, label }) => (
-              <a 
-                key={href} 
-                href={href} 
-                onClick={(e) => handleNavClick(e, href)}
-                className="rounded-full px-4 py-2 transition hover:bg-slate-100"
-              >
-                {label}
-              </a>
-            ))}
+          {/* Centered Capsule Desktop Nav Links */}
+          <div className="hidden items-center gap-1 text-[13px] font-semibold lg:flex">
+            {navLinks.map(({ href, label, id }) => {
+              const isActive = activeSection === id;
+              return (
+                <a 
+                  key={href} 
+                  href={href} 
+                  onClick={(e) => handleNavClick(e, href)}
+                  className={`relative rounded-full px-4 py-2 transition-colors duration-300 ${
+                    isActive 
+                      ? "text-white" 
+                      : scrollPastHero 
+                        ? "text-slate-400 hover:text-white" 
+                        : "text-slate-600 hover:text-slate-950"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeNavBackground"
+                      className="absolute inset-0 z-0 rounded-full bg-[#2997ff] shadow-[0_2px_12px_rgba(41,151,255,0.4)]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{label}</span>
+                </a>
+              );
+            })}
           </div>
 
+          {/* Compact Menu Button (Mobile) */}
           <button
             type="button"
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-900 shadow-[8px_8px_20px_rgba(15,23,42,0.08),-8px_-8px_20px_rgba(255,255,255,0.9)] transition hover:bg-slate-50 lg:hidden"
+            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300 hover:scale-105 lg:hidden ${
+              scrollPastHero 
+                ? "border-white/10 bg-white/5 text-white hover:bg-white/10" 
+                : "border-slate-200 bg-white/90 text-slate-900 hover:bg-slate-50"
+            }`}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav-panel"
             aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             onClick={() => setMenuOpen((open) => !open)}
           >
             {menuOpen ? (
-              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
                 <path d="M4 7h16M4 12h16M4 17h16" />
               </svg>
             )}
@@ -132,6 +196,7 @@ export function Navbar() {
         </div>
       </nav>
 
+      {/* Mobile Drawer Panel */}
       <AnimatePresence>
         {menuOpen && [
           <motion.div
@@ -140,7 +205,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[75] bg-slate-900/35 backdrop-blur-sm lg:hidden"
+            className="fixed inset-0 z-[75] bg-slate-950/40 backdrop-blur-sm lg:hidden"
             aria-hidden
             onClick={() => setMenuOpen(false)}
           />,
@@ -154,22 +219,32 @@ export function Navbar() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: "100%", opacity: 0.6 }}
             transition={{ type: "spring", damping: 30, stiffness: 320 }}
-            className="fixed inset-y-0 right-0 z-[76] flex w-[min(100vw-2.5rem,18rem)] flex-col border-l border-slate-200 bg-white/95 px-6 pt-24 pb-10 shadow-2xl backdrop-blur-xl lg:hidden"
+            className="fixed inset-y-0 right-0 z-[76] flex w-[min(100vw-2.5rem,18rem)] flex-col border-l border-slate-800 bg-slate-950/95 px-6 pt-24 pb-10 shadow-2xl backdrop-blur-xl lg:hidden"
           >
-            <div className="flex flex-col gap-1 text-base font-semibold text-slate-900">
-              {navLinks.map(({ href, label }, i) => (
-                <motion.a
-                  key={href}
-                  href={href}
-                  initial={{ opacity: 0, x: 12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 + i * 0.05 }}
-                  className="rounded-2xl px-4 py-3.5 transition-colors hover:bg-slate-100"
-                  onClick={(e) => handleNavClick(e as any, href)}
-                >
-                  {label}
-                </motion.a>
-              ))}
+            <div className="flex flex-col gap-1 text-base font-semibold text-slate-300">
+              {navLinks.map(({ href, label, id }, i) => {
+                const isActive = activeSection === id;
+                return (
+                  <motion.a
+                    key={href}
+                    href={href}
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 + i * 0.05 }}
+                    className={`rounded-2xl px-4 py-3.5 transition-all duration-300 flex items-center justify-between ${
+                      isActive 
+                        ? "text-[#2997ff] bg-white/[0.03]" 
+                        : "hover:bg-white/[0.02]"
+                    }`}
+                    onClick={(e) => handleNavClick(e as any, href)}
+                  >
+                    <span>{label}</span>
+                    {isActive && (
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#2997ff]" />
+                    )}
+                  </motion.a>
+                );
+              })}
             </div>
           </motion.div>,
         ]}

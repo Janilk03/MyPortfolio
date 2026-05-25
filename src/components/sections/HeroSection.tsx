@@ -81,9 +81,9 @@ function HeroTypewriterIntro() {
 
   const renderBodyText = (text: string) => {
     return text
-      .replace("UX Engineer", '<strong class="text-slate-900 font-semibold">UX Engineer</strong>')
-      .replace("AI assisted UI Design", '<strong class="text-slate-900 font-semibold">AI assisted UI Design</strong>')
-      .replace("Front-end Engineering", '<strong class="text-slate-900 font-semibold">Front-end Engineering</strong>');
+      .replace("UX Engineer", '<strong class="text-white bg-clip-text text-transparent font-bold inline-block">UX Engineer</strong>')
+      .replace("AI assisted UI Design", '<strong class="text-white font-bold">AI assisted UI Design</strong>')
+      .replace("Front-end Engineering", '<strong class="text-white font-bold">Front-end Engineering</strong>');
   };
 
   const visibleHeadline = (activeTagline === "primary" ? HERO_PRIMARY_TAGLINE : HERO_SECOND_TAGLINE).slice(0, headlineLen);
@@ -102,7 +102,7 @@ function HeroTypewriterIntro() {
 
   return (
     <>
-      <p className="min-h-[1.35em] text-sm font-bold md:font-semibold uppercase tracking-[0.55em] text-slate-900">
+      <p className="min-h-[1.35em] text-sm font-bold md:font-semibold uppercase tracking-[0.55em] text-white bg-clip-text text-transparent inline-block">
         {HERO_SUBTITLE.slice(0, subLen)}
       </p>
       <h1
@@ -111,24 +111,24 @@ function HeroTypewriterIntro() {
       >
         {activeTagline === "primary" ? (
           <>
-            {visibleMainLine}
+            <span className="text-white">{visibleMainLine}</span>
             {visibleAccentLine ? <br /> : null}
-            <span className="text-electric-blue italic">{visibleAccentLine}</span>
+            <span className="bg-gradient-to-r from-[#155dfc] to-[#2997ff] bg-clip-text text-transparent italic inline-block">{visibleAccentLine}</span>
           </>
         ) : (
           <>
-            <span>{visibleAccentLine}</span>
+            <span className="text-white">{visibleAccentLine}</span>
             {visibleMainLine ? (
               <>
                 <br />
-                <span className="text-electric-blue italic">{visibleMainLine}</span>
+                <span className="bg-gradient-to-r from-[#155dfc] to-[#2997ff] bg-clip-text text-transparent italic inline-block">{visibleMainLine}</span>
               </>
             ) : null}
           </>
         )}
       </h1>
       <p
-        className="mt-6 min-h-[4.5rem] text-lg leading-8 text-slate-600 sm:text-md"
+        className="mt-8 min-h-[4.5rem] text-lg leading-8 text-blue sm:text-md max-w-2xl  py-4.5"
         aria-label={HERO_BODY}
         dangerouslySetInnerHTML={{ __html: renderBodyText(HERO_BODY.slice(0, bodyLen)) }}
       />
