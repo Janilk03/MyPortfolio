@@ -298,9 +298,13 @@ export function AstraConceptSection() {
         </div>
 
         {/* Combined Target Users & Challenges Container (Full Width below the iPhone Showcase) */}
-        <div className="grid gap-12 md:grid-cols-2 pt-12 mt-16 md:mt-24 border-t border-off-white/10 relative z-10">
+      </div>
+    </section>
+  );
+}
+{/* <div className="grid gap-12 md:grid-cols-2 pt-12 mt-16 md:mt-24 border-t border-off-white/10 relative z-10">
 
-          {/* Left Column: Target Users */}
+          {/* Left Column: Target Users 
           <div className="space-y-6">
             <h3 className="font-heading text-2xl font-bold tracking-tight text-off-white">
               Designing for the Time-Poor
@@ -344,8 +348,6 @@ export function AstraConceptSection() {
               </div>
             </div>
           </div>
-
-          {/* Right Column: Challenges & Decisions */}
           <div className="space-y-6">
             <h3 className="font-heading text-2xl font-bold tracking-tight text-off-white">
               Engineering Challenges & Outcomes
@@ -374,8 +376,4 @@ export function AstraConceptSection() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+        </div> */}

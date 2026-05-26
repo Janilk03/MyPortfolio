@@ -25,11 +25,13 @@ const projects = [
   },
 ];
 
+
+
 export function FeaturedProjects() {
   return (
-    <section id="works" className="py-24 bg-matte-black scroll-mt-24">
+    <section id="works" className="bg-matte-black scroll-mt-24">
       <div className="container px-6 md:px-12 mb-12">
-        <h2 className="text-4xl md:text-5xl font-heading font-semibold text-off-white">
+        <h2 className="text-4xl md:text-5xl font-heading font-bold text-off-white">
           Public-Facing Works
         </h2>
       </div>
