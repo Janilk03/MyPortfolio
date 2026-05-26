@@ -47,7 +47,7 @@ export function SkillsSection() {
               transition={{ delay: index * 0.05, type: "spring", stiffness: 200, damping: 20 }}
               whileHover={{
                 scale: 1.1,
-                rotate: Math.random() * 6 - 3, // Random slight rotation between -3 and 3 degrees
+                rotate: ((index * 7) % 6) - 3, // Deterministic slight rotation between -3 and 2 degrees
                 backgroundColor: "rgba(41, 151, 255, 0.1)",
                 borderColor: "rgba(41, 151, 255, 0.5)",
                 boxShadow: "0 0 20px rgba(41, 151, 255, 0.3)"

@@ -87,40 +87,45 @@ const steps: StepNode[] = [
 
 export function HeroSection() {
   const [hoveredStep, setHoveredStep] = useState<string | null>(null);
-  const [headlineTyped, setHeadlineTyped] = useState(false);
-  const [textStage, setTextStage] = useState(0); // For staggered load
+  const [activeStep, setActiveStep] = useState<string | null>(null);
 
-  // Animation triggers
+  const currentStepId = hoveredStep || activeStep;
+  const currentStep = steps.find((s) => s.id === currentStepId);
+
+  // Typewriter text parts
+  const line1 = "Designing";
+  const line2 = "meaningful";
+  const line3 = "experiences.";
+  const totalChars = line1.length + line2.length + line3.length;
+
+  const [visibleCount, setVisibleCount] = useState(0);
+  const isComplete = visibleCount >= totalChars;
+
+  // Run typewriter animation on mount
   useEffect(() => {
-    // Stage 0: Tagline
-    const t1 = setTimeout(() => setTextStage(1), 300);
-    // Stage 1: Headline start typing
-    const t2 = setTimeout(() => {
-      setHeadlineTyped(true);
-      setTextStage(2);
-    }, 1500);
-    // Stage 2: Description and CTA
-    const t3 = setTimeout(() => setTextStage(3), 2200);
-    // Stage 3: Stats Capsule and Orbital
-    const t4 = setTimeout(() => setTextStage(4), 2800);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
-    };
+    let count = 0;
+    const interval = setInterval(() => {
+      count++;
+      setVisibleCount(count);
+      if (count >= totalChars) {
+        clearInterval(interval);
+      }
+    }, 45); // 45ms per character for premium flow
+    return () => clearInterval(interval);
   }, []);
 
-  // Responsive calculation helper for SVG coordinates (Radius = 150)
-  const getCoords = (angleDeg: number) => {
+  // Responsive calculation helper for SVG coordinates using percentages
+  const getCoordsPercent = (angleDeg: number) => {
     const angleRad = (angleDeg * Math.PI) / 180;
-    const r = 150; // Radius of orbit
-    const cx = 260; // Center X
-    const cy = 260; // Center Y
+    const r = 150; // Radius of orbit in SVG space
+    const cx = 260; // Center X in SVG space
+    const cy = 260; // Center Y in SVG space
     const x = cx + r * Math.cos(angleRad);
     const y = cy + r * Math.sin(angleRad);
-    return { x, y };
+    // Express as percentage of the viewBox (520px) with fixed precision to prevent SSR hydration mismatch
+    const xPercent = (x / 520) * 100;
+    const yPercent = (y / 520) * 100;
+    return { x: `${xPercent.toFixed(3)}%`, y: `${yPercent.toFixed(3)}%` };
   };
 
   return (
@@ -140,170 +145,145 @@ export function HeroSection() {
 
         {/* Soft emerald/teal radial gradient (bottom-right) */}
         <div className="absolute -bottom-40 right-10 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-emerald-100/30 via-teal-100/20 to-transparent blur-[120px] mix-blend-multiply" />
-
-        {/* Fine light gray blueprint curved SVG wave lines overlay */}
-        <svg
-          className="absolute inset-0 w-full h-full opacity-[0.22] pointer-events-none"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 900"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M-100,300 C300,150 500,450 900,250 C1300,50 1400,550 1600,350"
-            fill="none"
-            stroke="#94a3b8"
-            strokeWidth="1.5"
-          />
-          <path
-            d="M-50,450 C350,300 550,600 950,400 C1350,200 1450,700 1650,500"
-            fill="none"
-            stroke="#cbd5e1"
-            strokeWidth="1.2"
-            strokeDasharray="6,6"
-          />
-        </svg>
       </div>
 
       {/* 2. Content Container (Responsive Grid) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-28 lg:py-20 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-screen">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-28 pb-40 lg:py-20 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-8 items-center min-h-screen">
 
         {/* LEFT COLUMN: Texts, Buttons, and Stats */}
-        <div className="lg:col-span-5 flex flex-col justify-center text-left">
+        <div className="contents lg:col-span-5 lg:flex lg:flex-col lg:justify-center lg:text-left">
 
           {/* B. Headline */}
-          <div className="mt-6 min-h-[14rem] sm:min-h-[11rem] lg:min-h-[14rem]">
-            {textStage >= 2 && (
-              <h1 className="font-heading text-5xl md:text-6xl lg:text-[66px] font-bold tracking-tight text-slate-900 leading-[1.08]">
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  Designing
-                </motion.span>
-                <br />
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                  className="text-slate-900"
-                >
-                  meaningful
-                </motion.span>
-                <br />
-                <motion.span
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                    delay: 0.7
-                  }}
-                  className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent inline-block font-extrabold pr-2"
-                >
-                  experiences.
-                </motion.span>
-              </h1>
-            )}
+          <div className="order-1 lg:order-none mt-6 sm:min-h-[11rem] lg:min-h-[14rem]">
+            <h1 className="font-heading text-5xl md:text-6xl lg:text-[66px] font-bold tracking-tight text-slate-900 leading-[1.08] select-none">
+              <span className="relative">
+                {line1.slice(0, visibleCount)}
+                {visibleCount > 0 && visibleCount < line1.length && (
+                  <motion.span
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                    className="inline-block w-[3px] h-[0.85em] bg-slate-900 ml-1 translate-y-[0.05em]"
+                  />
+                )}
+              </span>
+              <br />
+              <span className="text-slate-900 relative">
+                {line2.slice(0, Math.max(0, visibleCount - line1.length))}
+                {visibleCount >= line1.length && visibleCount < line1.length + line2.length && (
+                  <motion.span
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                    className="inline-block w-[3px] h-[0.85em] bg-slate-900 ml-1 translate-y-[0.05em]"
+                  />
+                )}
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent inline-block font-extrabold pr-2 relative">
+                {line3.slice(0, Math.max(0, visibleCount - line1.length - line2.length))}
+                {visibleCount >= line1.length + line2.length && (
+                  <motion.span
+                    animate={{ opacity: isComplete ? 0 : [1, 0, 1] }}
+                    transition={{
+                      opacity: isComplete
+                        ? { duration: 0.5, delay: 1.5 }
+                        : { duration: 0.8, repeat: Infinity, ease: "linear" }
+                    }}
+                    className="inline-block w-[3px] h-[0.85em] bg-teal-500 ml-1 translate-y-[0.05em]"
+                  />
+                )}
+              </span>
+            </h1>
           </div>
 
           {/* C. Description Paragraph */}
-          <div className="min-h-[4.5rem]">
-            {textStage >= 3 && (
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-6 text-slate-600 text-base md:text-lg leading-relaxed max-w-lg"
-              >
-                A user-centered approach that combines research, strategy and design to create intuitive and impactful digital experiences.
-              </motion.p>
-            )}
+          <div className="order-2 lg:order-none min-h-[4.5rem]">
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:mt-6 mt-0 text-slate-600 text-base md:text-lg leading-relaxed max-w-lg"
+            >
+              A user-centered approach that combines research, strategy and design to create intuitive and impactful digital experiences.
+            </motion.p>
           </div>
 
           {/* D. CTA Buttons Cluster */}
-          {textStage >= 3 && (
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-8 flex flex-wrap items-center gap-6"
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="order-4 lg:order-none lg:mt-8 mt-0 flex flex-wrap items-center gap-6"
+          >
+
+            {/* Primary: View My Work */}
+            <a
+              href="#case-studies"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-500 hover:to-teal-400 text-white font-semibold shadow-md shadow-blue-500/15 hover:shadow-lg hover:shadow-blue-500/25 px-7.5 py-3.5 text-[13.5px] hover:-translate-y-0.5 transition-all duration-300"
             >
+              View my work
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </a>
 
-              {/* Primary: View My Work */}
-              <a
-                href="#case-studies"
-                className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-500 hover:to-teal-400 text-white font-semibold shadow-md shadow-blue-500/15 hover:shadow-lg hover:shadow-blue-500/25 px-7.5 py-3.5 text-[13.5px] hover:-translate-y-0.5 transition-all duration-300"
-              >
-                View my work
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </a>
-
-              {/* Secondary: Download Resume */}
-              <a
-                href="/cv/Janil%20K-%20Ux-Resume-26.pdf"
-                download="Janil K- Ux-Resume-26.pdf"
-                className="group inline-flex items-center gap-1.5 font-bold text-slate-800 hover:text-blue-600 border-b-2 border-slate-200 hover:border-blue-500 pb-0.5 text-[13.5px] hover:-translate-y-0.5 transition-all duration-300"
-              >
-                Download resume
-                <Download className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-colors" />
-              </a>
-            </motion.div>
-          )}
+            {/* Secondary: Download Resume */}
+            <a
+              href="/cv/Janil%20K-%20Ux-Resume-26.pdf"
+              download="Janil K- Ux-Resume-26.pdf"
+              className="group inline-flex items-center gap-1.5 font-bold text-slate-800 hover:text-blue-600 border-b-2 border-slate-200 hover:border-blue-500 pb-0.5 text-[13.5px] hover:-translate-y-0.5 transition-all duration-300"
+            >
+              Download resume
+              <Download className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-colors" />
+            </a>
+          </motion.div>
 
           {/* E. Bottom Stats Pill Capsule */}
-          {textStage >= 4 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-12 w-full max-w-md bg-white/70 border border-slate-200/50 backdrop-blur-md rounded-2xl p-4 shadow-[0_8px_30px_rgba(15,23,42,0.03)] grid grid-cols-4 gap-2 divide-x divide-slate-100"
-            >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="order-5 lg:order-none lg:mt-12 mt-0 w-full max-w-md bg-white/70 border border-slate-200/50 backdrop-blur-md rounded-2xl p-4 shadow-[0_8px_30px_rgba(15,23,42,0.03)] grid grid-cols-4 gap-2 divide-x divide-slate-100"
+          >
 
-              {/* Stat 1: Projects */}
-              <div className="flex flex-col items-center justify-center px-1">
-                <Box className="w-5 h-5 text-indigo-500 mb-1" />
-                <span className="text-slate-900 font-bold text-[15px] leading-tight">30+</span>
-                <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Projects</span>
-              </div>
+            {/* Stat 1: Projects */}
+            <div className="flex flex-col items-center justify-center px-1">
+              <Box className="w-5 h-5 text-indigo-500 mb-1" />
+              <span className="text-slate-900 font-bold text-[15px] leading-tight">30+</span>
+              <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Projects</span>
+            </div>
 
-              {/* Stat 2: Clients */}
-              <div className="flex flex-col items-center justify-center px-1">
-                <Users className="w-5 h-5 text-sky-500 mb-1" />
-                <span className="text-slate-900 font-bold text-[15px] leading-tight">5+</span>
-                <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Clients</span>
-              </div>
+            {/* Stat 2: Clients */}
+            <div className="flex flex-col items-center justify-center px-1">
+              <Users className="w-5 h-5 text-sky-500 mb-1" />
+              <span className="text-slate-900 font-bold text-[15px] leading-tight">5+</span>
+              <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Clients</span>
+            </div>
 
-              {/* Stat 3: Years Exp */}
-              <div className="flex flex-col items-center justify-center px-1">
-                <Star className="w-5 h-5 text-amber-500 mb-1" />
-                <span className="text-slate-900 font-bold text-[15px] leading-tight">11+</span>
-                <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Years Exp.</span>
-              </div>
+            {/* Stat 3: Years Exp */}
+            <div className="flex flex-col items-center justify-center px-1">
+              <Star className="w-5 h-5 text-amber-500 mb-1" />
+              <span className="text-slate-900 font-bold text-[15px] leading-tight">11+</span>
+              <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Years Exp.</span>
+            </div>
 
-              {/* Stat 4: Industries */}
-              <div className="flex flex-col items-center justify-center px-1">
-                <Globe className="w-5 h-5 text-emerald-500 mb-1" />
-                <span className="text-slate-900 font-bold text-[15px] leading-tight">10+</span>
-                <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Industries</span>
-              </div>
+            {/* Stat 4: Industries */}
+            <div className="flex flex-col items-center justify-center px-1">
+              <Globe className="w-5 h-5 text-emerald-500 mb-1" />
+              <span className="text-slate-900 font-bold text-[15px] leading-tight">10+</span>
+              <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Industries</span>
+            </div>
 
-            </motion.div>
-          )}
+          </motion.div>
 
         </div>
 
         {/* RIGHT COLUMN: Interactive Circular UX Process Orbit Diagram */}
-        <div className="lg:col-span-7 flex items-center justify-center relative mt-8 lg:mt-0">
+        <div className="order-3 lg:order-none lg:col-span-7 flex flex-col items-center justify-center relative lg:mt-0 mt-0">
 
-          {textStage >= 4 && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.94 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] lg:w-[520px] lg:h-[520px] flex items-center justify-center shrink-0 scale-95 sm:scale-100"
-            >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-full max-w-[300px] min-[400px]:max-w-[360px] sm:max-w-[480px] lg:max-w-[520px] aspect-square flex items-center justify-center shrink-0"
+          >
 
               {/* Concentric GUIDELINES and Main Gradient Orbit Loop (SVG) */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 520 520">
@@ -359,8 +339,8 @@ export function HeroSection() {
                   className="transition-all duration-500"
                 />
 
-                {/* Hover-triggered Orbital Glow Segment Overlay */}
-                {hoveredStep !== null && (
+                {/* Hover/Tap-triggered Orbital Glow Segment Overlay */}
+                {currentStepId !== null && (
                   <motion.circle
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
@@ -397,46 +377,77 @@ export function HeroSection() {
 
               </svg>
 
-              {/* CENTER CIRCLE: "USER AT THE CENTER" */}
+              {/* CENTER CIRCLE: DYNAMIC MORPHING CONTENT */}
               <div
-                className={`relative z-10 w-36 h-36 sm:w-[170px] sm:h-[170px] rounded-full flex flex-col items-center justify-center bg-white border backdrop-blur-xl transition-all duration-500 ${hoveredStep !== null
+                className={`relative z-10 w-36 h-36 sm:w-[170px] sm:h-[170px] rounded-full flex flex-col items-center justify-center bg-white border backdrop-blur-xl transition-all duration-500 ${currentStepId !== null
                   ? "border-blue-500/30 shadow-[0_12px_40px_rgba(59,130,246,0.18)] scale-105"
                   : "border-slate-200/60 shadow-[0_8px_32px_rgba(15,23,42,0.06)]"
                   }`}
               >
+                <AnimatePresence mode="wait">
+                  {!currentStep ? (
+                    <motion.div
+                      key="user-center"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.25 }}
+                      className="flex flex-col items-center justify-center"
+                    >
+                      {/* Dual Overlapping Minimal Figures (Gradient User SVG) */}
+                      <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
+                        <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
+                          {/* Figure 1 (Left - Blue) */}
+                          <path
+                            d="M20 28 C25.5 28 30 32.5 30 38 M20 24 C24.4 24 28 20.4 28 16 C28 11.6 24.4 8 20 8 C15.6 8 12 11.6 12 16 C12 20.4 15.6 24 20 24 Z"
+                            stroke="#2563eb"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          {/* Figure 2 (Right - Emerald) */}
+                          <path
+                            d="M28 28 C33.5 28 38 32.5 38 38 M28 24 C32.4 24 36 20.4 36 16 C36 11.6 32.4 8 28 8"
+                            stroke="#10b981"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeDasharray="2 2"
+                            opacity="0.85"
+                          />
+                        </svg>
+                      </div>
 
-                {/* Dual Overlapping Minimal Figures (Gradient User SVG) */}
-                <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
-                  <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
-                    {/* Figure 1 (Left - Blue) */}
-                    <path
-                      d="M20 28 C25.5 28 30 32.5 30 38 M20 24 C24.4 24 28 20.4 28 16 C28 11.6 24.4 8 20 8 C15.6 8 12 11.6 12 16 C12 20.4 15.6 24 20 24 Z"
-                      stroke="#2563eb"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    {/* Figure 2 (Right - Emerald) */}
-                    <path
-                      d="M28 28 C33.5 28 38 32.5 38 38 M28 24 C32.4 24 36 20.4 36 16 C36 11.6 32.4 8 28 8"
-                      stroke="#10b981"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeDasharray="2 2"
-                      opacity="0.85"
-                    />
-                  </svg>
-                </div>
-
-                <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[0.2em] text-slate-800 mt-2 sm:mt-3">USER</span>
-                <span className="text-[8px] sm:text-[9.5px] font-bold tracking-widest text-slate-400 uppercase mt-0.5 sm:mt-1">At The Center</span>
+                      <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[0.2em] text-slate-800 mt-2 sm:mt-3">USER</span>
+                      <span className="text-[8px] sm:text-[9.5px] font-bold tracking-widest text-slate-400 uppercase mt-0.5 sm:mt-1">At The Center</span>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key={currentStep.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.25 }}
+                      className="flex flex-col items-center justify-center px-4 text-center"
+                    >
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-blue-600 mb-1 sm:mb-2 shadow-sm">
+                        <currentStep.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </div>
+                      <span className="text-[9px] sm:text-[10px] font-extrabold tracking-widest text-blue-500 uppercase">
+                        STEP {currentStep.id}
+                      </span>
+                      <span className="text-[11px] sm:text-[13px] font-bold tracking-wide text-slate-800 uppercase mt-0.5 sm:mt-1 leading-tight max-w-[110px] sm:max-w-[130px] truncate">
+                        {currentStep.title}
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* RENDER THE 6 HEXAGON ORBIT STEPS */}
               {steps.map((step) => {
-                const { x, y } = getCoords(step.angle);
-                const isHovered = hoveredStep === step.id;
+                const coords = getCoordsPercent(step.angle);
+                const isHovered = currentStepId === step.id;
 
                 // Helper to style dynamic text block offset directions responsively
                 const getTextStyles = (pos: typeof step.textPosition) => {
@@ -465,16 +476,19 @@ export function HeroSection() {
                     key={step.id}
                     className="absolute z-20 group"
                     style={{
-                      left: `${x}px`,
-                      top: `${y}px`,
+                      left: coords.x,
+                      top: coords.y,
                       transform: "translate(-50%, -50%)",
                     }}
                     onMouseEnter={() => setHoveredStep(step.id)}
                     onMouseLeave={() => setHoveredStep(null)}
+                    onClick={() => {
+                      setActiveStep((prev) => (prev === step.id ? null : step.id));
+                    }}
                   >
 
                     {/* Node Container (Hexagon Wrapper) */}
-                    <div className="relative w-13 h-14 sm:w-15 sm:h-16 flex items-center justify-center cursor-pointer">
+                    <div className="relative w-[44px] h-[50px] sm:w-[56px] sm:h-[64px] flex items-center justify-center cursor-pointer">
 
                       {/* Premium Hexagon SVG Background */}
                       <svg
@@ -529,37 +543,64 @@ export function HeroSection() {
               })}
 
             </motion.div>
-          )}
+
+          {/* Premium Glassmorphic Active Step Info Card for Mobile & Tablet */}
+          <AnimatePresence mode="wait">
+            {currentStep && (
+              <motion.div
+                initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="block sm:hidden mt-10 w-full max-w-[300px] min-[400px]:max-w-[340px] bg-white/80 border border-slate-200/50 backdrop-blur-md rounded-2xl p-5 shadow-[0_12px_40px_rgba(15,23,42,0.06)] relative z-20 text-center"
+              >
+                <div className="flex items-center gap-3 justify-center mb-3">
+                  <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shadow-sm shrink-0">
+                    <currentStep.icon className="w-4 h-4" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-[10px] font-extrabold tracking-widest text-blue-500 uppercase leading-none">
+                      Step {currentStep.id}
+                    </div>
+                    <div className="text-[13px] font-bold tracking-wide text-slate-800 uppercase mt-1 leading-none">
+                      {currentStep.title}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-[11px] leading-relaxed text-slate-600 font-medium px-1">
+                  {currentStep.desc}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
         </div>
 
       </div>
 
       {/* 3. Mouse Wheel Scroll Indicator ( mock style ) */}
-      {textStage >= 3 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.7 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-10"
-        >
-          <span className="text-[9.5px] font-bold tracking-[0.25em] text-slate-400 uppercase">Scroll to Explore</span>
-          <div className="w-5 h-8 border-2 border-slate-300 rounded-full flex justify-center mt-2.5 shadow-sm">
-            <motion.div
-              animate={{
-                y: [4, 16, 4],
-                opacity: [1, 0, 1]
-              }}
-              transition={{
-                duration: 2.2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="w-1 h-1.5 bg-blue-500 rounded-full mt-1.5"
-            />
-          </div>
-        </motion.div>
-      )}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.7 }}
+        transition={{ duration: 1, delay: 0.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-10"
+      >
+        <span className="text-[9.5px] font-bold tracking-[0.25em] text-slate-400 uppercase">Scroll to Explore</span>
+        <div className="w-5 h-8 border-2 border-slate-300 rounded-full flex justify-center mt-2.5 shadow-sm">
+          <motion.div
+            animate={{
+              y: [4, 16, 4],
+              opacity: [1, 0, 1]
+            }}
+            transition={{
+              duration: 2.2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="w-1 h-1.5 bg-blue-500 rounded-full mt-1.5"
+          />
+        </div>
+      </motion.div>
 
     </section>
   );
