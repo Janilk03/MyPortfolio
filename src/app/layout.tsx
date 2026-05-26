@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 import { ContactExperience } from "@/components/sections/ContactExperience";
+import { Navbar } from "@/components/ui/Navbar";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased bg-matte-black text-off-white selection:bg-electric-blue selection:text-white`}>
         <div className="noise-overlay" />
         <SmoothScrollProvider>
-          <CustomCursor />
+          <Navbar />
           {children}
           <ContactExperience />
         </SmoothScrollProvider>

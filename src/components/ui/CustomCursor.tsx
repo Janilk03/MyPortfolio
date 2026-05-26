@@ -71,7 +71,7 @@ export function CustomCursor() {
       // Don't spawn ripples over links, images, or text elements.
       const el = e.target as HTMLElement | null;
       if (el?.closest?.(RIPPLE_BLOCK_SELECTOR)) return;
-      
+
       // Only spawn ripples when hovering inside the Hero section
       if (!el?.closest?.("#home")) return;
 

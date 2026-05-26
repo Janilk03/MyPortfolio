@@ -16,7 +16,6 @@ export default function Home() {
       <SkillsStrip />
       <CaseStudySection />
       <AstraConceptSection />
-      <UXProcessTimeline />
       <FeaturedProjects />
       <AboutMe />
       <SkillsSection />

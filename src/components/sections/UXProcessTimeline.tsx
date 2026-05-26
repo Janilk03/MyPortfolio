@@ -100,7 +100,7 @@ export function UXProcessTimeline() {
   });
 
   return (
-    <section ref={containerRef} className="py-24 md:py-24 bg-slate-50 text-slate-900 relative overflow-hidden">
+    <section ref={containerRef} id="process" className="py-24 md:py-24 bg-slate-50 text-slate-900 relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 max-w-5xl relative z-10">
         <div className="mb-12 text-center">
           <motion.h2

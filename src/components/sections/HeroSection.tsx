@@ -1,217 +1,566 @@
 "use client";
 
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { useLenis } from "lenis/react";
-import { ScrollDownButton } from "@/components/ui/ScrollDownButton";
-import { Navbar } from "@/components/ui/Navbar";
-import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import {
+  Heart,
+  Target,
+  Lightbulb,
+  PenTool,
+  Layers,
+  Activity,
+  Box,
+  Users,
+  Star,
+  Globe,
+  ArrowRight,
+  Download
+} from "lucide-react";
 
-const HERO_SUBTITLE = "Janil K. UX Engineer.";
-const HERO_H1_LINE1 = "Designing AI Products that ";
-const HERO_H1_LINE2 = "feel alive.";
-/** First segment: normal headline weight/color; second segment: italic + electric blue */
-const HERO_SECOND_ACCENT = "Powered by AI, Shaped by";
-const HERO_SECOND_MAIN = "Human.";
-const HERO_SECOND_TAGLINE = `${HERO_SECOND_ACCENT}${HERO_SECOND_MAIN}`;
-const HERO_PRIMARY_TAGLINE = `${HERO_H1_LINE1}${HERO_H1_LINE2}`;
-const HERO_BODY =
-  "UX Engineer crafting immersive digital products through AI assisted UI Design and Front-end Engineering.";
-const TYPEWRITER_MS_SUBTITLE = 52;
-const TYPEWRITER_MS_HEADLINE = 42;
-const TYPEWRITER_MS_BODY = 26;
-const TYPEWRITER_MS_HEADLINE_DELETE = 24;
-const TAGLINE_SWAP_MS = 7000;
+// Types
+type StepNode = {
+  id: string;
+  title: string;
+  desc: string;
+  icon: React.ComponentType<any>;
+  angle: number; // degrees
+  color: string;
+  textPosition: "right-top" | "right-middle" | "right-bottom" | "left-top" | "left-middle" | "left-bottom" | "below-right";
+};
 
-function HeroTypewriterIntro() {
-  const [subLen, setSubLen] = useState(0);
-  const [activeTagline, setActiveTagline] = useState<"primary" | "secondary">("primary");
-  const [headlineLen, setHeadlineLen] = useState(0);
-  const [headlinePhase, setHeadlinePhase] = useState<"typing" | "holding" | "deleting">("typing");
-  const [firstPrimaryDone, setFirstPrimaryDone] = useState(false);
-  const [bodyLen, setBodyLen] = useState(0);
-
-  useEffect(() => {
-    if (subLen >= HERO_SUBTITLE.length) return;
-    const id = window.setTimeout(() => setSubLen((n) => n + 1), TYPEWRITER_MS_SUBTITLE);
-    return () => clearTimeout(id);
-  }, [subLen]);
-
-  useEffect(() => {
-    if (subLen < HERO_SUBTITLE.length) return;
-    if (headlinePhase !== "typing") return;
-    const current = activeTagline === "primary" ? HERO_PRIMARY_TAGLINE : HERO_SECOND_TAGLINE;
-    if (headlineLen >= current.length) {
-      setHeadlinePhase("holding");
-      if (activeTagline === "primary" && !firstPrimaryDone) {
-        setFirstPrimaryDone(true);
-      }
-      return;
-    }
-    const id = window.setTimeout(() => setHeadlineLen((n) => n + 1), TYPEWRITER_MS_HEADLINE);
-    return () => clearTimeout(id);
-  }, [subLen, headlineLen, headlinePhase, activeTagline, firstPrimaryDone]);
-
-  useEffect(() => {
-    if (subLen < HERO_SUBTITLE.length) return;
-    if (headlinePhase !== "holding") return;
-    const id = window.setTimeout(() => setHeadlinePhase("deleting"), TAGLINE_SWAP_MS);
-    return () => clearTimeout(id);
-  }, [subLen, headlinePhase]);
-
-  useEffect(() => {
-    if (headlinePhase !== "deleting") return;
-    if (headlineLen <= 0) {
-      setActiveTagline((prev) => (prev === "primary" ? "secondary" : "primary"));
-      setHeadlinePhase("typing");
-      return;
-    }
-    const id = window.setTimeout(() => setHeadlineLen((n) => n - 1), TYPEWRITER_MS_HEADLINE_DELETE);
-    return () => clearTimeout(id);
-  }, [headlinePhase, headlineLen]);
-
-  useEffect(() => {
-    if (!firstPrimaryDone) return;
-    if (bodyLen >= HERO_BODY.length) return;
-    const id = window.setTimeout(() => setBodyLen((n) => n + 1), TYPEWRITER_MS_BODY);
-    return () => clearTimeout(id);
-  }, [firstPrimaryDone, bodyLen]);
-
-  const bodyComplete = bodyLen >= HERO_BODY.length;
-
-  const renderBodyText = (text: string) => {
-    return text
-      .replace("UX Engineer", '<strong class="text-white bg-clip-text text-transparent font-bold inline-block">UX Engineer</strong>')
-      .replace("AI assisted UI Design", '<strong class="text-white font-bold">AI assisted UI Design</strong>')
-      .replace("Front-end Engineering", '<strong class="text-white font-bold">Front-end Engineering</strong>');
-  };
-
-  const visibleHeadline = (activeTagline === "primary" ? HERO_PRIMARY_TAGLINE : HERO_SECOND_TAGLINE).slice(0, headlineLen);
-  const visibleMainLine =
-    activeTagline === "primary"
-      ? visibleHeadline.slice(0, Math.min(visibleHeadline.length, HERO_H1_LINE1.length))
-      : visibleHeadline.length > HERO_SECOND_ACCENT.length
-        ? visibleHeadline.slice(HERO_SECOND_ACCENT.length)
-        : "";
-  const visibleAccentLine =
-    activeTagline === "primary" && visibleHeadline.length > HERO_H1_LINE1.length
-      ? visibleHeadline.slice(HERO_H1_LINE1.length)
-      : activeTagline === "secondary"
-        ? visibleHeadline.slice(0, Math.min(visibleHeadline.length, HERO_SECOND_ACCENT.length))
-        : "";
-
-  return (
-    <>
-      <p className="min-h-[1.35em] text-sm font-bold md:font-semibold uppercase tracking-[0.55em] text-white bg-clip-text text-transparent inline-block">
-        {HERO_SUBTITLE.slice(0, subLen)}
-      </p>
-      <h1
-        className="mb-6 max-w-5xl text-5xl leading-[1.05] font-heading font-bold md:font-semibold tracking-tight text-off-white md:text-7xl lg:text-8xl"
-        aria-label={visibleHeadline}
-      >
-        {activeTagline === "primary" ? (
-          <>
-            <span className="text-white">{visibleMainLine}</span>
-            {visibleAccentLine ? <br /> : null}
-            <span className="bg-gradient-to-r from-[#155dfc] to-[#2997ff] bg-clip-text text-transparent italic inline-block">{visibleAccentLine}</span>
-          </>
-        ) : (
-          <>
-            <span className="text-white">{visibleAccentLine}</span>
-            {visibleMainLine ? (
-              <>
-                <br />
-                <span className="bg-gradient-to-r from-[#155dfc] to-[#2997ff] bg-clip-text text-transparent italic inline-block">{visibleMainLine}</span>
-              </>
-            ) : null}
-          </>
-        )}
-      </h1>
-      <p
-        className="mt-8 min-h-[4.5rem] text-lg leading-8 text-blue sm:text-md max-w-2xl  py-4.5"
-        aria-label={HERO_BODY}
-        dangerouslySetInnerHTML={{ __html: renderBodyText(HERO_BODY.slice(0, bodyLen)) }}
-      />
-      {bodyComplete ? (
-        <motion.div
-          className="mt-10 flex flex-wrap gap-4"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <a
-            href="#case-studies"
-            className="inline-flex items-center rounded-full bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5"
-          >
-            View My Work
-          </a>
-          {/* <a
-            href="#contact"
-            className="inline-flex items-center rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-900 shadow-[inset_8px_8px_20px_rgba(15,23,42,0.06),inset_-8px_-8px_20px_rgba(255,255,255,0.8)] transition hover:bg-slate-50"
-          >
-            Contact
-          </a> */}
-          <a
-            href="/cv/Janil%20K-%20Ux-Resume-26.pdf"
-            download="Janil K- Ux-Resume-26.pdf"
-            className="group inline-flex items-center rounded-full border border-slate-200 bg-white px-8 py-3 text-sm font-semibold text-slate-900 shadow-[inset_8px_8px_20px_rgba(15,23,42,0.06),inset_-8px_-8px_20px_rgba(255,255,255,0.8)] transition hover:bg-slate-50 hover:-translate-y-0.5"
-          >
-            <svg
-              className="mr-2 h-5 w-5 text-red-500 transition-transform group-hover:scale-110"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-              <polyline points="14 2 14 8 20 8" />
-              <path d="M9 15h3a1.5 1.5 0 0 0 0-3H9v6" />
-              <path d="M15 12v6h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2z" />
-            </svg>
-            Download CV
-          </a>
-        </motion.div>
-      ) : null}
-    </>
-  );
-}
+const steps: StepNode[] = [
+  {
+    id: "01",
+    title: "EMPATHIZE",
+    desc: "Understand users, their needs, and pain points.",
+    icon: Heart,
+    angle: -60, // Top-right (300 deg)
+    color: "from-blue-500 to-indigo-500",
+    textPosition: "right-top",
+  },
+  {
+    id: "02",
+    title: "DEFINE",
+    desc: "Analyze insights to define clear problems and goals.",
+    icon: Target,
+    angle: 0, // Middle-right (0 deg)
+    color: "from-indigo-500 to-purple-500",
+    textPosition: "right-middle",
+  },
+  {
+    id: "03",
+    title: "IDEATE",
+    desc: "Brainstorm and explore creative solutions with purpose.",
+    icon: Lightbulb,
+    angle: 60, // Bottom-right (60 deg)
+    color: "from-purple-500 to-pink-500",
+    textPosition: "right-bottom",
+  },
+  {
+    id: "04",
+    title: "DESIGN",
+    desc: "Craft intuitive interfaces that are usable and engaging.",
+    icon: PenTool,
+    angle: 120, // Bottom-left (120 deg)
+    color: "from-pink-500 to-emerald-500",
+    textPosition: "below-right",
+  },
+  {
+    id: "05",
+    title: "PROTOTYPE",
+    desc: "Build interactive prototypes to test and validate ideas.",
+    icon: Layers,
+    angle: 180, // Middle-left (180 deg)
+    color: "from-emerald-500 to-teal-500",
+    textPosition: "left-middle",
+  },
+  {
+    id: "06",
+    title: "TEST & REFINE",
+    desc: "Test with real users, gather feedback, and refine for perfection.",
+    icon: Activity,
+    angle: 240, // Top-left (240 deg)
+    color: "from-teal-500 to-blue-500",
+    textPosition: "left-top",
+  },
+];
 
 export function HeroSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, 110]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -90]);
-  const textOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.75]);
+  const [hoveredStep, setHoveredStep] = useState<string | null>(null);
+  const [headlineTyped, setHeadlineTyped] = useState(false);
+  const [textStage, setTextStage] = useState(0); // For staggered load
+
+  // Animation triggers
+  useEffect(() => {
+    // Stage 0: Tagline
+    const t1 = setTimeout(() => setTextStage(1), 300);
+    // Stage 1: Headline start typing
+    const t2 = setTimeout(() => {
+      setHeadlineTyped(true);
+      setTextStage(2);
+    }, 1500);
+    // Stage 2: Description and CTA
+    const t3 = setTimeout(() => setTextStage(3), 2200);
+    // Stage 3: Stats Capsule and Orbital
+    const t4 = setTimeout(() => setTextStage(4), 2800);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+    };
+  }, []);
+
+  // Responsive calculation helper for SVG coordinates (Radius = 150)
+  const getCoords = (angleDeg: number) => {
+    const angleRad = (angleDeg * Math.PI) / 180;
+    const r = 150; // Radius of orbit
+    const cx = 260; // Center X
+    const cy = 260; // Center Y
+    const x = cx + r * Math.cos(angleRad);
+    const y = cy + r * Math.sin(angleRad);
+    return { x, y };
+  };
 
   return (
-    <section ref={sectionRef} id="home" className="relative w-full min-h-screen overflow-hidden bg-white">
-      <Navbar />
-      <motion.div className="absolute inset-x-0 bottom-0 top-40 md:top-0" style={{ y: bgY }}>
-        <img
-          src="/images/Futuristic_white_neumorphic_ecos…_202605121123.jpeg"
-          alt="Futuristic neumorphic interface background"
-          className="h-full w-full object-cover object-right"
-        />
-      </motion.div>
+    <section
+      id="home"
+      className="relative w-full min-h-screen overflow-hidden bg-[#f8fafc] flex items-center justify-center selection:bg-blue-100 selection:text-blue-900"
+    >
 
-      <motion.div
-        className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col justify-start pt-28 pb-10 md:justify-center md:py-10 px-6 lg:px-12"
-        style={{ y: textY, opacity: textOpacity }}
-      >
-        <div className="max-w-3xl">
-          <HeroTypewriterIntro />
+      {/* 1. Premium Light Mesh Gradient Background */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+
+        {/* Soft blue-cyan radial gradient (top-left) */}
+        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-sky-200/40 via-cyan-100/20 to-transparent blur-[120px] mix-blend-multiply" />
+
+        {/* Soft violet/lavender radial gradient (center-right) */}
+        <div className="absolute top-[20%] right-[-10%] w-[700px] h-[700px] rounded-full bg-gradient-to-br from-indigo-100/30 via-purple-100/20 to-transparent blur-[130px] mix-blend-multiply" />
+
+        {/* Soft emerald/teal radial gradient (bottom-right) */}
+        <div className="absolute -bottom-40 right-10 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-emerald-100/30 via-teal-100/20 to-transparent blur-[120px] mix-blend-multiply" />
+
+        {/* Fine light gray blueprint curved SVG wave lines overlay */}
+        <svg
+          className="absolute inset-0 w-full h-full opacity-[0.22] pointer-events-none"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M-100,300 C300,150 500,450 900,250 C1300,50 1400,550 1600,350"
+            fill="none"
+            stroke="#94a3b8"
+            strokeWidth="1.5"
+          />
+          <path
+            d="M-50,450 C350,300 550,600 950,400 C1350,200 1450,700 1650,500"
+            fill="none"
+            stroke="#cbd5e1"
+            strokeWidth="1.2"
+            strokeDasharray="6,6"
+          />
+        </svg>
+      </div>
+
+      {/* 2. Content Container (Responsive Grid) */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-28 lg:py-20 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center min-h-screen">
+
+        {/* LEFT COLUMN: Texts, Buttons, and Stats */}
+        <div className="lg:col-span-5 flex flex-col justify-center text-left">
+
+          {/* B. Headline */}
+          <div className="mt-6 min-h-[14rem] sm:min-h-[11rem] lg:min-h-[14rem]">
+            {textStage >= 2 && (
+              <h1 className="font-heading text-5xl md:text-6xl lg:text-[66px] font-bold tracking-tight text-slate-900 leading-[1.08]">
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  Designing
+                </motion.span>
+                <br />
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="text-slate-900"
+                >
+                  meaningful
+                </motion.span>
+                <br />
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15,
+                    delay: 0.7
+                  }}
+                  className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent inline-block font-extrabold pr-2"
+                >
+                  experiences.
+                </motion.span>
+              </h1>
+            )}
+          </div>
+
+          {/* C. Description Paragraph */}
+          <div className="min-h-[4.5rem]">
+            {textStage >= 3 && (
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-6 text-slate-600 text-base md:text-lg leading-relaxed max-w-lg"
+              >
+                A user-centered approach that combines research, strategy and design to create intuitive and impactful digital experiences.
+              </motion.p>
+            )}
+          </div>
+
+          {/* D. CTA Buttons Cluster */}
+          {textStage >= 3 && (
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-8 flex flex-wrap items-center gap-6"
+            >
+
+              {/* Primary: View My Work */}
+              <a
+                href="#case-studies"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-500 hover:to-teal-400 text-white font-semibold shadow-md shadow-blue-500/15 hover:shadow-lg hover:shadow-blue-500/25 px-7.5 py-3.5 text-[13.5px] hover:-translate-y-0.5 transition-all duration-300"
+              >
+                View my work
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </a>
+
+              {/* Secondary: Download Resume */}
+              <a
+                href="/cv/Janil%20K-%20Ux-Resume-26.pdf"
+                download="Janil K- Ux-Resume-26.pdf"
+                className="group inline-flex items-center gap-1.5 font-bold text-slate-800 hover:text-blue-600 border-b-2 border-slate-200 hover:border-blue-500 pb-0.5 text-[13.5px] hover:-translate-y-0.5 transition-all duration-300"
+              >
+                Download resume
+                <Download className="w-4 h-4 text-slate-400 group-hover:text-blue-500 transition-colors" />
+              </a>
+            </motion.div>
+          )}
+
+          {/* E. Bottom Stats Pill Capsule */}
+          {textStage >= 4 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-12 w-full max-w-md bg-white/70 border border-slate-200/50 backdrop-blur-md rounded-2xl p-4 shadow-[0_8px_30px_rgba(15,23,42,0.03)] grid grid-cols-4 gap-2 divide-x divide-slate-100"
+            >
+
+              {/* Stat 1: Projects */}
+              <div className="flex flex-col items-center justify-center px-1">
+                <Box className="w-5 h-5 text-indigo-500 mb-1" />
+                <span className="text-slate-900 font-bold text-[15px] leading-tight">30+</span>
+                <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Projects</span>
+              </div>
+
+              {/* Stat 2: Clients */}
+              <div className="flex flex-col items-center justify-center px-1">
+                <Users className="w-5 h-5 text-sky-500 mb-1" />
+                <span className="text-slate-900 font-bold text-[15px] leading-tight">5+</span>
+                <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Clients</span>
+              </div>
+
+              {/* Stat 3: Years Exp */}
+              <div className="flex flex-col items-center justify-center px-1">
+                <Star className="w-5 h-5 text-amber-500 mb-1" />
+                <span className="text-slate-900 font-bold text-[15px] leading-tight">11+</span>
+                <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Years Exp.</span>
+              </div>
+
+              {/* Stat 4: Industries */}
+              <div className="flex flex-col items-center justify-center px-1">
+                <Globe className="w-5 h-5 text-emerald-500 mb-1" />
+                <span className="text-slate-900 font-bold text-[15px] leading-tight">10+</span>
+                <span className="text-slate-400 font-bold text-[8.5px] tracking-wider uppercase mt-0.5">Industries</span>
+              </div>
+
+            </motion.div>
+          )}
+
         </div>
-      </motion.div>
 
-      <ScrollDownButton
-        href="#case-studies"
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 md:bottom-12"
-      />
+        {/* RIGHT COLUMN: Interactive Circular UX Process Orbit Diagram */}
+        <div className="lg:col-span-7 flex items-center justify-center relative mt-8 lg:mt-0">
+
+          {textStage >= 4 && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-[340px] h-[340px] sm:w-[480px] sm:h-[480px] lg:w-[520px] lg:h-[520px] flex items-center justify-center shrink-0 scale-95 sm:scale-100"
+            >
+
+              {/* Concentric GUIDELINES and Main Gradient Orbit Loop (SVG) */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 520 520">
+                <defs>
+
+                  {/* Subtle glowing shadow filters */}
+                  <filter id="glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="6" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+
+                  {/* Main colorful gradient */}
+                  <linearGradient id="orbit-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#3b82f6" />
+                    <stop offset="50%" stopColor="#10b981" />
+                    <stop offset="100%" stopColor="#06b6d4" />
+                  </linearGradient>
+                </defs>
+
+                {/* Guideline Circle - Inner Concentric (Dashed) */}
+                <circle
+                  cx="260"
+                  cy="260"
+                  r="110"
+                  fill="none"
+                  stroke="#e2e8f0"
+                  strokeWidth="1"
+                  strokeOpacity="0.4"
+                  strokeDasharray="4,4"
+                />
+
+                {/* Guideline Circle - Outer Concentric (Dashed) */}
+                <circle
+                  cx="260"
+                  cy="260"
+                  r="190"
+                  fill="none"
+                  stroke="#e2e8f0"
+                  strokeWidth="1"
+                  strokeOpacity="0.4"
+                  strokeDasharray="4,4"
+                />
+
+                {/* Main Orbital Path Circle (150px Radius) */}
+                <circle
+                  cx="260"
+                  cy="260"
+                  r="150"
+                  fill="none"
+                  stroke="url(#orbit-gradient)"
+                  strokeWidth="1.5"
+                  strokeOpacity="0.3"
+                  className="transition-all duration-500"
+                />
+
+                {/* Hover-triggered Orbital Glow Segment Overlay */}
+                {hoveredStep !== null && (
+                  <motion.circle
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    exit={{ pathLength: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    cx="260"
+                    cy="260"
+                    r="150"
+                    fill="none"
+                    stroke="url(#orbit-gradient)"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    filter="url(#glow-filter)"
+                    className="opacity-80"
+                  />
+                )}
+
+                {/* Orbit Direction Arrow Tangents (Clockwise indicators) */}
+                {/* Arrow at top-right (30 degrees) */}
+                <path
+                  d="M403,172 L397,180 L393,171 Z"
+                  fill="#3b82f6"
+                  opacity="0.6"
+                  className="scale-[1.5] origin-[400px_175px]"
+                />
+
+                {/* Arrow at bottom-left (210 degrees) */}
+                <path
+                  d="M117,348 L123,340 L127,349 Z"
+                  fill="#10b981"
+                  opacity="0.6"
+                  className="scale-[1.5] origin-[120px_345px]"
+                />
+
+              </svg>
+
+              {/* CENTER CIRCLE: "USER AT THE CENTER" */}
+              <div
+                className={`relative z-10 w-36 h-36 sm:w-[170px] sm:h-[170px] rounded-full flex flex-col items-center justify-center bg-white border backdrop-blur-xl transition-all duration-500 ${hoveredStep !== null
+                  ? "border-blue-500/30 shadow-[0_12px_40px_rgba(59,130,246,0.18)] scale-105"
+                  : "border-slate-200/60 shadow-[0_8px_32px_rgba(15,23,42,0.06)]"
+                  }`}
+              >
+
+                {/* Dual Overlapping Minimal Figures (Gradient User SVG) */}
+                <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
+                  <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
+                    {/* Figure 1 (Left - Blue) */}
+                    <path
+                      d="M20 28 C25.5 28 30 32.5 30 38 M20 24 C24.4 24 28 20.4 28 16 C28 11.6 24.4 8 20 8 C15.6 8 12 11.6 12 16 C12 20.4 15.6 24 20 24 Z"
+                      stroke="#2563eb"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    {/* Figure 2 (Right - Emerald) */}
+                    <path
+                      d="M28 28 C33.5 28 38 32.5 38 38 M28 24 C32.4 24 36 20.4 36 16 C36 11.6 32.4 8 28 8"
+                      stroke="#10b981"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeDasharray="2 2"
+                      opacity="0.85"
+                    />
+                  </svg>
+                </div>
+
+                <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[0.2em] text-slate-800 mt-2 sm:mt-3">USER</span>
+                <span className="text-[8px] sm:text-[9.5px] font-bold tracking-widest text-slate-400 uppercase mt-0.5 sm:mt-1">At The Center</span>
+              </div>
+
+              {/* RENDER THE 6 HEXAGON ORBIT STEPS */}
+              {steps.map((step) => {
+                const { x, y } = getCoords(step.angle);
+                const isHovered = hoveredStep === step.id;
+
+                // Helper to style dynamic text block offset directions responsively
+                const getTextStyles = (pos: typeof step.textPosition) => {
+                  switch (pos) {
+                    case "right-top":
+                      return "left-[64px] bottom-[20px] text-left";
+                    case "right-middle":
+                      return "left-[64px] -translate-y-1/2 top-1/2 text-left";
+                    case "right-bottom":
+                      return "left-[64px] top-[20px] text-left";
+                    case "left-top":
+                      return "right-[64px] bottom-[20px] text-right";
+                    case "left-middle":
+                      return "right-[64px] -translate-y-1/2 top-1/2 text-right";
+                    case "left-bottom":
+                      return "right-[64px] top-[20px] text-right";
+                    case "below-right":
+                      return "left-[-12px] top-[60px] text-left w-52";
+                    default:
+                      return "";
+                  }
+                };
+
+                return (
+                  <div
+                    key={step.id}
+                    className="absolute z-20 group"
+                    style={{
+                      left: `${x}px`,
+                      top: `${y}px`,
+                      transform: "translate(-50%, -50%)",
+                    }}
+                    onMouseEnter={() => setHoveredStep(step.id)}
+                    onMouseLeave={() => setHoveredStep(null)}
+                  >
+
+                    {/* Node Container (Hexagon Wrapper) */}
+                    <div className="relative w-13 h-14 sm:w-15 sm:h-16 flex items-center justify-center cursor-pointer">
+
+                      {/* Premium Hexagon SVG Background */}
+                      <svg
+                        className={`absolute inset-0 w-full h-full transition-all duration-300 ease-out filter drop-shadow-[0_4px_12px_rgba(15,23,42,0.03)] scale-90 sm:scale-100 ${isHovered
+                          ? "scale-105 stroke-blue-500 fill-white drop-shadow-[0_8px_20px_rgba(59,130,246,0.18)]"
+                          : "stroke-slate-200 fill-white"
+                          }`}
+                        viewBox="0 0 100 115"
+                        preserveAspectRatio="none"
+                        fill="none"
+                      >
+                        <path
+                          d="M50 4.5 L95 30.5 L95 84.5 L50 110.5 L5 84.5 L5 30.5 Z"
+                          strokeWidth="4"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+
+                      {/* Icon inside hexagon */}
+                      <div className={`relative z-10 transition-all duration-300 ${isHovered ? "scale-110 text-blue-600" : "text-slate-500"}`}>
+                        <step.icon className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={isHovered ? "2.2" : "1.8"} />
+                      </div>
+
+                    </div>
+
+                    {/* Step Descriptive Info Card (Fades in, hides on responsive if too crowded) */}
+                    <div
+                      className={`hidden sm:block absolute w-48 pointer-events-none transition-all duration-300 ${getTextStyles(step.textPosition)} ${isHovered
+                        ? "opacity-100 translate-y-0 scale-100"
+                        : "opacity-45 scale-95"
+                        }`}
+                    >
+                      {/* Step Number Tag */}
+                      <div className={`text-[10px] font-extrabold tracking-widest transition-colors duration-300 ${isHovered ? "text-blue-600" : "text-slate-400"}`}>
+                        {step.id}
+                      </div>
+
+                      {/* Step Name */}
+                      <div className={`text-[11px] font-bold tracking-wider mt-0.5 transition-colors duration-300 ${isHovered ? "text-slate-900" : "text-slate-600"}`}>
+                        {step.title}
+                      </div>
+
+                      {/* Step Short Description */}
+                      <div className={`text-[9.5px] leading-normal font-medium text-slate-500 mt-1 transition-all duration-300 ${isHovered ? "max-h-12 opacity-100 translate-y-0 text-slate-600" : "max-h-0 opacity-0 -translate-y-1 overflow-hidden"}`}>
+                        {step.desc}
+                      </div>
+
+                    </div>
+
+                  </div>
+                );
+              })}
+
+            </motion.div>
+          )}
+
+        </div>
+
+      </div>
+
+      {/* 3. Mouse Wheel Scroll Indicator ( mock style ) */}
+      {textStage >= 3 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.7 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-10"
+        >
+          <span className="text-[9.5px] font-bold tracking-[0.25em] text-slate-400 uppercase">Scroll to Explore</span>
+          <div className="w-5 h-8 border-2 border-slate-300 rounded-full flex justify-center mt-2.5 shadow-sm">
+            <motion.div
+              animate={{
+                y: [4, 16, 4],
+                opacity: [1, 0, 1]
+              }}
+              transition={{
+                duration: 2.2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="w-1 h-1.5 bg-blue-500 rounded-full mt-1.5"
+            />
+          </div>
+        </motion.div>
+      )}
+
     </section>
   );
 }

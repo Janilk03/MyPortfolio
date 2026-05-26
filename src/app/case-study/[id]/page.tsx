@@ -1,6 +1,5 @@
 import { caseStudies } from "@/lib/data";
 import { notFound } from "next/navigation";
-import { Navbar } from "@/components/ui/Navbar";
 import { ZoomableImage } from "@/components/ui/ZoomableImage";
 import Link from "next/link";
 import { ArrowLeft, ChevronRight, CheckCircle2 } from "lucide-react";
@@ -21,7 +20,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 selection:bg-electric-blue selection:text-white">
-      <Navbar />
       
       {/* Spacer for Navbar */}
       <div className="h-28 md:h-32"></div>
