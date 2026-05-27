@@ -108,8 +108,8 @@ export function Navbar() {
         className={`fixed z-[60] transition-all duration-500 ease-out motion-reduce:transition-none ${menuOpen ? "z-[80]" : "z-[60]"
           } ${showNavBar ? "translate-y-0 opacity-100" : "-translate-y-[150%] opacity-0 pointer-events-none"
           } ${scrollPastHero
-            ? "top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-2xl px-4 py-2 rounded-full border bg-slate-950/80 border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.37)] text-white backdrop-blur-md"
-            : "top-0 left-0 w-full px-8 py-6 bg-transparent border-transparent text-slate-900 shadow-none rounded-none"
+            ? "top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-2xl px-2 py-2 rounded-full border bg-slate-950/80 border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.37)] text-white backdrop-blur-md"
+            : "top-0 left-0 w-full px-4 py-6 bg-transparent border-transparent text-slate-900 shadow-none rounded-none"
           }`}
         aria-label="Primary"
         aria-hidden={!showNavBar}
