@@ -156,7 +156,7 @@ export function HeroSection() {
 
           {/* B. Headline */}
           <div className="order-1 lg:order-none mt-6 sm:min-h-[11rem] lg:min-h-[14rem]">
-            <span className="text-xs font-extrabold tracking-[0.25em] text-slate-800 block mb-3 uppercase relative min-h-[1rem]">
+            <span className="text-xs font-extrabold tracking-[0.25em] text-slate-800 block uppercase relative min-h-[1rem]">
               {labelLine.slice(0, visibleCount)}
               {visibleCount > 0 && visibleCount < labelLine.length && (
                 <motion.span
@@ -293,237 +293,237 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-[300px] min-[400px]:max-w-[360px] sm:max-w-[480px] lg:max-w-[520px] aspect-square flex items-center justify-center shrink-0"
+            className="relative w-full max-w-[1000px] min-[400px]:max-w-[360px] sm:max-w-[480px] lg:max-w-[1000px] aspect-square flex items-center justify-center shrink-0"
           >
 
-              {/* Concentric GUIDELINES and Main Gradient Orbit Loop (SVG) */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 520 520">
-                <defs>
+            {/* Concentric GUIDELINES and Main Gradient Orbit Loop (SVG) */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 520 520">
+              <defs>
 
-                  {/* Subtle glowing shadow filters */}
-                  <filter id="glow-filter" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="6" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
+                {/* Subtle glowing shadow filters */}
+                <filter id="glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="6" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
 
-                  {/* Main colorful gradient */}
-                  <linearGradient id="orbit-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#3b82f6" />
-                    <stop offset="50%" stopColor="#10b981" />
-                    <stop offset="100%" stopColor="#06b6d4" />
-                  </linearGradient>
-                </defs>
+                {/* Main colorful gradient */}
+                <linearGradient id="orbit-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#3b82f6" />
+                  <stop offset="50%" stopColor="#10b981" />
+                  <stop offset="100%" stopColor="#06b6d4" />
+                </linearGradient>
+              </defs>
 
-                {/* Guideline Circle - Inner Concentric (Dashed) */}
-                <circle
-                  cx="260"
-                  cy="260"
-                  r="110"
-                  fill="none"
-                  stroke="#e2e8f0"
-                  strokeWidth="1"
-                  strokeOpacity="0.4"
-                  strokeDasharray="4,4"
-                />
+              {/* Guideline Circle - Inner Concentric (Dashed) */}
+              <circle
+                cx="260"
+                cy="260"
+                r="110"
+                fill="none"
+                stroke="#e2e8f0"
+                strokeWidth="1"
+                strokeOpacity="0.4"
+                strokeDasharray="4,4"
+              />
 
-                {/* Guideline Circle - Outer Concentric (Dashed) */}
-                <circle
-                  cx="260"
-                  cy="260"
-                  r="190"
-                  fill="none"
-                  stroke="#e2e8f0"
-                  strokeWidth="1"
-                  strokeOpacity="0.4"
-                  strokeDasharray="4,4"
-                />
+              {/* Guideline Circle - Outer Concentric (Dashed) */}
+              <circle
+                cx="260"
+                cy="260"
+                r="190"
+                fill="none"
+                stroke="#e2e8f0"
+                strokeWidth="1"
+                strokeOpacity="0.4"
+                strokeDasharray="4,4"
+              />
 
-                {/* Main Orbital Path Circle (150px Radius) */}
-                <circle
+              {/* Main Orbital Path Circle (150px Radius) */}
+              <circle
+                cx="260"
+                cy="260"
+                r="150"
+                fill="none"
+                stroke="url(#orbit-gradient)"
+                strokeWidth="1.5"
+                strokeOpacity="0.3"
+                className="transition-all duration-500"
+              />
+
+              {/* Hover/Tap-triggered Orbital Glow Segment Overlay */}
+              {currentStepId !== null && (
+                <motion.circle
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  exit={{ pathLength: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
                   cx="260"
                   cy="260"
                   r="150"
                   fill="none"
                   stroke="url(#orbit-gradient)"
-                  strokeWidth="1.5"
-                  strokeOpacity="0.3"
-                  className="transition-all duration-500"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  filter="url(#glow-filter)"
+                  className="opacity-80"
                 />
+              )}
 
-                {/* Hover/Tap-triggered Orbital Glow Segment Overlay */}
-                {currentStepId !== null && (
-                  <motion.circle
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    exit={{ pathLength: 0 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    cx="260"
-                    cy="260"
-                    r="150"
-                    fill="none"
-                    stroke="url(#orbit-gradient)"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
-                    filter="url(#glow-filter)"
-                    className="opacity-80"
-                  />
-                )}
+              {/* Orbit Direction Arrow Tangents (Clockwise indicators) */}
+              {/* Arrow at top-right (30 degrees) */}
+              <path
+                d="M403,172 L397,180 L393,171 Z"
+                fill="#3b82f6"
+                opacity="0.6"
+                className="scale-[1.5] origin-[400px_175px]"
+              />
 
-                {/* Orbit Direction Arrow Tangents (Clockwise indicators) */}
-                {/* Arrow at top-right (30 degrees) */}
-                <path
-                  d="M403,172 L397,180 L393,171 Z"
-                  fill="#3b82f6"
-                  opacity="0.6"
-                  className="scale-[1.5] origin-[400px_175px]"
-                />
+              {/* Arrow at bottom-left (210 degrees) */}
+              <path
+                d="M117,348 L123,340 L127,349 Z"
+                fill="#10b981"
+                opacity="0.6"
+                className="scale-[1.5] origin-[120px_345px]"
+              />
 
-                {/* Arrow at bottom-left (210 degrees) */}
-                <path
-                  d="M117,348 L123,340 L127,349 Z"
-                  fill="#10b981"
-                  opacity="0.6"
-                  className="scale-[1.5] origin-[120px_345px]"
-                />
+            </svg>
 
-              </svg>
+            {/* CENTER CIRCLE: STATIC CONTENT */}
+            <div
+              className={`relative z-10 w-36 h-36 sm:w-[170px] sm:h-[170px] rounded-full flex flex-col items-center justify-center bg-white border backdrop-blur-xl transition-all duration-500 ${currentStepId !== null
+                ? "border-blue-500/30 shadow-[0_12px_40px_rgba(59,130,246,0.18)] scale-105"
+                : "border-slate-200/60 shadow-[0_8px_32px_rgba(15,23,42,0.06)]"
+                }`}
+            >
+              <div className="flex flex-col items-center justify-center">
+                {/* Dual Overlapping Minimal Figures (Gradient User SVG) */}
+                <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
+                  <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
+                    {/* Figure 1 (Left - Blue) */}
+                    <path
+                      d="M20 28 C25.5 28 30 32.5 30 38 M20 24 C24.4 24 28 20.4 28 16 C28 11.6 24.4 8 20 8 C15.6 8 12 11.6 12 16 C12 20.4 15.6 24 20 24 Z"
+                      stroke="#2563eb"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    {/* Figure 2 (Right - Emerald) */}
+                    <path
+                      d="M28 28 C33.5 28 38 32.5 38 38 M28 24 C32.4 24 36 20.4 36 16 C36 11.6 32.4 8 28 8"
+                      stroke="#10b981"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeDasharray="2 2"
+                      opacity="0.85"
+                    />
+                  </svg>
+                </div>
 
-              {/* CENTER CIRCLE: STATIC CONTENT */}
-              <div
-                className={`relative z-10 w-36 h-36 sm:w-[170px] sm:h-[170px] rounded-full flex flex-col items-center justify-center bg-white border backdrop-blur-xl transition-all duration-500 ${currentStepId !== null
-                  ? "border-blue-500/30 shadow-[0_12px_40px_rgba(59,130,246,0.18)] scale-105"
-                  : "border-slate-200/60 shadow-[0_8px_32px_rgba(15,23,42,0.06)]"
-                  }`}
-              >
-                <div className="flex flex-col items-center justify-center">
-                  {/* Dual Overlapping Minimal Figures (Gradient User SVG) */}
-                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
-                    <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
-                      {/* Figure 1 (Left - Blue) */}
+                <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[0.2em] text-slate-800 mt-2 sm:mt-3">USER</span>
+                <span className="text-[8px] sm:text-[9.5px] font-bold tracking-widest text-slate-400 uppercase mt-0.5 sm:mt-1">At The Center</span>
+              </div>
+            </div>
+
+            {/* RENDER THE 6 HEXAGON ORBIT STEPS */}
+            {steps.map((step) => {
+              const coords = getCoordsPercent(step.angle);
+              const isHovered = currentStepId === step.id;
+
+              // Helper to style dynamic text block offset directions responsively
+              const getTextStyles = (pos: typeof step.textPosition) => {
+                switch (pos) {
+                  case "right-top":
+                    return "left-[64px] bottom-[20px] text-left";
+                  case "right-middle":
+                    return "left-[64px] -translate-y-1/2 top-1/2 text-left";
+                  case "right-bottom":
+                    return "left-[64px] top-[20px] text-left";
+                  case "left-top":
+                    return "right-[64px] bottom-[20px] text-right";
+                  case "left-middle":
+                    return "right-[64px] -translate-y-1/2 top-1/2 text-right";
+                  case "left-bottom":
+                    return "right-[64px] top-[20px] text-right";
+                  case "below-right":
+                    return "left-[-12px] top-[60px] text-left w-52";
+                  default:
+                    return "";
+                }
+              };
+
+              return (
+                <div
+                  key={step.id}
+                  className="absolute z-20 group"
+                  style={{
+                    left: coords.x,
+                    top: coords.y,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                  onMouseEnter={() => setHoveredStep(step.id)}
+                  onMouseLeave={() => setHoveredStep(null)}
+                  onClick={() => {
+                    setActiveStep((prev) => (prev === step.id ? null : step.id));
+                  }}
+                >
+
+                  {/* Node Container (Hexagon Wrapper) */}
+                  <div className="relative w-[44px] h-[50px] sm:w-[56px] sm:h-[64px] flex items-center justify-center cursor-pointer">
+
+                    {/* Premium Hexagon SVG Background */}
+                    <svg
+                      className={`absolute inset-0 w-full h-full transition-all duration-300 ease-out filter drop-shadow-[0_4px_12px_rgba(15,23,42,0.03)] scale-90 sm:scale-100 ${isHovered
+                        ? "scale-105 stroke-blue-500 fill-white drop-shadow-[0_8px_20px_rgba(59,130,246,0.18)]"
+                        : "stroke-slate-200 fill-white"
+                        }`}
+                      viewBox="0 0 100 115"
+                      preserveAspectRatio="none"
+                      fill="none"
+                    >
                       <path
-                        d="M20 28 C25.5 28 30 32.5 30 38 M20 24 C24.4 24 28 20.4 28 16 C28 11.6 24.4 8 20 8 C15.6 8 12 11.6 12 16 C12 20.4 15.6 24 20 24 Z"
-                        stroke="#2563eb"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
+                        d="M50 4.5 L95 30.5 L95 84.5 L50 110.5 L5 84.5 L5 30.5 Z"
+                        strokeWidth="4"
                         strokeLinejoin="round"
-                      />
-                      {/* Figure 2 (Right - Emerald) */}
-                      <path
-                        d="M28 28 C33.5 28 38 32.5 38 38 M28 24 C32.4 24 36 20.4 36 16 C36 11.6 32.4 8 28 8"
-                        stroke="#10b981"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeDasharray="2 2"
-                        opacity="0.85"
                       />
                     </svg>
+
+                    {/* Icon inside hexagon */}
+                    <div className={`relative z-10 transition-all duration-300 ${isHovered ? "scale-110 text-blue-600" : "text-slate-500"}`}>
+                      <step.icon className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={isHovered ? "2.2" : "1.8"} />
+                    </div>
+
                   </div>
 
-                  <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[0.2em] text-slate-800 mt-2 sm:mt-3">USER</span>
-                  <span className="text-[8px] sm:text-[9.5px] font-bold tracking-widest text-slate-400 uppercase mt-0.5 sm:mt-1">At The Center</span>
-                </div>
-              </div>
-
-              {/* RENDER THE 6 HEXAGON ORBIT STEPS */}
-              {steps.map((step) => {
-                const coords = getCoordsPercent(step.angle);
-                const isHovered = currentStepId === step.id;
-
-                // Helper to style dynamic text block offset directions responsively
-                const getTextStyles = (pos: typeof step.textPosition) => {
-                  switch (pos) {
-                    case "right-top":
-                      return "left-[64px] bottom-[20px] text-left";
-                    case "right-middle":
-                      return "left-[64px] -translate-y-1/2 top-1/2 text-left";
-                    case "right-bottom":
-                      return "left-[64px] top-[20px] text-left";
-                    case "left-top":
-                      return "right-[64px] bottom-[20px] text-right";
-                    case "left-middle":
-                      return "right-[64px] -translate-y-1/2 top-1/2 text-right";
-                    case "left-bottom":
-                      return "right-[64px] top-[20px] text-right";
-                    case "below-right":
-                      return "left-[-12px] top-[60px] text-left w-52";
-                    default:
-                      return "";
-                  }
-                };
-
-                return (
+                  {/* Step Descriptive Info Card (Fades in, hides on responsive if too crowded) */}
                   <div
-                    key={step.id}
-                    className="absolute z-20 group"
-                    style={{
-                      left: coords.x,
-                      top: coords.y,
-                      transform: "translate(-50%, -50%)",
-                    }}
-                    onMouseEnter={() => setHoveredStep(step.id)}
-                    onMouseLeave={() => setHoveredStep(null)}
-                    onClick={() => {
-                      setActiveStep((prev) => (prev === step.id ? null : step.id));
-                    }}
+                    className={`hidden sm:block absolute w-34 pointer-events-none transition-all duration-300 ${getTextStyles(step.textPosition)} ${isHovered
+                      ? "opacity-100 translate-y-0 scale-100"
+                      : "opacity-45 scale-95"
+                      }`}
                   >
-
-                    {/* Node Container (Hexagon Wrapper) */}
-                    <div className="relative w-[44px] h-[50px] sm:w-[56px] sm:h-[64px] flex items-center justify-center cursor-pointer">
-
-                      {/* Premium Hexagon SVG Background */}
-                      <svg
-                        className={`absolute inset-0 w-full h-full transition-all duration-300 ease-out filter drop-shadow-[0_4px_12px_rgba(15,23,42,0.03)] scale-90 sm:scale-100 ${isHovered
-                          ? "scale-105 stroke-blue-500 fill-white drop-shadow-[0_8px_20px_rgba(59,130,246,0.18)]"
-                          : "stroke-slate-200 fill-white"
-                          }`}
-                        viewBox="0 0 100 115"
-                        preserveAspectRatio="none"
-                        fill="none"
-                      >
-                        <path
-                          d="M50 4.5 L95 30.5 L95 84.5 L50 110.5 L5 84.5 L5 30.5 Z"
-                          strokeWidth="4"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-
-                      {/* Icon inside hexagon */}
-                      <div className={`relative z-10 transition-all duration-300 ${isHovered ? "scale-110 text-blue-600" : "text-slate-500"}`}>
-                        <step.icon className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={isHovered ? "2.2" : "1.8"} />
-                      </div>
-
+                    {/* Step Number Tag */}
+                    <div className={`text-[10px] font-extrabold tracking-widest transition-colors duration-300 ${isHovered ? "text-blue-600" : "text-slate-400"}`}>
+                      {step.id}
                     </div>
 
-                    {/* Step Descriptive Info Card (Fades in, hides on responsive if too crowded) */}
-                    <div
-                      className={`hidden sm:block absolute w-48 pointer-events-none transition-all duration-300 ${getTextStyles(step.textPosition)} ${isHovered
-                        ? "opacity-100 translate-y-0 scale-100"
-                        : "opacity-45 scale-95"
-                        }`}
-                    >
-                      {/* Step Number Tag */}
-                      <div className={`text-[10px] font-extrabold tracking-widest transition-colors duration-300 ${isHovered ? "text-blue-600" : "text-slate-400"}`}>
-                        {step.id}
-                      </div>
+                    {/* Step Name */}
+                    <div className={`text-[11px] font-bold tracking-wider mt-0.5 transition-colors duration-300 ${isHovered ? "text-slate-900" : "text-slate-600"}`}>
+                      {step.title}
+                    </div>
 
-                      {/* Step Name */}
-                      <div className={`text-[11px] font-bold tracking-wider mt-0.5 transition-colors duration-300 ${isHovered ? "text-slate-900" : "text-slate-600"}`}>
-                        {step.title}
-                      </div>
-
-                      {/* Step Short Description */}
-                      <div className={`text-[9.5px] leading-normal font-medium text-slate-500 mt-1 transition-all duration-300 ${isHovered ? "max-h-12 opacity-100 translate-y-0 text-slate-600" : "max-h-0 opacity-0 -translate-y-1 overflow-hidden"}`}>
-                        {step.desc}
-                      </div>
-
+                    {/* Step Short Description */}
+                    <div className={`text-[9.5px] leading-normal font-medium text-slate-500 mt-1 transition-all duration-300 ${isHovered ? "max-h-12 opacity-100 translate-y-0 text-slate-600" : "max-h-0 opacity-0 -translate-y-1 overflow-hidden"}`}>
+                      {step.desc}
                     </div>
 
                   </div>
-                );
-              })}
 
-            </motion.div>
+                </div>
+              );
+            })}
+
+          </motion.div>
 
           {/* Premium Glassmorphic Active Step Info Card for Mobile & Tablet */}
           <AnimatePresence mode="wait">

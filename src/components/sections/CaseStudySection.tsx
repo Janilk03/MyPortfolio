@@ -120,7 +120,7 @@ export function CaseStudySection() {
             const cardConfigs = [
               {
                 bg: "bg-[#e0e8f5]", // Soft light slate-blue
-                fallbackImg: "/images/timesheet.png",
+                fallbackImg: "/images/timesheet.jpeg",
               },
               {
                 bg: "bg-[#ffffff]", // High contrast white
@@ -128,14 +128,14 @@ export function CaseStudySection() {
               },
               {
                 bg: "bg-[#e2eaf5]", // Cool sky grey
-                fallbackImg: "/images/dashboard.jpeg",
+                fallbackImg: "/images/timesheet.jpeg",
               },
             ];
-            
+
             const config = cardConfigs[index] || cardConfigs[0];
             const displayImage = study.heroImage || config.fallbackImg;
 
-             return (
+            return (
               <motion.li
                 key={study.id}
                 custom={index}
@@ -163,7 +163,7 @@ export function CaseStudySection() {
                   <div className={`relative my-8 w-full h-[220px] rounded-3xl ${config.bg} overflow-visible flex items-center justify-center p-3 shadow-inner transition-transform duration-500`}>
                     {/* Subtle mockup card shading */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-black/[0.04] to-transparent pointer-events-none rounded-3xl" />
-                    
+
                     {/* 3 Overlapping Mobile Smartphone Previews inside the container */}
                     <div className="relative w-full h-full flex items-center justify-center gap-2 overflow-hidden rounded-2xl">
                       {/* Left phone screen */}
@@ -224,7 +224,7 @@ export function CaseStudySection() {
                     <p className="text-sm leading-relaxed text-slate-300 line-clamp-3 mb-6">
                       {study.summary}
                     </p>
-                    
+
                     <div
                       className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#2997ff] group-hover:text-sky-300 transition-colors duration-300 self-start group/link"
                     >
