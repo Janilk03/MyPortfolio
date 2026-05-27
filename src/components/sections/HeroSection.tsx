@@ -93,10 +93,11 @@ export function HeroSection() {
   const currentStep = steps.find((s) => s.id === currentStepId);
 
   // Typewriter text parts
+  const labelLine = "UX ENGINEER";
   const line1 = "Designing";
   const line2 = "meaningful";
   const line3 = "experiences.";
-  const totalChars = line1.length + line2.length + line3.length;
+  const totalChars = labelLine.length + line1.length + line2.length + line3.length;
 
   const [visibleCount, setVisibleCount] = useState(0);
   const isComplete = visibleCount >= totalChars;
@@ -148,17 +149,27 @@ export function HeroSection() {
       </div>
 
       {/* 2. Content Container (Responsive Grid) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-28 pb-40 lg:py-20 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-8 items-center min-h-screen">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-18 md:pt-28 pb-32 md:pb-40 lg:py-20 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-8 items-center min-h-screen">
 
         {/* LEFT COLUMN: Texts, Buttons, and Stats */}
         <div className="contents lg:col-span-5 lg:flex lg:flex-col lg:justify-center lg:text-left">
 
           {/* B. Headline */}
           <div className="order-1 lg:order-none mt-6 sm:min-h-[11rem] lg:min-h-[14rem]">
+            <span className="text-xs font-extrabold tracking-[0.25em] text-slate-800 block mb-3 uppercase relative min-h-[1rem]">
+              {labelLine.slice(0, visibleCount)}
+              {visibleCount > 0 && visibleCount < labelLine.length && (
+                <motion.span
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                  className="inline-block w-[2px] h-[0.9em] bg-slate-800 ml-1 translate-y-[0.05em]"
+                />
+              )}
+            </span>
             <h1 className="font-heading text-5xl md:text-6xl lg:text-[66px] font-bold tracking-tight text-slate-900 leading-[1.08] select-none">
               <span className="relative">
-                {line1.slice(0, visibleCount)}
-                {visibleCount > 0 && visibleCount < line1.length && (
+                {line1.slice(0, Math.max(0, visibleCount - labelLine.length))}
+                {visibleCount > labelLine.length && visibleCount < labelLine.length + line1.length && (
                   <motion.span
                     animate={{ opacity: [1, 0, 1] }}
                     transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
@@ -168,8 +179,8 @@ export function HeroSection() {
               </span>
               <br />
               <span className="text-slate-900 relative">
-                {line2.slice(0, Math.max(0, visibleCount - line1.length))}
-                {visibleCount >= line1.length && visibleCount < line1.length + line2.length && (
+                {line2.slice(0, Math.max(0, visibleCount - labelLine.length - line1.length))}
+                {visibleCount >= labelLine.length + line1.length && visibleCount < labelLine.length + line1.length + line2.length && (
                   <motion.span
                     animate={{ opacity: [1, 0, 1] }}
                     transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
@@ -179,8 +190,8 @@ export function HeroSection() {
               </span>
               <br />
               <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 bg-clip-text text-transparent inline-block font-extrabold pr-2 relative">
-                {line3.slice(0, Math.max(0, visibleCount - line1.length - line2.length))}
-                {visibleCount >= line1.length + line2.length && (
+                {line3.slice(0, Math.max(0, visibleCount - labelLine.length - line1.length - line2.length))}
+                {visibleCount >= labelLine.length + line1.length + line2.length && (
                   <motion.span
                     animate={{ opacity: isComplete ? 0 : [1, 0, 1] }}
                     transition={{
@@ -377,71 +388,41 @@ export function HeroSection() {
 
               </svg>
 
-              {/* CENTER CIRCLE: DYNAMIC MORPHING CONTENT */}
+              {/* CENTER CIRCLE: STATIC CONTENT */}
               <div
                 className={`relative z-10 w-36 h-36 sm:w-[170px] sm:h-[170px] rounded-full flex flex-col items-center justify-center bg-white border backdrop-blur-xl transition-all duration-500 ${currentStepId !== null
                   ? "border-blue-500/30 shadow-[0_12px_40px_rgba(59,130,246,0.18)] scale-105"
                   : "border-slate-200/60 shadow-[0_8px_32px_rgba(15,23,42,0.06)]"
                   }`}
               >
-                <AnimatePresence mode="wait">
-                  {!currentStep ? (
-                    <motion.div
-                      key="user-center"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.25 }}
-                      className="flex flex-col items-center justify-center"
-                    >
-                      {/* Dual Overlapping Minimal Figures (Gradient User SVG) */}
-                      <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
-                        <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
-                          {/* Figure 1 (Left - Blue) */}
-                          <path
-                            d="M20 28 C25.5 28 30 32.5 30 38 M20 24 C24.4 24 28 20.4 28 16 C28 11.6 24.4 8 20 8 C15.6 8 12 11.6 12 16 C12 20.4 15.6 24 20 24 Z"
-                            stroke="#2563eb"
-                            strokeWidth="2.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          {/* Figure 2 (Right - Emerald) */}
-                          <path
-                            d="M28 28 C33.5 28 38 32.5 38 38 M28 24 C32.4 24 36 20.4 36 16 C36 11.6 32.4 8 28 8"
-                            stroke="#10b981"
-                            strokeWidth="2.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeDasharray="2 2"
-                            opacity="0.85"
-                          />
-                        </svg>
-                      </div>
+                <div className="flex flex-col items-center justify-center">
+                  {/* Dual Overlapping Minimal Figures (Gradient User SVG) */}
+                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
+                    <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
+                      {/* Figure 1 (Left - Blue) */}
+                      <path
+                        d="M20 28 C25.5 28 30 32.5 30 38 M20 24 C24.4 24 28 20.4 28 16 C28 11.6 24.4 8 20 8 C15.6 8 12 11.6 12 16 C12 20.4 15.6 24 20 24 Z"
+                        stroke="#2563eb"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      {/* Figure 2 (Right - Emerald) */}
+                      <path
+                        d="M28 28 C33.5 28 38 32.5 38 38 M28 24 C32.4 24 36 20.4 36 16 C36 11.6 32.4 8 28 8"
+                        stroke="#10b981"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeDasharray="2 2"
+                        opacity="0.85"
+                      />
+                    </svg>
+                  </div>
 
-                      <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[0.2em] text-slate-800 mt-2 sm:mt-3">USER</span>
-                      <span className="text-[8px] sm:text-[9.5px] font-bold tracking-widest text-slate-400 uppercase mt-0.5 sm:mt-1">At The Center</span>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key={currentStep.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.25 }}
-                      className="flex flex-col items-center justify-center px-4 text-center"
-                    >
-                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-blue-600 mb-1 sm:mb-2 shadow-sm">
-                        <currentStep.icon className="w-4 h-4 sm:w-5 sm:h-5" />
-                      </div>
-                      <span className="text-[9px] sm:text-[10px] font-extrabold tracking-widest text-blue-500 uppercase">
-                        STEP {currentStep.id}
-                      </span>
-                      <span className="text-[11px] sm:text-[13px] font-bold tracking-wide text-slate-800 uppercase mt-0.5 sm:mt-1 leading-tight max-w-[110px] sm:max-w-[130px] truncate">
-                        {currentStep.title}
-                      </span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                  <span className="text-[12px] sm:text-[14px] font-extrabold tracking-[0.2em] text-slate-800 mt-2 sm:mt-3">USER</span>
+                  <span className="text-[8px] sm:text-[9.5px] font-bold tracking-widest text-slate-400 uppercase mt-0.5 sm:mt-1">At The Center</span>
+                </div>
               </div>
 
               {/* RENDER THE 6 HEXAGON ORBIT STEPS */}

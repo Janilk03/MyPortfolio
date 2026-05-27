@@ -10,6 +10,8 @@
   
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-clash), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  
+  --spacing-18: 4.5rem;
 }
 
 :root {

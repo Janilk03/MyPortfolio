@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
 import Link from "next/link";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/#home", label: "Home", id: "home" },
@@ -115,13 +116,20 @@ export function Navbar() {
       >
         <div className={`mx-auto flex items-center justify-between transition-all duration-500 ${scrollPastHero ? "w-full" : "max-w-7xl"}`}>
 
-          {/* Logo AV. UX DESIGNER */}
+          {/* Logo */}
           <Link
             href="/#home"
             className="flex items-center gap-2.5 transition-all duration-300 hover:opacity-90 shrink-0 group"
           >
+            <Image
+              src="/images/logo-new.jpeg"
+              alt="Janil K Logo"
+              width={32}
+              height={32}
+              className="rounded-full object-cover border border-slate-200/50"
+            />
             <span className={`text-xl font-bold tracking-tight transition-colors duration-500 ${scrollPastHero ? "text-white" : "text-slate-900"}`}>
-              JANIL.K |<span className="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent group-hover:from-blue-500 group-hover:to-teal-400"> UI/UX Designer</span>
+              JANIL K.
             </span>
           </Link>
 
@@ -163,9 +171,9 @@ export function Navbar() {
           <div className="hidden lg:block shrink-0">
             <a
               href="#contact"
-              className={`inline-flex items-center gap-2 rounded-full font-semibold transition-all duration-500 ${scrollPastHero
-                ? "bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-500/20 px-5 py-2 text-xs"
-                : "bg-blue-50/50 hover:bg-blue-100/60 text-blue-600 border border-blue-200/50 shadow-sm px-6 py-2.5 text-xs hover:-translate-y-0.5"
+              className={`inline-flex items-center gap-2 rounded-full font-semibold transition-all duration-500 bg-white hover:bg-blue-50/90 text-blue-600 border border-slate-100 ${scrollPastHero
+                ? "shadow-sm px-5 py-2 text-xs"
+                : "shadow-sm px-6 py-2.5 text-xs hover:-translate-y-0.5"
                 }`}
             >
               Let's connect
