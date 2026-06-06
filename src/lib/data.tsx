@@ -354,7 +354,7 @@ export const caseStudies: CaseStudy[] = [
     timeline: "18 Months Includes Design & Development",
     platform: "B2B SaaS Enterprise Application",
     tools: "Adobe XD • React • MUI",
-    heroImage: "/images/timesheet.jpeg",
+    heroImage: "/images/vendor-portal.png",
     previewImages: [
       "/images/timesheet.jpeg",
       "/images/timesheet.jpeg",
