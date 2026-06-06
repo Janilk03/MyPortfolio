@@ -120,20 +120,20 @@ export function CaseStudySection() {
                   return {
                     bg: "bg-gradient-to-br from-[#ffffff] to-[#f8fafc]", // Clean high-contrast white-gray
                     fallbackImg: "/images/dms.png",
-                    badge: "SYSTEMS",
+                    badge: "Product Design",
                   };
                 case "timesheet-platform":
                   return {
                     bg: "bg-gradient-to-br from-[#dbeafe] to-[#eff6ff]", // Soft sky blue gradient
                     fallbackImg: "/images/timesheet.jpeg",
-                    badge: "UX/UI",
+                    badge: "UX/UI Architecture",
                   };
                 case "vendor-shipping-portal":
                 default:
                   return {
                     bg: "bg-gradient-to-br from-[#e2eaf5] to-[#f1f5f9]", // Cool slate-gray gradient
                     fallbackImg: "/images/timesheet.jpeg",
-                    badge: "PORTAL",
+                    badge: "UX/UI Architecture",
                   };
               }
             };
