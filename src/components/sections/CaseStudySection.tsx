@@ -107,9 +107,6 @@ export function CaseStudySection() {
             <p className="text-base leading-relaxed text-slate-300 md:text-lg max-w-xl md:ml-auto">
               Three narratives from discovery to shipped UI. Open a study for outcomes, constraints, and craftsmanship.
             </p>
-            <p className="mt-3 text-xs leading-relaxed text-slate-400 italic max-w-xl md:ml-auto">
-              <span className="font-bold not-italic text-slate-200">Note: </span>The images used in these case studies are AI-generated, as real images cannot be published due to privacy policies.
-            </p>
           </motion.div>
         </div>
 
