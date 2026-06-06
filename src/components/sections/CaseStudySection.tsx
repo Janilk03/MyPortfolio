@@ -116,23 +116,32 @@ export function CaseStudySection() {
         {/* 3-Column Glassmorphic Cards Grid */}
         <ul className="grid gap-8 md:grid-cols-3">
           {caseStudies.map((study, index) => {
-            // Determine mockup colors and fallback images
-            const cardConfigs = [
-              {
-                bg: "bg-[#e0e8f5]", // Soft light slate-blue
-                fallbackImg: "/images/timesheet.jpeg",
-              },
-              {
-                bg: "bg-[#ffffff]", // High contrast white
-                fallbackImg: "/images/dms.png",
-              },
-              {
-                bg: "bg-[#e2eaf5]", // Cool sky grey
-                fallbackImg: "/images/timesheet.jpeg",
-              },
-            ];
+            // Determine mockup colors, fallback images, and badges dynamically by project ID
+            const getCardConfig = (id: string) => {
+              switch (id) {
+                case "pharma-dms-vms":
+                  return {
+                    bg: "bg-gradient-to-br from-[#ffffff] to-[#f8fafc]", // Clean high-contrast white-gray
+                    fallbackImg: "/images/dms.png",
+                    badge: "SYSTEMS",
+                  };
+                case "timesheet-platform":
+                  return {
+                    bg: "bg-gradient-to-br from-[#dbeafe] to-[#eff6ff]", // Soft sky blue gradient
+                    fallbackImg: "/images/timesheet.jpeg",
+                    badge: "UX/UI",
+                  };
+                case "vendor-shipping-portal":
+                default:
+                  return {
+                    bg: "bg-gradient-to-br from-[#e2eaf5] to-[#f1f5f9]", // Cool slate-gray gradient
+                    fallbackImg: "/images/timesheet.jpeg",
+                    badge: "PORTAL",
+                  };
+              }
+            };
 
-            const config = cardConfigs[index] || cardConfigs[0];
+            const config = getCardConfig(study.id);
             const displayImage = study.heroImage || config.fallbackImg;
 
             return (
@@ -147,89 +156,60 @@ export function CaseStudySection() {
               >
                 <Link
                   href={study.href}
-                  className="group flex flex-col justify-between w-full rounded-[36px] border border-white/10 bg-white/[0.03] p-7 shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl transition-all duration-500 hover:border-blue-500/30 hover:bg-white/[0.05] hover:-translate-y-2 hover:shadow-[0_24px_50px_-20px_rgba(59,130,246,0.22)]"
+                  className="group flex flex-col w-full"
                 >
-                  {/* Text Block at Top */}
-                  <div>
-                    <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                  {/* Folder Tab Header */}
+                  <div className="flex z-10">
+                    <div className="px-5 py-2 bg-[#0a0d14] border-t border-l border-r border-white/10 rounded-t-[18px] text-[10px] font-bold uppercase tracking-[0.18em] text-[#2997ff] -mb-[1px] relative z-10 flex items-center min-h-[34px]">
                       {study.focus}
-                    </p>
-                    <h3 className="font-heading text-xl font-bold leading-snug tracking-tight text-white min-h-[56px] group-hover:text-[#2997ff] transition-colors duration-300">
-                      {study.title}
-                    </h3>
+                    </div>
                   </div>
 
-                  {/* Highly-finished Interactive Device Mockup (Center) */}
-                  <div className={`relative my-8 w-full h-[220px] rounded-3xl ${config.bg} overflow-visible flex items-center justify-center p-3 shadow-inner transition-transform duration-500`}>
-                    {/* Subtle mockup card shading */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-black/[0.04] to-transparent pointer-events-none rounded-3xl" />
+                  {/* Folder Card Body */}
+                  <div className="relative z-0 flex-1 flex flex-col rounded-b-[32px] rounded-tr-[32px] rounded-tl-none border border-white/10 bg-white/[0.03] p-5 shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-xl transition-all duration-500 group-hover:border-blue-500/30 group-hover:bg-white/[0.05] group-hover:-translate-y-1.5 group-hover:shadow-[0_24px_50px_-20px_rgba(59,130,246,0.22)]">
+                    {/* Image Container Wrapper (prevents overflow clipping for absolute overlapping elements) */}
+                    <div className="relative mb-6">
+                      {/* Big Highlighted Image (Covers half portion) */}
+                      <div className="relative w-full h-[220px] rounded-2xl overflow-hidden border border-white/5 shadow-inner">
+                        <Image
+                          src={displayImage}
+                          alt={study.title}
+                          fill
+                          sizes="(max-w-768px) 100vw, 350px"
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          priority={index === 0}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
 
-                    {/* 3 Overlapping Mobile Smartphone Previews inside the container */}
-                    <div className="relative w-full h-full flex items-center justify-center gap-2 overflow-hidden rounded-2xl">
-                      {/* Left phone screen */}
-                      <div className="w-[50px] h-[135px] rounded-md bg-white/95 shadow-md overflow-hidden relative opacity-70 scale-90 translate-y-3 translate-x-2 rotate-[-4deg] transition-all duration-500 group-hover:translate-y-1 group-hover:rotate-[-2deg]">
-                        <div className="absolute inset-0">
-                          <Image
-                            src={displayImage}
-                            alt="Left Preview Screen"
-                            fill
-                            sizes="80px"
-                            className="object-cover object-left"
-                          />
+                        {/* Floating Tag/Badge in top right corner of the image */}
+                        <div className="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-md border border-white/10 text-[9px] font-bold text-white uppercase tracking-wider">
+                          {config.badge}
                         </div>
                       </div>
 
-                      {/* Center phone screen (Primary focus) */}
-                      <div className="w-[66px] h-[155px] rounded-[10px] bg-white shadow-2xl overflow-hidden relative z-10 border border-slate-900/10 scale-100 translate-y-0.5 transition-transform duration-500 group-hover:scale-105">
-                        {/* Speaker receiver and notch ornament */}
-                        <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-8 h-2.5 rounded-full bg-slate-950 flex items-center justify-center z-20">
-                          <div className="w-4 h-[1px] bg-slate-800 rounded-full" />
-                        </div>
-                        {/* Screenshot */}
-                        <div className="absolute inset-0 pt-5">
-                          <Image
-                            src={displayImage}
-                            alt="Center Mockup Screen"
-                            fill
-                            sizes="120px"
-                            className="object-cover object-top"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Right phone screen */}
-                      <div className="w-[50px] h-[135px] rounded-md bg-white/95 shadow-md overflow-hidden relative opacity-70 scale-90 translate-y-3 -translate-x-2 rotate-[4deg] transition-all duration-500 group-hover:translate-y-1 group-hover:rotate-[2deg]">
-                        <div className="absolute inset-0">
-                          <Image
-                            src={displayImage}
-                            alt="Right Preview Screen"
-                            fill
-                            sizes="80px"
-                            className="object-cover object-right"
-                          />
+                      {/* Circle Action Button overlapping the bottom right corner of the image */}
+                      <div className="absolute -bottom-3 right-4 z-20">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111827] border border-white/10 text-white shadow-xl transition-all duration-300 group-hover:bg-[#2997ff] group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(41,151,255,0.6)]">
+                          <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-out group-hover:rotate-45" />
                         </div>
                       </div>
                     </div>
 
-                    {/* Circle Action Button overlapping the bottom right corner */}
-                    <div className="absolute -bottom-3 -right-3 z-20">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#111827] border border-white/10 text-white shadow-xl transition-all duration-300 group-hover:bg-[#2997ff] group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(41,151,255,0.6)]">
-                        <ArrowUpRight className="h-5 w-5 transition-transform duration-300 ease-out group-hover:rotate-45" />
+                    {/* Text Block at Bottom */}
+                    <div className="flex flex-col flex-1">
+                      <h3 className="font-heading text-xl font-bold leading-snug tracking-tight text-white mb-3 group-hover:text-[#2997ff] transition-colors duration-300">
+                        {study.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-slate-300 line-clamp-3 mb-6">
+                        {study.summary}
+                      </p>
+
+                      <div
+                        className="mt-auto inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#2997ff] group-hover:text-sky-300 transition-colors duration-300 self-start group/link"
+                      >
+                        View Case Study
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#2997ff] group-hover/link:scale-[1.8] transition-transform duration-300" />
                       </div>
-                    </div>
-                  </div>
-
-                  {/* Summary & View Link at Bottom */}
-                  <div className="mt-auto flex flex-col">
-                    <p className="text-sm leading-relaxed text-slate-300 line-clamp-3 mb-6">
-                      {study.summary}
-                    </p>
-
-                    <div
-                      className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#2997ff] group-hover:text-sky-300 transition-colors duration-300 self-start group/link"
-                    >
-                      View Case Study
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#2997ff] group-hover/link:scale-[1.8] transition-transform duration-300" />
                     </div>
                   </div>
                 </Link>

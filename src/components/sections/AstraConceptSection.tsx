@@ -20,7 +20,6 @@ import {
   XCircle
 } from "lucide-react";
 import Image from "next/image";
-
 // Astra screen assets and details
 const astraScreens = [
   {
@@ -73,12 +72,19 @@ export function AstraConceptSection() {
       className="relative scroll-mt-24 bg-matte-black border-t border-off-white/5 overflow-hidden"
     >
       {/* Background radial gradient glow for premium feel */}
-      <div
-        className="pointer-events-none absolute left-1/3 top-1/4 z-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-electric-blue/5 blur-[120px]"
+      <div style={{
+        backgroundImage: "url('/images/concept-app-bg.jpeg')",
+        backgroundSize: "contain",
+        backgroundPosition: "right",
+        backgroundRepeat: "no-repeat",
+        width: "134%",
+        height: "100vh",
+      }}
+        className="pointer-events-none absolute left-1/3 top-1/4 z-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2"
         aria-hidden="true"
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pb-24 pt-20 md:px-12 md:pb-24 md:pt-12">
+      <div className="relative z-10 px-6 pb-24 pt-20 md:px-12 md:pb-24 md:pt-12">
 
         {/* Header */}
         <motion.div
@@ -97,7 +103,7 @@ export function AstraConceptSection() {
           >
             Astra — AI Productivity Assistant
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-soft-gray md:text-lg">
+          <p className="mt-4 text-base leading-relaxed text-off-white md:text-lg">
             A vision of how artificial intelligence can break past static chat windows. Astra aggregates services like ride booking, communications, scheduling, and food delivery into a unified, predictive interface.
           </p>
         </motion.div>
@@ -247,7 +253,7 @@ export function AstraConceptSection() {
                 Context & The Friction
               </h3>
               <p className="text-sm leading-relaxed text-slate-600">
-                Today&apos;s mobile workflow is deeply fragmented. Performing simple cross-app operations—like booking a ride to an upcoming calendar event, confirming a calendar slot on an email request, or scheduling a food delivery for a professional meeting—forces users into constant context switching.
+                Today&apos;s mobile workflow is deeply fragmented. Performing simple cross-app operations like booking a ride to an upcoming calendar event, confirming a calendar slot on an email request, or scheduling a food delivery for a professional meeting forces users into constant context switching.
               </p>
 
               <div className="grid gap-4 sm:grid-cols-2 pt-2">
