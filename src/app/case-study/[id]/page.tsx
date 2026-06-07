@@ -82,8 +82,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
           </div>
         </header>
 
-        {/* Image Placeholder */}
-        <div className="mb-20 w-full overflow-hidden rounded-3xl bg-slate-200 shadow-[0_20px_60px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5">
+        {/* Image Showcase */}
+        <div className="mb-20 w-full rounded-none bg-slate-200 shadow-[0_20px_50px_rgba(15,23,42,0.05)] border border-slate-200/80">
           {study.heroImage ? (
             <ZoomableImage 
               src={study.heroImage} 
