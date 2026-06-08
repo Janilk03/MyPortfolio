@@ -32,14 +32,14 @@ export const caseStudies: CaseStudy[] = [
     focus: "UX Architecture & Systems",
     href: "/case-study/pharma-dms-vms",
     role: "UX Designer",
-    timeline: "18 Months Includes Design & Development",
+    timeline: "3 Months",
     platform: "B2B SaaS Enterprise Application",
     tools: "Adobe XD • React • MUI Design System",
     heroImage: "/images/dms-vms-login-main.png",
     previewImages: [
-      "/images/dms.png",
-      "/images/dms.png",
-      "/images/client-selection.jpg",
+      "/images/dms-vms-login-main.png",
+      "/images/dms-document.png",
+      "/images/dms-work-flow.png",
     ],
     themeBg: "bg-gradient-to-br from-blue-700 via-blue-800 to-indigo-900",
     disciplines: ["Enterprise UX", "UX Architecture", "Information Architecture", "System Design"],
@@ -61,7 +61,7 @@ export const caseStudies: CaseStudy[] = [
             </h2>
           </div>
           <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600">
-            <p className="text-base md:text-lg leading-relaxed">The existing platform was a legacy enterprise system originally built for pharmaceutical workflows. Over time, the product developed major limitations:</p>
+            <p className="text-base md:text-lg leading-relaxed mb-2">The existing platform was a legacy enterprise system originally built for pharmaceutical workflows. Over time, the product developed major limitations:</p>
             <ul className="mb-8 grid gap-4 sm:grid-cols-2 list-none pl-0">
               {[
                 "Scalability issues & rigid architecture",
@@ -136,7 +136,7 @@ export const caseStudies: CaseStudy[] = [
           </div>
           <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600">
             <p className="text-base leading-relaxed">Instead of jumping straight to screen design, the first phase focused on restructuring the platform architecture and document state transitions. By mapping workflows comprehensively, we resolved nested loops and edge cases.</p>
-            
+
             {/* User Flow Diagram - Framed */}
             <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.03)]">
               <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
@@ -148,6 +148,76 @@ export const caseStudies: CaseStudy[] = [
               </div>
               <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
                 This diagram maps the conditional relationship between Document Management (DMS) and Validation Management (VMS) processes, showing how documents transition from draft state to verified execution.
+              </p>
+            </div>
+
+            {/* System Architecture Framework */}
+            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.03)]">
+              <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">System Architecture Framework</span>
+                <span className="text-[10px] font-mono text-slate-400">dms-framework.png</span>
+              </div>
+              <div className="p-6 bg-slate-50/50">
+                <ZoomableImage src="/images/dms-framework.png" alt="DMS System Architecture Framework" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
+              </div>
+              <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
+                This schematic maps the modular relationship between different enterprise modules, database tables, configuration engines, and access roles that structure the DMS and VMS platform.
+              </p>
+            </div>
+
+            {/* Validation Decision Tree */}
+            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.03)]">
+              <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Validation Decision Tree</span>
+                <span className="text-[10px] font-mono text-slate-400">dms-decision-tree.png</span>
+              </div>
+              <div className="p-6 bg-slate-50/50">
+                <ZoomableImage src="/images/dms-decision-tree.png" alt="DMS Validation Decision Tree" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
+              </div>
+              <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
+                The validation decision tree models structural routing criteria, compliance gates, and document state changes to automate workflow progression across varying product risks.
+              </p>
+            </div>
+
+            {/* Document Landing Page & Dashboard */}
+            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.06)]">
+              <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Document Landing Page & Dashboard</span>
+                <span className="text-[10px] font-mono text-slate-400">dms-documnet-ladnding-page.png</span>
+              </div>
+              <div className="p-6 bg-slate-50/50">
+                <ZoomableImage src="/images/dms-documnet-ladnding-page.png" alt="DMS Document Landing Page Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
+              </div>
+              <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
+                The centralized Document Landing Page UI functions as a customizable dashboard, highlighting active validation tasks, draft status notifications, and global folder pathways.
+              </p>
+            </div>
+
+            {/* Document Detail View */}
+            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.06)]">
+              <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Document Detail View</span>
+                <span className="text-[10px] font-mono text-slate-400">dms-document.png</span>
+              </div>
+              <div className="p-6 bg-slate-50/50">
+                <ZoomableImage src="/images/dms-document.png" alt="DMS Document View Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
+              </div>
+              <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
+                The document details page displays comprehensive metadata details, active revision states, linked validation runs, and compliance-mandated audit logs in a single pane.
+              </p>
+            </div>
+
+            {/* Validation & Lifecycle Workflow */}
+            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.06)]">
+              <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Validation & Lifecycle Workflow</span>
+                <span className="text-[10px] font-mono text-slate-400">dms-work-flow.png</span>
+              </div>
+              <div className="p-6 bg-slate-50/50">
+                <ZoomableImage src="/images/dms-work-flow.png" alt="DMS Workflow View Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
+              </div>
+              <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
+                This view tracks live validation milestones, signature progress logs, and reviewer tasks, validating that the document lifecycle adheres strictly to FDA standards.
               </p>
             </div>
           </div>
@@ -197,42 +267,11 @@ export const caseStudies: CaseStudy[] = [
           </div>
         </section>
 
-        {/* Upcoming Releases Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
-              05 / Roadmap
-            </span>
-            <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
-              Future Releases
-            </h2>
-          </div>
-          <div className="md:col-span-8">
-            <p className="text-slate-600 mb-8 leading-relaxed text-base">Additional layout screens currently undergoing design refinement and compliance review:</p>
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div className="border border-dashed border-slate-200 bg-white/40 p-6 rounded-2xl flex flex-col min-h-[200px]">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-electric-blue flex items-center justify-center mb-4 border border-blue-100/50">
-                  <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                </div>
-                <h4 className="text-sm font-bold text-slate-800 mb-1">Document Editor & Collaborative Review</h4>
-                <p className="text-xs text-slate-500 leading-relaxed">Interactive workspace for inline commenting, multi-user approval routing, and compliant text editing.</p>
-              </div>
-              <div className="border border-dashed border-slate-200 bg-white/40 p-6 rounded-2xl flex flex-col min-h-[200px]">
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center mb-4 border border-emerald-100/50">
-                  <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-                </div>
-                <h4 className="text-sm font-bold text-slate-800 mb-1">Compliant E-Signatures & Audit Trail</h4>
-                <p className="text-xs text-slate-500 leading-relaxed">Strict FDA 21 CFR Part 11 signature logs, timestamp tracking, and secure PDF export generators.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Outcomes Section */}
         <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
           <div className="md:col-span-4 md:sticky md:top-32 h-fit">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
-              06 / Validation
+              05 / Validation
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               Key Outcomes
@@ -264,7 +303,7 @@ export const caseStudies: CaseStudy[] = [
                   ))}
                 </ul>
               </div>
-              
+
               <div className="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)]">
                 <h3 className="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 text-xs font-bold">2</span>
@@ -306,7 +345,7 @@ export const caseStudies: CaseStudy[] = [
     focus: "UX Architect & UI Builder",
     href: "/case-study/timesheet-platform",
     role: "UX Designer",
-    timeline: "4 Months Includes Design & Development",
+    timeline: "15 Days",
     platform: "B2B SaaS Web Application",
     tools: "Adobe XD • React • MUI (Material UI)",
     heroImage: "/images/Timesheet-login-page.png",
@@ -405,7 +444,7 @@ export const caseStudies: CaseStudy[] = [
           </div>
           <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600">
             <p className="text-base leading-relaxed">To simplify the logging flow, we restructured the timesheet entry path into a unified screen with a simple dropdown sequence. Below is the simplified task mapping.</p>
-            
+
             {/* User Flow Diagram - Framed */}
             <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.03)]">
               <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
@@ -456,38 +495,60 @@ export const caseStudies: CaseStudy[] = [
             <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_25px_55px_-10px_rgba(15,23,42,0.06)]">
               <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
                 <div>
-                  <span className="text-[10px] font-bold text-electric-blue uppercase tracking-wider">Step 01 / Context Setup</span>
-                  <h4 className="text-sm font-bold text-slate-900 mt-0.5">Client Selection Dropdown</h4>
+                  <span className="text-[10px] font-bold text-electric-blue uppercase tracking-wider">Step 01 / Initial Entry</span>
+                  <h4 className="text-sm font-bold text-slate-900 mt-0.5">Timesheet Home Dashboard</h4>
                 </div>
-                <span className="text-[10px] font-mono text-slate-400">client-selection.jpg</span>
+                <span className="text-[10px] font-mono text-slate-400">homescreen.jpg</span>
               </div>
               <div className="p-6 bg-slate-50/30">
                 <p className="text-slate-600 mb-6 text-sm">
-                  To prevent errors, users choose from pre-filtered clients and active projects configured by managers. This step-by-step workflow significantly reduces input mismatch.
+                  Upon landing, the employee is greeted by the home dashboard, which preloads their active calendar week and assigned tasks. There's no initial selection required to view the workspace state.
                 </p>
-                <ZoomableImage src="/images/client-selection.jpg" alt="Client Selection Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
+                <ZoomableImage src="/images/homescreen.jpg" alt="Timesheet Homescreen Dashboard Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
               </div>
             </div>
 
             <div className="border-l-4 border-slate-200/80 pl-6">
-              <h3 className="text-xl font-bold text-slate-900 mb-3">Simplified Time Entry Modal</h3>
-              <p className="text-slate-600 leading-relaxed text-base">When users click the add action, a lightweight modal opens, showing only relevant assigned options. Employees only needed to select predefined client/engagement options, choose task type, and enter hours/minutes.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Preloaded Work Hour Logging</h3>
+              <p className="text-slate-600 leading-relaxed text-base">To log hours, users trigger a daily dialog that preloads default projects and tasks configured on their dashboard. Instead of choosing project configurations daily, they only need to input their time and comments.</p>
             </div>
 
             {/* Showcase Step 2 - Browser Mockup */}
             <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_25px_55px_-10px_rgba(15,23,42,0.06)]">
               <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
                 <div>
-                  <span className="text-[10px] font-bold text-electric-blue uppercase tracking-wider">Step 02 / Time Logging</span>
-                  <h4 className="text-sm font-bold text-slate-900 mt-0.5">Timesheet Hour Logging</h4>
+                  <span className="text-[10px] font-bold text-electric-blue uppercase tracking-wider">Step 02 / Daily Action</span>
+                  <h4 className="text-sm font-bold text-slate-900 mt-0.5">Work Hour Logging Panel</h4>
                 </div>
                 <span className="text-[10px] font-mono text-slate-400">Timesheet-fill-up.jpg</span>
               </div>
               <div className="p-6 bg-slate-50/30">
                 <p className="text-slate-600 mb-6 text-sm">
-                  An intuitive, calendar-integrated overlay popup allows employees to quickly log hours against selected task categories, enter descriptions, and save with a single action.
+                  The hour logging layout pre-populates active engagement rows automatically. Employees specify the work hours logged, reducing entry interaction to numeric input and optional comments.
                 </p>
-                <ZoomableImage src="/images/Timesheet-fill-up.jpg" alt="Timesheet Fill Up Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
+                <ZoomableImage src="/images/Timesheet-fill-up.jpg" alt="Timesheet Hour Logging Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
+              </div>
+            </div>
+
+            <div className="border-l-4 border-slate-200/80 pl-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Client Adjustment Setup</h3>
+              <p className="text-slate-600 leading-relaxed text-base">When users need to update active engagement roles or add new projects, they can open the selection pane. Because team allocations change monthly rather than daily, this task is isolated to keep daily click rates exceptionally low.</p>
+            </div>
+
+            {/* Showcase Step 3 - Browser Mockup */}
+            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_25px_55px_-10px_rgba(15,23,42,0.06)]">
+              <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
+                <div>
+                  <span className="text-[10px] font-bold text-electric-blue uppercase tracking-wider">Step 03 / Occasional Adjustments</span>
+                  <h4 className="text-sm font-bold text-slate-900 mt-0.5">Client & Project Selection Customizer</h4>
+                </div>
+                <span className="text-[10px] font-mono text-slate-400">client-selection.jpg</span>
+              </div>
+              <div className="p-6 bg-slate-50/30">
+                <p className="text-slate-600 mb-6 text-sm">
+                  The client filter menu handles occasional assignments and changes. Segregating this flow cuts daily entry click-rates compared to standard legacy methods.
+                </p>
+                <ZoomableImage src="/images/client-selection.jpg" alt="Client Selection Customizer Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
               </div>
             </div>
 
@@ -502,43 +563,11 @@ export const caseStudies: CaseStudy[] = [
             </div>
           </div>
         </section>
-
-        {/* Upcoming Releases Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
-              05 / Roadmap
-            </span>
-            <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
-              Future Releases
-            </h2>
-          </div>
-          <div className="md:col-span-8">
-            <p className="text-slate-600 mb-8 leading-relaxed text-base">Additional timesheet interfaces currently undergoing validation and deployment planning:</p>
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div className="border border-dashed border-slate-200 bg-white/40 p-6 rounded-2xl flex flex-col min-h-[200px]">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-electric-blue flex items-center justify-center mb-4 border border-blue-100/50">
-                  <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-                </div>
-                <h4 className="text-sm font-bold text-slate-800 mb-1">Manager Analytics Dashboard</h4>
-                <p className="text-xs text-slate-500 leading-relaxed">Data visualization mockup tracking resource allocation, billing utilization, and monthly overhead.</p>
-              </div>
-              <div className="border border-dashed border-slate-200 bg-white/40 p-6 rounded-2xl flex flex-col min-h-[200px]">
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center mb-4 border border-emerald-100/50">
-                  <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
-                </div>
-                <h4 className="text-sm font-bold text-slate-800 mb-1">Admin Platform Settings</h4>
-                <p className="text-xs text-slate-500 leading-relaxed">Interface for setting up team project codes, mapping custom clients, and assigning roles.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Outcomes Section */}
         <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
           <div className="md:col-span-4 md:sticky md:top-32 h-fit">
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
-              06 / Validation
+              05 / Validation
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               Key Outcomes
@@ -590,14 +619,14 @@ export const caseStudies: CaseStudy[] = [
     focus: "Enterprise UX & Architecture",
     href: "/case-study/vendor-shipping-portal",
     role: "UX Designer",
-    timeline: "18 Months Includes Design & Development",
+    timeline: "2 Months",
     platform: "B2B SaaS Enterprise Application",
     tools: "Adobe XD • React • MUI",
     heroImage: "/images/vendor-portal.png",
     previewImages: [
-      "/images/timesheet.jpeg",
-      "/images/timesheet.jpeg",
-      "/images/client-selection.jpg",
+      "/images/vendor-portal.png",
+      "/images/vendor-portal.png",
+      "/images/vendor-portal.png",
     ],
     themeBg: "bg-gradient-to-br from-[#1b253b] via-[#0d1527] to-[#050b18]",
     disciplines: ["Enterprise UX", "B2B Workflows", "UX Strategy", "System Architecture"],
@@ -746,7 +775,7 @@ export const caseStudies: CaseStudy[] = [
                   ))}
                 </ul>
               </div>
-              
+
               <div className="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)]">
                 <h3 className="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 text-xs font-bold">2</span>

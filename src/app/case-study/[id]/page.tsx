@@ -118,7 +118,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
       </header>
 
       {/* Main Content Layout */}
-      <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
         {/* Content Sections */}
         {study.content ? (
           study.content

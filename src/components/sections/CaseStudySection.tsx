@@ -126,14 +126,14 @@ export function CaseStudySection() {
                   return {
                     bg: "bg-gradient-to-br from-[#dbeafe] to-[#eff6ff]", // Soft sky blue gradient
                     fallbackImg: "/images/timesheet.jpeg",
-                    badge: "UX/UI Architecture",
+                    badge: "UX/UI",
                   };
                 case "vendor-shipping-portal":
                 default:
                   return {
                     bg: "bg-gradient-to-br from-[#e2eaf5] to-[#f1f5f9]", // Cool slate-gray gradient
                     fallbackImg: "/images/timesheet.jpeg",
-                    badge: "UX/UI Architecture",
+                    badge: "UX/UI",
                   };
               }
             };

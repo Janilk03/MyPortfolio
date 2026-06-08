@@ -7,15 +7,6 @@ import Image from "next/image";
 const projects = [
   {
     id: 1,
-    title: "SynergICE",
-    category: "UX/UI & Front-end",
-    img: "/images/synergice-project.jpg",
-    url: "https://www.synergice.co/",
-    tags: ["Adobe XD", "Next jS", "React JS", "Tailwind", "Faster", "Scalable"],
-    color: "bg-blue-900/20",
-  },
-  {
-    id: 2,
     title: "Arcolab",
     category: "Product Design",
     img: "/images/arcolab-project.jpg",
@@ -23,6 +14,15 @@ const projects = [
     tags: ["Adobe XD", "Next jS", "React JS", "Tailwind", "Faster", "Scalable"],
     color: "bg-emerald-900/20",
   },
+  {
+    id: 2,
+    title: "SynergICE",
+    category: "UX/UI & Front-end",
+    img: "/images/synergice-project.jpg",
+    url: "https://www.synergice.co/",
+    tags: ["Adobe XD", "Next jS", "React JS", "Tailwind", "Faster", "Scalable"],
+    color: "bg-blue-900/20",
+  }
 ];
 
 
@@ -30,8 +30,8 @@ const projects = [
 export function FeaturedProjects() {
   return (
     <section id="works" className="bg-matte-black scroll-mt-24">
-      <div className="container px-6 md:px-12 mb-12">
-        <h2 className="text-4xl md:text-5xl font-heading font-bold text-off-white">
+      <div className="container px-6 md:px-12 mb-12 mt-12">
+        <h2 className="text-4xl md:text-4xl font-heading font-bold text-off-white">
           Public-Facing Works
         </h2>
       </div>
