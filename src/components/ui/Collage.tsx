@@ -25,12 +25,12 @@ function BrowserCard({ src, alt, className, rotateVal, initialX, initialY, zInde
       initial={{ opacity: 0, x: initialX, y: initialY, rotate: rotateVal }}
       animate={{ opacity: 1, x: 0, y: 0, rotate: rotateVal }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ 
-        scale: 1.05, 
+      whileHover={{
+        scale: 1.05,
         rotate: 0,
         y: -15,
         boxShadow: "-15px 25px 55px rgba(0,0,0,0.6)",
-        zIndex: 50 
+        zIndex: 50
       }}
       className={`absolute bg-slate-900 rounded-2xl border border-white/10 overflow-hidden shadow-[-10px_15px_40px_rgba(0,0,0,0.45)] flex flex-col group/card cursor-pointer transition-shadow duration-300 ${className}`}
       style={{ zIndex }}
@@ -44,7 +44,7 @@ function BrowserCard({ src, alt, className, rotateVal, initialX, initialY, zInde
           dashboard.view
         </div>
       </div>
-      
+
       {/* Body Viewport */}
       <div className="relative flex-1 bg-slate-950 overflow-hidden w-full h-full">
         {/* Click to Zoom Banner */}
@@ -52,10 +52,10 @@ function BrowserCard({ src, alt, className, rotateVal, initialX, initialY, zInde
           <Maximize2 className="w-2.5 h-2.5 text-blue-400" />
           Zoom
         </div>
-        <ZoomableImage 
-          src={src} 
-          alt={alt} 
-          className="w-full h-full [&_img]:h-full [&_img]:w-full [&_img]:object-cover" 
+        <ZoomableImage
+          src={src}
+          alt={alt}
+          className="w-full h-full [&_img]:h-full [&_img]:w-full [&_img]:object-cover"
         />
       </div>
     </motion.div>
@@ -72,7 +72,7 @@ export function Collage({ images, title }: CollageProps) {
         <BrowserCard
           src={images[0]}
           alt={`${title} UI screen 1`}
-          className="top-[-5%] left-[-15%] w-[68%] aspect-[16/10]"
+          className="top-[-5%] left-[-11%] w-[100%] aspect-[16/10]"
           rotateVal={-18}
           initialX={-60}
           initialY={-30}
@@ -85,24 +85,11 @@ export function Collage({ images, title }: CollageProps) {
         <BrowserCard
           src={images[1]}
           alt={`${title} UI screen 2`}
-          className="top-[18%] right-[-20%] w-[68%] aspect-[16/10]"
+          className="top-[38%] right-[-20%] w-[100%] aspect-[16/10]"
           rotateVal={-18}
           initialX={60}
           initialY={20}
           zIndex={5}
-        />
-      )}
-
-      {/* Card 3: Bottom-Center/Left (Lower Left Position - Focal Foreground) */}
-      {images[2] && (
-        <BrowserCard
-          src={images[2]}
-          alt={`${title} UI screen 3`}
-          className="bottom-[-5%] left-[5%] w-[75%] aspect-[16/10]"
-          rotateVal={-18}
-          initialX={-30}
-          initialY={60}
-          zIndex={20}
         />
       )}
     </div>

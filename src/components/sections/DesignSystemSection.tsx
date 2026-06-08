@@ -146,7 +146,7 @@ export function DesignSystemSection() {
   };
 
   return (
-    <section className="mt-24 pt-16 pb-12 bg-[#EEF2F6] text-slate-700 rounded-[40px] px-6 md:px-10 shadow-[inset_6px_6px_16px_rgba(163,177,198,0.35),inset_-6px_-6px_16px_#ffffff] border border-white/50 overflow-hidden relative">
+    <section className="mt-24 text-slate-700 rounded-[40px] px-6 md:px-10 overflow-hidden relative">
 
       {/* Toast Notification for Clipboard Copy */}
       <AnimatePresence>
@@ -155,7 +155,7 @@ export function DesignSystemSection() {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed bottom-8 right-8 z-50 flex items-center gap-2 bg-[#EEF2F6] text-slate-800 px-5 py-3 rounded-2xl shadow-[6px_6px_15px_#c8d0e7,-6px_-6px_15px_#ffffff] border border-white/60 text-xs font-bold"
+            className="fixed bottom-8 right-8 z-50 flex items-center gap-2 text-xs font-bold"
           >
             <Check className="w-4 h-4 text-emerald-500 stroke-[3]" />
             <span>Copied {copiedText} to clipboard!</span>
@@ -170,7 +170,7 @@ export function DesignSystemSection() {
             Soft UI Framework
           </span>
           <h2 className="mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-slate-800">
-            Neumorphic Design System
+            Design System
           </h2>
           <p className="text-slate-500 font-semibold text-xs mt-1.5">
             For React MUI Application &bull; Primary Color: <span className="font-bold text-[#02A74B]">#02A74B</span> &bull; Font Family: <span className="font-bold text-slate-700">Inter</span>

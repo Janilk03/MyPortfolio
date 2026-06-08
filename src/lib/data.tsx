@@ -38,7 +38,7 @@ export const caseStudies: CaseStudy[] = [
     heroImage: "/images/dms-vms-login-main.png",
     previewImages: [
       "/images/dms-vms-login-main.png",
-      "/images/dms-document.png",
+      "/images/dms-documnet-ladnding-page.png",
       "/images/dms-work-flow.png",
     ],
     themeBg: "bg-gradient-to-br from-blue-700 via-blue-800 to-indigo-900",
@@ -150,74 +150,16 @@ export const caseStudies: CaseStudy[] = [
                 This diagram maps the conditional relationship between Document Management (DMS) and Validation Management (VMS) processes, showing how documents transition from draft state to verified execution.
               </p>
             </div>
-
-            {/* System Architecture Framework */}
-            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.03)]">
-              <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">System Architecture Framework</span>
-                <span className="text-[10px] font-mono text-slate-400">dms-framework.png</span>
-              </div>
-              <div className="p-6 bg-slate-50/50">
-                <ZoomableImage src="/images/dms-framework.png" alt="DMS System Architecture Framework" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
-              </div>
-              <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
-                This schematic maps the modular relationship between different enterprise modules, database tables, configuration engines, and access roles that structure the DMS and VMS platform.
-              </p>
-            </div>
-
-            {/* Validation Decision Tree */}
-            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.03)]">
-              <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Validation Decision Tree</span>
-                <span className="text-[10px] font-mono text-slate-400">dms-decision-tree.png</span>
-              </div>
-              <div className="p-6 bg-slate-50/50">
-                <ZoomableImage src="/images/dms-decision-tree.png" alt="DMS Validation Decision Tree" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
-              </div>
-              <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
-                The validation decision tree models structural routing criteria, compliance gates, and document state changes to automate workflow progression across varying product risks.
-              </p>
-            </div>
-
             {/* Document Landing Page & Dashboard */}
             <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.06)]">
               <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Document Landing Page & Dashboard</span>
-                <span className="text-[10px] font-mono text-slate-400">dms-documnet-ladnding-page.png</span>
               </div>
               <div className="p-6 bg-slate-50/50">
                 <ZoomableImage src="/images/dms-documnet-ladnding-page.png" alt="DMS Document Landing Page Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
               </div>
               <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
                 The centralized Document Landing Page UI functions as a customizable dashboard, highlighting active validation tasks, draft status notifications, and global folder pathways.
-              </p>
-            </div>
-
-            {/* Document Detail View */}
-            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.06)]">
-              <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Document Detail View</span>
-                <span className="text-[10px] font-mono text-slate-400">dms-document.png</span>
-              </div>
-              <div className="p-6 bg-slate-50/50">
-                <ZoomableImage src="/images/dms-document.png" alt="DMS Document View Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
-              </div>
-              <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
-                The document details page displays comprehensive metadata details, active revision states, linked validation runs, and compliance-mandated audit logs in a single pane.
-              </p>
-            </div>
-
-            {/* Validation & Lifecycle Workflow */}
-            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.06)]">
-              <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Validation & Lifecycle Workflow</span>
-                <span className="text-[10px] font-mono text-slate-400">dms-work-flow.png</span>
-              </div>
-              <div className="p-6 bg-slate-50/50">
-                <ZoomableImage src="/images/dms-work-flow.png" alt="DMS Workflow View Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
-              </div>
-              <p className="px-6 py-4 border-t border-slate-100 text-sm text-slate-500 leading-relaxed bg-white">
-                This view tracks live validation milestones, signature progress logs, and reviewer tasks, validating that the document lifecycle adheres strictly to FDA standards.
               </p>
             </div>
           </div>
@@ -237,17 +179,6 @@ export const caseStudies: CaseStudy[] = [
             <div className="border-l-4 border-electric-blue pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Modular License-Based Experience</h3>
               <p className="text-slate-600 leading-relaxed text-base">The platform dynamically adapts based on enabled modules. If an organization licenses only the Document Management System (DMS), executable validation workflows remain hidden. If both DMS and VMS are enabled, executable document workflows become available automatically.</p>
-            </div>
-
-            {/* Showcase Screen - Browser Mockup */}
-            <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_25px_55px_-10px_rgba(15,23,42,0.06)]">
-              <div className="flex items-center gap-1.5 px-4 py-3 bg-slate-50 border-b border-slate-200/80">
-                <span className="w-2 h-2 rounded-full bg-slate-300"></span>
-                <span className="w-2 h-2 rounded-full bg-slate-300"></span>
-                <span className="w-2 h-2 rounded-full bg-slate-300"></span>
-                <span className="ml-4 text-[10px] font-mono text-slate-400">dms-task-screen.png</span>
-              </div>
-              <ZoomableImage src="/images/dms-task-screen.png" alt="DMS Task Screen Mockup" className="w-full h-auto" />
             </div>
 
             <div className="border-l-4 border-slate-200/80 pl-6">

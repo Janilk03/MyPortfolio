@@ -30,7 +30,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
     <main className="min-h-screen bg-slate-50 text-slate-900 selection:bg-electric-blue selection:text-white">
       {/* Top Interactive Scroll Progress Indicator */}
       <ScrollProgress />
-      
+
       {/* Full-width Vibrant Hero Header */}
       <header className={`w-full ${study.themeBg} text-white pt-32 pb-20 md:pt-40 md:pb-28 rounded-b-[40px] md:rounded-b-[60px] shadow-[0_20px_50px_rgba(0,0,0,0.05)] relative overflow-hidden`}>
         {/* Background glow visual elements */}
