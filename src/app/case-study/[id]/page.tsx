@@ -5,6 +5,7 @@ import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { Collage } from "@/components/ui/Collage";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ChevronRight, CheckCircle2 } from "lucide-react";
+import { DesignSystemSection } from "@/components/sections/DesignSystemSection";
 
 export function generateStaticParams() {
   return caseStudies.map((study) => ({
@@ -177,6 +178,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
             </section>
           </div>
         )}
+
+        {study.id === "pharma-dms-vms" && <DesignSystemSection />}
 
         {/* Footer Loops & Back Navigation */}
         <footer className="mt-32 border-t border-slate-200/80 pt-16">
