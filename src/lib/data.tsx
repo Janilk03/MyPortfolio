@@ -282,7 +282,7 @@ export const caseStudies: CaseStudy[] = [
     heroImage: "/images/Timesheet-login-page.png",
     previewImages: [
       "/images/Timesheet-login-page.png",
-      "/images/homescreen.jpg",
+      "/images/timesheet-home-screen.png",
       "/images/Timesheet-fill-up.jpg",
     ],
     themeBg: "bg-gradient-to-br from-[#0c52cd] via-[#0f5ce6] to-[#1d4ed8]",
@@ -429,13 +429,12 @@ export const caseStudies: CaseStudy[] = [
                   <span className="text-[10px] font-bold text-electric-blue uppercase tracking-wider">Step 01 / Initial Entry</span>
                   <h4 className="text-sm font-bold text-slate-900 mt-0.5">Timesheet Home Dashboard</h4>
                 </div>
-                <span className="text-[10px] font-mono text-slate-400">homescreen.jpg</span>
               </div>
               <div className="p-6 bg-slate-50/30">
                 <p className="text-slate-600 mb-6 text-sm">
                   Upon landing, the employee is greeted by the home dashboard, which preloads their active calendar week and assigned tasks. There's no initial selection required to view the workspace state.
                 </p>
-                <ZoomableImage src="/images/homescreen.jpg" alt="Timesheet Homescreen Dashboard Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
+                <ZoomableImage src="/images/timesheet-home-screen.png" alt="Timesheet Homescreen Dashboard Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
               </div>
             </div>
 
