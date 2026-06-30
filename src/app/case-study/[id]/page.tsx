@@ -119,57 +119,57 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ id: 
       </header>
 
       {/* Main Content Layout */}
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8 pt-16 md:pt-24 pb-24">
         {/* Content Sections */}
         {study.content ? (
           study.content
         ) : (
-          <div className="grid gap-20">
+          <div className="grid gap-12 md:gap-16">
             {/* Fallback Challenge Section */}
-            <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-              <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+            <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+              <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
                   01 / Context
                 </span>
                 <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
                   The Challenge
                 </h2>
               </div>
-              <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600 leading-relaxed">
+              <div className="md:col-span-9 prose prose-slate prose-lg max-w-none text-slate-600 leading-relaxed">
                 <p>{study.challenge}</p>
               </div>
             </section>
 
             {/* Fallback Solution Section */}
-            <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-              <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+            <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+              <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
                   02 / Execution
                 </span>
                 <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
                   The Solution
                 </h2>
               </div>
-              <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600 leading-relaxed">
+              <div className="md:col-span-9 prose prose-slate prose-lg max-w-none text-slate-600 leading-relaxed">
                 <p>{study.solution}</p>
               </div>
             </section>
 
             {/* Fallback Key Outcomes Section */}
-            <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-              <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+            <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+              <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
                   03 / Impact
                 </span>
                 <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
                   Key Outcomes
                 </h2>
               </div>
-              <div className="md:col-span-8">
+              <div className="md:col-span-9">
                 <ul className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
                   {study.results?.map((result, idx) => (
                     <li key={idx} className="flex gap-4 items-start bg-white p-5 rounded-2xl border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.01)]">
-                      <CheckCircle2 className="h-5 w-5 shrink-0 text-electric-blue mt-0.5" />
+                      <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-500 mt-0.5" />
                       <span className="text-slate-700 font-medium leading-relaxed">{result}</span>
                     </li>
                   ))}

@@ -49,18 +49,18 @@ export const caseStudies: CaseStudy[] = [
       { label: "Development", value: "React, CSS Modules" }
     ],
     content: (
-      <div className="grid gap-20">
+      <div className="grid gap-12 md:gap-16">
         {/* Challenge Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               01 / Context
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               The Challenge
             </h2>
           </div>
-          <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600">
+          <div className="md:col-span-9 prose prose-slate prose-lg max-w-none text-slate-600">
             <p className="text-base md:text-lg leading-relaxed mb-2">The existing platform was a legacy enterprise system originally built for pharmaceutical workflows. Over time, the product developed major limitations:</p>
             <ul className="mb-8 grid gap-4 sm:grid-cols-2 list-none pl-0">
               {[
@@ -80,18 +80,18 @@ export const caseStudies: CaseStudy[] = [
             <p className="text-base leading-relaxed">The platform forced organizations to adapt to the software instead of allowing the software to adapt to business processes. The redesign initiative focused not only on modernizing the interface, but on rebuilding the entire product experience from a system-thinking perspective.</p>
           </div>
         </section>
-
+ 
         {/* Problem Discovery Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               02 / Research
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               Problem Discovery
             </h2>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-9">
             <div className="grid gap-6 sm:grid-cols-2">
               {[
                 {
@@ -115,7 +115,7 @@ export const caseStudies: CaseStudy[] = [
                   desc: "Lacked proper edge-case handling and scalable logic for negative scenarios in validation processes."
                 }
               ].map((prob, idx) => (
-                <div key={idx} className="rounded-2xl bg-white p-6 border border-slate-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.015)] border-l-4 border-l-electric-blue/40">
+                <div key={idx} className="rounded-2xl bg-white p-6 border border-slate-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.015)] border-l-4 border-l-slate-300">
                   <h3 className="font-bold text-slate-900 text-base mb-2">{prob.title}</h3>
                   <p className="text-slate-600 text-sm leading-relaxed">{prob.desc}</p>
                 </div>
@@ -123,20 +123,20 @@ export const caseStudies: CaseStudy[] = [
             </div>
           </div>
         </section>
-
+ 
         {/* UX Architecture & Flows Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               03 / System Architecture
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               UX Architecture & Flows
             </h2>
           </div>
-          <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600">
+          <div className="md:col-span-9 prose prose-slate prose-lg max-w-none text-slate-600">
             <p className="text-base leading-relaxed">Instead of jumping straight to screen design, the first phase focused on restructuring the platform architecture and document state transitions. By mapping workflows comprehensively, we resolved nested loops and edge cases.</p>
-
+ 
             {/* User Flow Diagram - Framed */}
             <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.03)]">
               <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
@@ -164,59 +164,59 @@ export const caseStudies: CaseStudy[] = [
             </div>
           </div>
         </section>
-
+ 
         {/* The Solution Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               04 / Design Solution
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               The Solution
             </h2>
           </div>
-          <div className="md:col-span-8 space-y-12">
-            <div className="border-l-4 border-electric-blue pl-6">
+          <div className="md:col-span-9 space-y-12">
+            <div className="border-l-4 border-slate-300 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Modular License-Based Experience</h3>
               <p className="text-slate-600 leading-relaxed text-base">The platform dynamically adapts based on enabled modules. If an organization licenses only the Document Management System (DMS), executable validation workflows remain hidden. If both DMS and VMS are enabled, executable document workflows become available automatically.</p>
             </div>
-
+ 
             <div className="border-l-4 border-slate-200/80 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Configurable Enterprise Workflows</h3>
               <p className="text-slate-600 leading-relaxed text-base">Transforming the platform from hardcoded to highly configurable workflows. Admins can configure document types, review flows, approval structures, template systems, and organizational role naming.</p>
             </div>
-
+ 
             <div className="border-l-4 border-slate-200/80 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Validation Management Experience</h3>
               <p className="text-slate-600 leading-relaxed text-base">Redesigned around guided execution workflows. Validation documents support editable execution fields, controlled data input, pass/fail actions, and protected non-editable sections. Completed documents move through configurable approver workflows before automatic archival in structured repositories.</p>
             </div>
-
+ 
             <div className="border-l-4 border-slate-200/80 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Theme Customization System</h3>
               <p className="text-slate-600 leading-relaxed text-base">A fully configurable theme customization module allows enterprise organizations to personalize primary/secondary colors, branding styles, and UI appearance without requiring development changes, integrating seamlessly with the React MUI architecture.</p>
             </div>
           </div>
         </section>
-
+ 
         {/* Outcomes Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               05 / Validation
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               Key Outcomes
             </h2>
           </div>
-          <div className="md:col-span-8 space-y-10">
+          <div className="md:col-span-9 space-y-10">
             <p className="text-slate-600 leading-relaxed text-base">
               The redesigned platform transformed a rigid legacy enterprise system into a scalable modular SaaS ecosystem, configurable across enterprise workflows and aligned with modern pharma operational requirements.
             </p>
-
+ 
             <div className="grid gap-8 sm:grid-cols-2">
               <div className="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)]">
                 <h3 className="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-50 text-electric-blue text-xs font-bold">1</span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-100 text-slate-700 text-xs font-bold">1</span>
                   UX Improvements
                 </h3>
                 <ul className="space-y-3.5 list-none pl-0">
@@ -228,16 +228,16 @@ export const caseStudies: CaseStudy[] = [
                     "Better repository discoverability"
                   ].map((result, idx) => (
                     <li key={idx} className="flex gap-3 text-sm">
-                      <CheckCircle2 className="h-5 w-5 shrink-0 text-electric-blue mt-0.5" />
+                      <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-500 mt-0.5" />
                       <span className="text-slate-600 font-medium">{result}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-
+ 
               <div className="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)]">
                 <h3 className="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 text-xs font-bold">2</span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-100 text-slate-700 text-xs font-bold">2</span>
                   System Improvements
                 </h3>
                 <ul className="space-y-3.5 list-none pl-0">
@@ -256,7 +256,7 @@ export const caseStudies: CaseStudy[] = [
                 </ul>
               </div>
             </div>
-
+ 
             <div className="bg-slate-100/50 p-6 rounded-2xl border border-slate-200/40">
               <h3 className="text-sm font-bold text-slate-800 mb-2 uppercase tracking-wider">Key Takeaway</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-0">
@@ -292,18 +292,18 @@ export const caseStudies: CaseStudy[] = [
       { label: "Front-End", value: "React, MUI, Framer Motion" }
     ],
     content: (
-      <div className="grid gap-20">
+      <div className="grid gap-12 md:gap-16">
         {/* Challenge Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               01 / Context
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               The Challenge
             </h2>
           </div>
-          <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600">
+          <div className="md:col-span-9 prose prose-slate prose-lg max-w-none text-slate-600">
             <p className="text-base md:text-lg leading-relaxed">The existing timesheet platform had an outdated enterprise UI that created friction for daily operational tasks:</p>
             <ul className="mb-6 grid gap-4 sm:grid-cols-2 list-none pl-0">
               {[
@@ -323,18 +323,18 @@ export const caseStudies: CaseStudy[] = [
             <p className="text-base leading-relaxed">Employees required training just to understand how to select clients, engagement types, task categories, and complete a simple timesheet entry. The system created friction for everyday users and slowed down routine operations.</p>
           </div>
         </section>
-
+ 
         {/* Problem Discovery Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               02 / Research
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               Problem Discovery
             </h2>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-9">
             <div className="grid gap-6 sm:grid-cols-2">
               {[
                 {
@@ -354,7 +354,7 @@ export const caseStudies: CaseStudy[] = [
                   desc: "Relying heavily on manual dropdowns and text inputs instead of interactive components and smart defaults."
                 }
               ].map((prob, idx) => (
-                <div key={idx} className="rounded-2xl bg-white p-6 border border-slate-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.015)] border-l-4 border-l-electric-blue/40">
+                <div key={idx} className="rounded-2xl bg-white p-6 border border-slate-200/60 shadow-[0_8px_30px_rgba(0,0,0,0.015)] border-l-4 border-l-slate-300">
                   <h3 className="font-bold text-slate-900 text-base mb-2">{prob.title}</h3>
                   <p className="text-slate-600 text-sm leading-relaxed">{prob.desc}</p>
                 </div>
@@ -362,20 +362,20 @@ export const caseStudies: CaseStudy[] = [
             </div>
           </div>
         </section>
-
+ 
         {/* UX Architecture & Flow Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               03 / Interaction Map
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               UX Architecture & Flow
             </h2>
           </div>
-          <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600">
+          <div className="md:col-span-9 prose prose-slate prose-lg max-w-none text-slate-600">
             <p className="text-base leading-relaxed">To simplify the logging flow, we restructured the timesheet entry path into a unified screen with a simple dropdown sequence. Below is the simplified task mapping.</p>
-
+ 
             {/* User Flow Diagram - Framed */}
             <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.03)]">
               <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
@@ -391,42 +391,42 @@ export const caseStudies: CaseStudy[] = [
             </div>
           </div>
         </section>
-
+ 
         {/* The Solution Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               04 / Design Solution
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               The Solution
             </h2>
           </div>
-          <div className="md:col-span-8 space-y-12">
-            <div className="border-l-4 border-electric-blue pl-6">
+          <div className="md:col-span-9 space-y-12">
+            <div className="border-l-4 border-slate-300 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Calendar-Based Timesheet Entry</h3>
               <p className="text-slate-600 leading-relaxed text-base">I introduced a calendar widget as the primary interaction layer. This transformed the experience from "Fill a complicated form" into "Add work hours to a specific day."</p>
               <ul className="mt-3 grid gap-2 sm:grid-cols-2 list-none pl-0 text-sm font-semibold text-slate-600">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-electric-blue" /> Current date preselected automatically
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Current date preselected automatically
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-electric-blue" /> Add (+) action available on dates
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Add (+) action available on dates
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-electric-blue" /> Reduced unnecessary navigation
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Reduced unnecessary navigation
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-electric-blue" /> Faster daily time entry flow
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Faster daily time entry flow
                 </li>
               </ul>
             </div>
-
+ 
             {/* Showcase Step 1 - Browser Mockup */}
             <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_25px_55px_-10px_rgba(15,23,42,0.06)]">
               <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
                 <div>
-                  <span className="text-[10px] font-bold text-electric-blue uppercase tracking-wider">Step 01 / Initial Entry</span>
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Step 01 / Initial Entry</span>
                   <h4 className="text-sm font-bold text-slate-900 mt-0.5">Timesheet Home Dashboard</h4>
                 </div>
               </div>
@@ -437,17 +437,17 @@ export const caseStudies: CaseStudy[] = [
                 <ZoomableImage src="/images/timesheet-home-screen.png" alt="Timesheet Homescreen Dashboard Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
               </div>
             </div>
-
+ 
             <div className="border-l-4 border-slate-200/80 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Preloaded Work Hour Logging</h3>
               <p className="text-slate-600 leading-relaxed text-base">To log hours, users trigger a daily dialog that preloads default projects and tasks configured on their dashboard. Instead of choosing project configurations daily, they only need to input their time and comments.</p>
             </div>
-
+ 
             {/* Showcase Step 2 - Browser Mockup */}
             <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_25px_55px_-10px_rgba(15,23,42,0.06)]">
               <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
                 <div>
-                  <span className="text-[10px] font-bold text-electric-blue uppercase tracking-wider">Step 02 / Daily Action</span>
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Step 02 / Daily Action</span>
                   <h4 className="text-sm font-bold text-slate-900 mt-0.5">Work Hour Logging Panel</h4>
                 </div>
                 <span className="text-[10px] font-mono text-slate-400">Timesheet-fill-up.jpg</span>
@@ -459,17 +459,17 @@ export const caseStudies: CaseStudy[] = [
                 <ZoomableImage src="/images/Timesheet-fill-up.jpg" alt="Timesheet Hour Logging Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
               </div>
             </div>
-
+ 
             <div className="border-l-4 border-slate-200/80 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Client Adjustment Setup</h3>
               <p className="text-slate-600 leading-relaxed text-base">When users need to update active engagement roles or add new projects, they can open the selection pane. Because team allocations change monthly rather than daily, this task is isolated to keep daily click rates exceptionally low.</p>
             </div>
-
+ 
             {/* Showcase Step 3 - Browser Mockup */}
             <div className="my-10 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_25px_55px_-10px_rgba(15,23,42,0.06)]">
               <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200/80">
                 <div>
-                  <span className="text-[10px] font-bold text-electric-blue uppercase tracking-wider">Step 03 / Occasional Adjustments</span>
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Step 03 / Occasional Adjustments</span>
                   <h4 className="text-sm font-bold text-slate-900 mt-0.5">Client & Project Selection Customizer</h4>
                 </div>
                 <span className="text-[10px] font-mono text-slate-400">client-selection.jpg</span>
@@ -481,12 +481,12 @@ export const caseStudies: CaseStudy[] = [
                 <ZoomableImage src="/images/client-selection.jpg" alt="Client Selection Customizer Mockup" className="w-full h-auto rounded-xl border border-slate-200/40 shadow-sm" />
               </div>
             </div>
-
+ 
             <div className="border-l-4 border-slate-200/80 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Flexible Admin System & Dashboard</h3>
               <p className="text-slate-600 leading-relaxed text-base">One major focus was long-term scalability. I designed the platform components to be highly configurable for admin users (manage clients, engagements, task types, dynamic workflow fields). The dashboard was redesigned using simplified widgets prioritizing readability, efficiency, and reduced visual clutter.</p>
             </div>
-
+ 
             <div className="border-l-4 border-slate-200/80 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">UI Modernization & Design System</h3>
               <p className="text-slate-600 leading-relaxed text-base">The redesign introduced modern spacing, cleaner typography, simplified layouts, focused interactions, and reduced UI noise. I created reusable component structures, scalable design patterns, and MUI theme styling guidelines for frontend scalability.</p>
@@ -494,23 +494,23 @@ export const caseStudies: CaseStudy[] = [
           </div>
         </section>
         {/* Outcomes Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               05 / Validation
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               Key Outcomes
             </h2>
           </div>
-          <div className="md:col-span-8 space-y-10">
+          <div className="md:col-span-9 space-y-10">
             <p className="text-slate-600 leading-relaxed text-base">
               The redesigned platform transformed the timesheet experience from a training-heavy enterprise workflow into a simplified and intuitive productivity tool.
             </p>
-
+ 
             <div className="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)]">
               <h3 className="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 shrink-0 text-electric-blue" />
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-500" />
                 Performance Metrics & Outcomes
               </h3>
               <ul className="grid gap-4 sm:grid-cols-2 list-none pl-0 text-sm">
@@ -522,14 +522,14 @@ export const caseStudies: CaseStudy[] = [
                   "Future-ready configurable architecture",
                   "Modernized enterprise UX experience"
                 ].map((result, idx) => (
-                  <li key={idx} className="flex gap-3 text-slate-600">
+                  <li key={idx} className="flex gap-3 text-slate-600 font-sans">
                     <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-500 mt-0.5" />
                     <span className="font-medium">{result}</span>
                   </li>
                 ))}
               </ul>
             </div>
-
+ 
             <div className="bg-slate-100/50 p-6 rounded-2xl border border-slate-200/40">
               <h3 className="text-sm font-bold text-slate-800 mb-2 uppercase tracking-wider">Key Takeaway</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-0">
@@ -565,18 +565,18 @@ export const caseStudies: CaseStudy[] = [
       { label: "Development", value: "React, Material UI" }
     ],
     content: (
-      <div className="grid gap-20">
+      <div className="grid gap-12 md:gap-16">
         {/* Challenge Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               01 / Context
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               The Challenge
             </h2>
           </div>
-          <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600">
+          <div className="md:col-span-9 prose prose-slate prose-lg max-w-none text-slate-600">
             <p className="text-base md:text-lg leading-relaxed">The organization previously operated through multiple disconnected enterprise applications handling vendor management, registration, shipping operations, payments, and SAP-integrated workflows.</p>
             <p className="text-base leading-relaxed">The fragmented ecosystem created several operational and usability problems:</p>
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
@@ -619,75 +619,75 @@ export const caseStudies: CaseStudy[] = [
             </div>
           </div>
         </section>
-
+ 
         {/* Product Vision & UX Strategy Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               02 / Strategy
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               Vision & Strategy
             </h2>
           </div>
-          <div className="md:col-span-8 prose prose-slate prose-lg max-w-none text-slate-600">
+          <div className="md:col-span-9 prose prose-slate prose-lg max-w-none text-slate-600">
             <p className="text-base md:text-lg leading-relaxed">The goal was to rebuild the experience into a unified enterprise procurement ecosystem, scalable across global operations, configurable for different business units, and flexible for future expansion.</p>
             <p className="text-base leading-relaxed">Instead of redesigning individual screens separately, the product was restructured from a <strong>system-level workflow architecture</strong> perspective. The focus was on reducing operational fragmentation, improving visibility, and unifying disconnected experiences.</p>
           </div>
         </section>
-
+ 
         {/* The Solution Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               03 / Design Solution
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               The Solution
             </h2>
           </div>
-          <div className="md:col-span-8 space-y-12">
-            <div className="border-l-4 border-electric-blue pl-6">
+          <div className="md:col-span-9 space-y-12">
+            <div className="border-l-4 border-slate-300 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Unified Enterprise Platform</h3>
               <p className="text-slate-600 leading-relaxed text-base">Consolidated previously separate applications (Vendor Portal, Registration, Shipping, Payments) into one connected experience. This significantly improved workflow continuity, visibility, and user efficiency.</p>
             </div>
-
+ 
             <div className="border-l-4 border-slate-200/80 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Multi-Business Unit Architecture & Global Vendors</h3>
               <p className="text-slate-600 leading-relaxed text-base">Introduced support for multiple business units under one organization. Each unit can have custom application modules and separate operational configurations. Vendors are managed at the business-unit level across multiple countries and region-specific processes.</p>
             </div>
-
+ 
             <div className="border-l-4 border-slate-200/80 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Shipping & Financial Workflows</h3>
               <p className="text-slate-600 leading-relaxed text-base">Redesigned shipping workflows for sea, air, and road logistics that dynamically adapt based on operational rules. The payment system supports domestic/international transactions and digitized the <strong>Letter of Credit (LC)</strong> calculations, replacing manual outside work with automated, system-assisted financial tracking.</p>
             </div>
-
+ 
             <div className="border-l-4 border-slate-200/80 pl-6">
               <h3 className="text-xl font-bold text-slate-900 mb-3">Employee Procurement Portal</h3>
               <p className="text-slate-600 leading-relaxed text-base">Introduced an internal ecommerce-style purchasing portal allowing employees to browse vendor catalogs and initiate workflows directly inside the system, extending the platform into enterprise purchasing enablement.</p>
             </div>
           </div>
         </section>
-
+ 
         {/* Outcomes Section */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 border-t border-slate-200/60 pt-16">
-          <div className="md:col-span-4 md:sticky md:top-32 h-fit">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-electric-blue">
+        <section className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-slate-200/60 pt-12 first:border-t-0 first:pt-0">
+          <div className="md:col-span-3 md:sticky md:top-32 h-fit">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-500">
               04 / Validation
             </span>
             <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-slate-900">
               Key Outcomes
             </h2>
           </div>
-          <div className="md:col-span-8 space-y-10">
+          <div className="md:col-span-9 space-y-10">
             <p className="text-slate-600 leading-relaxed text-base">
               The rebuilt platform transformed multiple disconnected enterprise systems into a unified global operations platform, scalable across procurement and logistics workflows.
             </p>
-
+ 
             <div className="grid gap-8 sm:grid-cols-2">
               <div className="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)]">
                 <h3 className="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-50 text-electric-blue text-xs font-bold">1</span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-100 text-slate-700 text-xs font-bold">1</span>
                   UX Improvements
                 </h3>
                 <ul className="space-y-3.5 list-none pl-0">
@@ -699,16 +699,16 @@ export const caseStudies: CaseStudy[] = [
                     "Cleaner procurement workflows"
                   ].map((result, idx) => (
                     <li key={idx} className="flex gap-3 text-sm">
-                      <CheckCircle2 className="h-5 w-5 shrink-0 text-electric-blue mt-0.5" />
+                      <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-500 mt-0.5" />
                       <span className="text-slate-600 font-medium">{result}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-
+ 
               <div className="rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.01)]">
                 <h3 className="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 text-xs font-bold">2</span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-100 text-slate-700 text-xs font-bold">2</span>
                   System Improvements
                 </h3>
                 <ul className="space-y-3.5 list-none pl-0">
@@ -727,7 +727,7 @@ export const caseStudies: CaseStudy[] = [
                 </ul>
               </div>
             </div>
-
+ 
             <div className="bg-slate-100/50 p-6 rounded-2xl border border-slate-200/40">
               <h3 className="text-sm font-bold text-slate-800 mb-2 uppercase tracking-wider">Key Takeaway</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-0">
