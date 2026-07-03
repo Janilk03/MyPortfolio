@@ -13,20 +13,22 @@ export function DmsWorkDetails() {
     "Recent Documents occupy valuable dashboard space despite belonging to the Documents module.",
     "Uses the 2001-2020 Neumorphic design style.",
     "Heavy shadows and a visually dominant layout increase visual weight.",
-    "Finger-point layout: dynamic adjustments are tedious and system demands high visual density, making the flow chaotic."
+    "Larger cards and extra whitespace reduce information density.",
+    "More visually attractive but less focused on quick decision-making."
   ];
 
   const newPoints = [
-    "\"What documents can I have?\"",
-    "Document-first dashboard focused on document listings.",
-    "Pre-documented documents track operational performance.",
-    "Minimal tracking needed to identify important information.",
-    "Unified analytical insights for monitoring workflow performance.",
-    "Expose relationships & status data across modules (summary process flows) to highlight crucial info without repeating.",
-    "Recent Documents do not occupy dashboard space as they are in the Documents module.",
-    "Uses the (60-30-10) Neumorphic layout rule.",
-    "Heavy shadows and a visually dominant layout increase visual weight.",
-    "Target-made layout: dynamic adjustments are simple and system demands low visual density, making the flow clean."
+    "\"What needs my attention?\"",
+    "Performance-first dashboard focused on actionable insights.",
+    "Prioritizes task performance, SLA, turnaround time, workload trends, and deadlines.",
+    "Clear information hierarchy with important KPIs visible first.",
+    "Analytics-focused view for monitoring overall workflow performance.",
+    "Every KPI is unique and provides a different insight.",
+    "Recent Documents can be accessed from the Documents page or a Recent Activity popover.",
+    "Modern linear dashboard with higher information density.",
+    "Minimal shadows and subtle brand colors improve readability.",
+    "Better use of screen space with less visual clutter.",
+    "Supports both Light and Dark themes."
   ];
 
   return (
