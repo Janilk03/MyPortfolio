@@ -122,7 +122,7 @@ export function DesignSystemSection() {
             setSelectedFile(null);
             setUploadStatus("idle");
             setUploadProgress(0);
-            
+
             // Add new approved card to status alerts
             const newId = `ARCXDMS${Math.floor(Math.random() * 90 + 10)}`;
             setStatusCards(prev => [{ id: newId, name: `Document ${newId}`, status: "Approved" }, ...prev]);
@@ -213,13 +213,13 @@ export function DesignSystemSection() {
 
       {/* Grid of Sections */}
       <div className="grid gap-16">
-        
+
         {/* Section 1: Colors */}
         <div>
           <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#9CA3AF] mb-6 flex items-center gap-2 select-none">
             <span>01</span> &bull; REVISED BRAND COLORS (SAMPLED HEX CODES)
           </h3>
-          
+
           <div className="bg-white border border-slate-200/80 p-8 rounded-3xl shadow-xs">
             <p className="text-xs text-[#565B66] font-semibold mb-6">
               Exact Hex colors sampled directly from the specification design image pixels.
@@ -250,7 +250,7 @@ export function DesignSystemSection() {
           <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#9CA3AF] mb-6 flex items-center gap-2 select-none">
             <span>02</span> &bull; TYPOGRAPHY SCALE (INTER)
           </h3>
-          
+
           <div className="bg-white border border-slate-200/80 p-8 rounded-3xl shadow-xs">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               {/* Typeface Spec */}
@@ -290,7 +290,7 @@ export function DesignSystemSection() {
           <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#9CA3AF] mb-6 flex items-center gap-2 select-none">
             <span>03</span> &bull; BUTTON ACTIONS SHOWCASE (PILL SHAPE)
           </h3>
-          
+
           <div className="bg-white border border-slate-200/80 p-8 rounded-3xl shadow-xs">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Primary Button */}
@@ -329,107 +329,11 @@ export function DesignSystemSection() {
           </div>
         </div>
 
-        {/* Section 4: Document Alert Status Card */}
+
+        {/* Section 4: Standard Inputs & Custom Selects */}
         <div>
           <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#9CA3AF] mb-6 flex items-center gap-2 select-none">
-            <span>04</span> &bull; REPLICATED STATUS & ALERT WIDGETS
-          </h3>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Status Card Showcase */}
-            <div className="lg:col-span-6 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-xs flex flex-col justify-between">
-              <div>
-                <h4 className="text-xs font-bold text-[#1E1E1E] mb-2">Designed Status Indicator Card</h4>
-                <p className="text-xs text-[#565B66] font-semibold mb-6">
-                  Exact replication of the document status component from the layout specs.
-                </p>
-
-                <div className="space-y-4 min-h-[160px] flex flex-col justify-center">
-                  <AnimatePresence>
-                    {statusCards.length > 0 ? (
-                      statusCards.map((card) => (
-                        <motion.div
-                          key={card.id}
-                          layout
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          className="bg-[#F8FAFC] border border-slate-200/60 rounded-2xl p-4 flex items-center justify-between"
-                        >
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-full bg-[#22C55E] flex items-center justify-center text-white shadow-xs shrink-0">
-                              <Check className="w-5 h-5 stroke-[3]" />
-                            </div>
-                            <div>
-                              <h5 className="text-[13px] font-bold text-[#1E1E1E] leading-tight font-sans">
-                                {card.name}
-                              </h5>
-                              <span className="text-[11px] font-bold text-[#22C55E] mt-0.5 block font-sans">
-                                {card.status}
-                              </span>
-                            </div>
-                          </div>
-                          
-                          <button
-                            onClick={() => dismissStatusCard(card.id)}
-                            className="w-6 h-6 rounded-full bg-white hover:bg-red-50 text-red-500 border border-slate-100 flex items-center justify-center shadow-xs transition-colors shrink-0"
-                          >
-                            <X className="w-3.5 h-3.5 stroke-[2.5]" />
-                          </button>
-                        </motion.div>
-                      ))
-                    ) : (
-                      <div className="text-center py-6">
-                        <p className="text-xs text-[#9CA3AF] font-bold">No active document alerts</p>
-                        <button
-                          onClick={resetStatusCards}
-                          className="mt-3 text-[#22C55E] font-bold text-xs uppercase hover:underline"
-                        >
-                          Recreate Mock Alerts
-                        </button>
-                      </div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
-            </div>
-
-            {/* Standard Alerts System */}
-            <div className="lg:col-span-6 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-xs flex flex-col justify-between">
-              <div>
-                <h4 className="text-xs font-bold text-[#1E1E1E] mb-2">Notification System Components</h4>
-                <p className="text-xs text-[#565B66] font-semibold mb-6">
-                  Interactive alert banners styled in the new flat green system colors.
-                </p>
-
-                <div className="space-y-3">
-                  {/* Alert 1 */}
-                  <div className="flex items-start gap-3 p-3.5 rounded-xl border bg-[#DCFCE7] border-[#BBF7D0] text-[#16A34A]">
-                    <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
-                    <div>
-                      <h5 className="text-[12px] font-bold leading-tight">Document Stored</h5>
-                      <p className="text-[10.5px] leading-snug mt-0.5 opacity-90 text-[#565B66]">Validation folder uploaded to audit log.</p>
-                    </div>
-                  </div>
-                  {/* Alert 2 */}
-                  <div className="flex items-start gap-3 p-3.5 rounded-xl border bg-red-50 border-red-100 text-red-650">
-                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                    <div>
-                      <h5 className="text-[12px] font-bold leading-tight">Compliance Error</h5>
-                      <p className="text-[10.5px] leading-snug mt-0.5 opacity-90 text-[#565B66]">Author signature is missing on the cover sheet.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        {/* Section 5: Standard Inputs & Custom Selects */}
-        <div>
-          <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#9CA3AF] mb-6 flex items-center gap-2 select-none">
-            <span>05</span> &bull; REWRITTEN COMPONENT INPUTS (FLAT GRAY BORDERS)
+            <span>04</span> &bull; REWRITTEN COMPONENT INPUTS (FLAT GRAY BORDERS)
           </h3>
 
           <div className="bg-white border border-slate-200/80 p-8 rounded-3xl shadow-xs">
@@ -487,96 +391,72 @@ export function DesignSystemSection() {
             </div>
           </div>
         </div>
-
-        {/* Section 6: Data Table */}
+        {/* Section 5: Document Alert Status Card */}
         <div>
           <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#9CA3AF] mb-6 flex items-center gap-2 select-none">
-            <span>06</span> &bull; RE-STYLED B2B DOCUMENT GRID
+            <span>05</span> &bull; REPLICATED STATUS & ALERT WIDGETS
           </h3>
 
-          <div className="bg-white border border-slate-200/80 p-8 rounded-3xl shadow-xs">
-            <div className="overflow-x-auto border border-slate-200/85 rounded-2xl shadow-2xs">
-              <table className="w-full text-left border-collapse text-xs">
-                <thead>
-                  <tr className="border-b border-slate-200/80 text-[#9CA3AF] font-bold uppercase tracking-wider text-[9px] bg-[#F8FAFC]">
-                    <th className="p-4 w-12 text-center">
-                      <label className="flex items-center justify-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={selectedRows.length === tableData.length}
-                          onChange={toggleAllRows}
-                          className="sr-only"
-                        />
-                        <div className={`w-4 h-4 rounded border flex items-center justify-center transition ${selectedRows.length === tableData.length ? 'bg-[#22C55E] border-transparent text-white' : 'border-slate-350 bg-white'}`}>
-                          {selectedRows.length === tableData.length && <Check className="w-2.5 h-2.5 stroke-[4.5]" />}
-                        </div>
-                      </label>
-                    </th>
-                    <th className="p-4 font-bold">Document Name</th>
-                    <th className="p-4 font-bold">Type</th>
-                    <th className="p-4 font-bold">Status</th>
-                    <th className="p-4 font-bold">Uploaded On</th>
-                    <th className="p-4 font-bold w-12 text-center">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {tableData.map((row, index) => {
-                    const isSelected = selectedRows.includes(index);
-                    let statusColor = "bg-slate-100 text-slate-655 border-slate-200/50";
-                    if (row.status === "Approved") statusColor = "bg-[#DCFCE7] text-[#16A34A] border-[#BBF7D0]";
-                    if (row.status === "Pending") statusColor = "bg-amber-50 text-amber-600 border-amber-100";
-                    if (row.status === "Rejected") statusColor = "bg-red-50 text-red-600 border-red-100";
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Status Card Showcase */}
+            <div className="lg:col-span-6 bg-white border border-slate-200/80 p-8 rounded-3xl shadow-xs flex flex-col justify-between">
+              <div>
+                <h4 className="text-xs font-bold text-[#1E1E1E] mb-2">Designed Status Indicator Card</h4>
+                <p className="text-xs text-[#565B66] font-semibold mb-6">
+                  Exact replication of the document status component from the layout specs.
+                </p>
 
-                    return (
-                      <tr
-                        key={row.name}
-                        onClick={() => toggleRow(index)}
-                        style={{ height: "56px" }}
-                        className={`cursor-pointer transition-colors select-none ${isSelected
-                          ? 'bg-[#DCFCE7]/50 hover:bg-[#DCFCE7]/70 font-semibold text-[#16A34A]'
-                          : 'hover:bg-slate-50'
-                          }`}
-                      >
-                        <td className="p-4 text-center" onClick={(e) => e.stopPropagation()}>
-                          <label className="flex items-center justify-center cursor-pointer">
-                            <input
-                              type="checkbox"
-                              checked={isSelected}
-                              onChange={() => toggleRow(index)}
-                              className="sr-only"
-                            />
-                            <div className={`w-4 h-4 rounded border flex items-center justify-center transition ${isSelected ? 'bg-[#22C55E] border-transparent text-white' : 'border-slate-350 bg-white'}`}>
-                              {isSelected && <Check className="w-2.5 h-2.5 stroke-[4.5]" />}
+                <div className="space-y-4 min-h-[160px] flex flex-col justify-center">
+                  <AnimatePresence>
+                    {statusCards.length > 0 ? (
+                      statusCards.map((card) => (
+                        <motion.div
+                          key={card.id}
+                          layout
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, x: 20 }}
+                          className="bg-[#F8FAFC] border border-slate-200/60 rounded-2xl p-4 flex items-center justify-between"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-full bg-[#22C55E] flex items-center justify-center text-white shadow-xs shrink-0">
+                              <Check className="w-5 h-5 stroke-[3]" />
                             </div>
-                          </label>
-                        </td>
-                        <td className="p-4 font-bold text-[#1E1E1E]">
-                          <span className="flex items-center gap-2 truncate">
-                            <FileText className="w-4 h-4 text-[#9CA3AF] shrink-0" />
-                            {row.name}
-                          </span>
-                        </td>
-                        <td className="p-4 font-semibold text-[#565B66]">{row.type}</td>
-                        <td className="p-4">
-                          <span className={`text-[9px] font-black px-2.5 py-0.5 rounded-full border shadow-3xs ${statusColor}`}>
-                            {row.status}
-                          </span>
-                        </td>
-                        <td className="p-4 font-semibold text-[#9CA3AF]">{row.date}</td>
-                        <td className="p-4 text-center" onClick={(e) => e.stopPropagation()}>
-                          <button className="text-slate-400 hover:text-[#1E1E1E] transition p-1">
-                            <MoreVertical className="w-4 h-4" />
+                            <div>
+                              <h5 className="text-[13px] font-bold text-[#1E1E1E] leading-tight font-sans">
+                                {card.name}
+                              </h5>
+                              <span className="text-[11px] font-bold text-[#22C55E] mt-0.5 block font-sans">
+                                {card.status}
+                              </span>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => dismissStatusCard(card.id)}
+                            className="w-6 h-6 rounded-full bg-white hover:bg-red-50 text-red-500 border border-slate-100 flex items-center justify-center shadow-xs transition-colors shrink-0"
+                          >
+                            <X className="w-3.5 h-3.5 stroke-[2.5]" />
                           </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                        </motion.div>
+                      ))
+                    ) : (
+                      <div className="text-center py-6">
+                        <p className="text-xs text-[#9CA3AF] font-bold">No active document alerts</p>
+                        <button
+                          onClick={resetStatusCards}
+                          className="mt-3 text-[#22C55E] font-bold text-xs uppercase hover:underline"
+                        >
+                          Recreate Mock Alerts
+                        </button>
+                      </div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
 
       {/* Modal Dialog Mockup overlay */}

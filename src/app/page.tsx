@@ -1,5 +1,6 @@
 import { HeroSection } from "@/components/sections/HeroSection";
 import { SkillsStrip } from "@/components/sections/SkillsStrip";
+import { DmsWorkDetails } from "@/components/sections/DmsWorkDetails";
 import { CaseStudySection } from "@/components/sections/CaseStudySection";
 import { AstraConceptSection } from "@/components/sections/AstraConceptSection";
 import { AppleScrollStory } from "@/components/sections/AppleScrollStory";
@@ -14,6 +15,7 @@ export default function Home() {
     <main className="min-h-screen bg-matte-black selection:bg-electric-blue selection:text-white relative">
       <HeroSection />
       <SkillsStrip />
+      <DmsWorkDetails />
       <CaseStudySection />
       <FeaturedProjects />
       <AboutMe />
