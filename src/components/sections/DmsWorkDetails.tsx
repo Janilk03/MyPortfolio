@@ -50,7 +50,7 @@ export function DmsWorkDetails() {
           </h2>
 
           {/* Central Collage Banner Showcase */}
-          <div className="w-1/2 relative overflow-hidden rounded-2xl shadow-2xl bg-[#1a1a1a] border border-white/5">
+          <div className="res_w relative overflow-hidden rounded-2xl shadow-2xl bg-[#1a1a1a] border border-white/5">
             <div className="relative aspect-[1728/1117]">
               <Image
                 src="/images/Dms&Vms_Dashboard_UIbnr66.png"
@@ -137,7 +137,7 @@ export function DmsWorkDetails() {
                 <div className="relative rounded-t-xl border-[6px] border-[#2c2d30] bg-[#111] overflow-hidden shadow-2xl">
                   <div className="relative aspect-[1536/1024] w-full">
                     <Image
-                      src="/images/dms-document.png"
+                      src="/images/dms-old-dashboard.png"
                       alt="Old Document Centric Screen"
                       fill
                       sizes="(max-w-768px) 100vw, 480px"
@@ -179,7 +179,7 @@ export function DmsWorkDetails() {
                 <div className="relative rounded-t-xl border-[6px] border-[#2c2d30] bg-[#111] overflow-hidden shadow-2xl">
                   <div className="relative aspect-[1536/1024] w-full">
                     <Image
-                      src="/images/dms-task-screen.png"
+                      src="/images/dms-documnet-ladnding-page.png"
                       alt="New Action Centric Screen"
                       fill
                       sizes="(max-w-768px) 100vw, 480px"

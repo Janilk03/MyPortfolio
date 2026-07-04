@@ -7,10 +7,10 @@
   --color-off-white: #111827;
   --color-soft-gray: #6b7280;
   --color-electric-blue: #3b82f6;
-  
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-clash), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  
+
   --spacing-18: 4.5rem;
 }
 
@@ -39,14 +39,18 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
 /* Hide scrollbar for IE, Edge and Firefox */
 html {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 /* Lenis Recommended Styles */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -83,4 +87,14 @@ html.lenis, html.lenis body {
 .gpu-accelerated {
   transform: translateZ(0);
   will-change: transform, opacity;
+}
+
+.res_w {
+  width: 70%;
+}
+
+@media (max-width: 480px) {
+  .res_w {
+    width: 100%;
+  }
 }
