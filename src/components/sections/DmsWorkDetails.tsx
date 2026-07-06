@@ -5,13 +5,13 @@ import Image from "next/image";
 export function DmsWorkDetails() {
   const oldPoints = [
     "\"What documents do I have?\"",
-    "Doc. menu-first dashboard focused on document listings.",
+    "Document-first dashboard focused on document listings.",
     "Dense user inputs structure issues and performance.",
     "Manual tracking required to identify relevant information.",
     "Limited analytical insights for monitoring workflow performance.",
     "Re-reads the same data in multiple places/screens (summary details page layout etc.) causing repetition of information.",
     "Recent Documents occupy valuable dashboard space despite belonging to the Documents module.",
-    "Uses the 2001-2020 Neumorphic design style.",
+    "Uses the 2021-2022 Neumorphic design style.",
     "Heavy shadows and a visually dominant layout increase visual weight.",
     "Larger cards and extra whitespace reduce information density.",
     "More visually attractive but less focused on quick decision-making."
